@@ -31,11 +31,19 @@ public class Mesh {
 			throw new IllegalArgumentException();
 		
 		faceCount++;
-		faces.add(new Face(indices));
+		addFace(new Face(indices));
 		
 		for (int i = 0; i < 4; i++) {
-			edges.add(new Edge());
+			addEdge(new Edge());
 		}
+	}
+	
+	private void addFace(Face face) {
+		faces.add(face);
+	}
+	
+	private void addEdge(Edge edge) {
+		edges.add(edge);
 	}
 	
 	public Vector3 getVertexAt(int index) {
