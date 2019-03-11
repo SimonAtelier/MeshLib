@@ -57,10 +57,9 @@ public class MeshTestUtil {
 			Vector3 fromVertex = mesh.getVertexAt(edge.getFromIndex());
 			Vector3 toVertex = mesh.getVertexAt(edge.getToIndex());
 			float edgeLength = fromVertex.subtract(toVertex).length();
-			System.out.println(edgeLength);
 			lengths.add(edgeLength);
 		}
 		Assert.assertEquals(1, lengths.size());
 	}
-
+	
 }

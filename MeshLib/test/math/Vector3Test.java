@@ -73,11 +73,11 @@ public class Vector3Test {
 	}
 
 	@Test
-	public void subtractVectorReturnsVector() {
+	public void subtractVectorReturnsNewVector() {
 		Vector3 vectorA = new Vector3(0, 0, 0);
 		Vector3 vectorB = new Vector3(0, 0, 0);
 		Vector3 vectorC = vectorA.subtract(vectorB);
-		Assert.assertTrue(vectorA == vectorC);
+		Assert.assertFalse(vectorA == vectorC);
 	}
 
 	@Test
@@ -85,19 +85,69 @@ public class Vector3Test {
 		float randomAx = (float) (Math.random() * Integer.MAX_VALUE);
 		float randomAy = (float) (Math.random() * Integer.MAX_VALUE);
 		float randomAz = (float) (Math.random() * Integer.MAX_VALUE);
-		
+
 		float randomBx = (float) (Math.random() * Integer.MAX_VALUE);
 		float randomBy = (float) (Math.random() * Integer.MAX_VALUE);
 		float randomBz = (float) (Math.random() * Integer.MAX_VALUE);
-		
+
 		Vector3 vectorA = new Vector3(randomAx, randomAy, randomAz);
 		Vector3 vectorB = new Vector3(randomBx, randomBy, randomBz);
+
+		Vector3 vectorC = vectorA.subtract(vectorB);
+
+		Assert.assertEquals(randomAx - randomBx, vectorC.getX(), 0);
+		Assert.assertEquals(randomAy - randomBy, vectorC.getY(), 0);
+		Assert.assertEquals(randomAz - randomBz, vectorC.getZ(), 0);
+	}
+
+	@Test
+	public void unitVectorX() {
+		Vector3 vector3 = new Vector3(1, 0, 0);
+		Assert.assertEquals(1, vector3.length(), 0);
+	}
+
+	@Test
+	public void unitVectorY() {
+		Vector3 vector3 = new Vector3(0, 1, 0);
+		Assert.assertEquals(1, vector3.length(), 0);
+	}
+
+	@Test
+	public void unitVectorZ() {
+		Vector3 vector3 = new Vector3(0, 0, 1);
+		Assert.assertEquals(1, vector3.length(), 0);
+	}
+
+	@Test
+	public void lengthWithTestValuesA() {
+		float x = 6.5205402E8f;
+		float y = 1.57953382E9f;
+		float z = 2.3534346E7f;
+
+		float lengthSquared = (x * x) + (y * y) + (z * z);
+		Vector3 vector3 = new Vector3(x, y, z);
+
+		float a = (float) Math.round(lengthSquared * 100000000.0f) / 100000000.0f;
+		float b = vector3.length() * vector3.length();
+		b = (float) Math.round(b * 100000000.0f) / 100000000.0f;
 		
-		vectorA.subtract(vectorB);
-		
-		Assert.assertEquals(randomAx - randomBx, vectorA.getX(), 0);
-		Assert.assertEquals(randomAy - randomBy, vectorA.getY(), 0);
-		Assert.assertEquals(randomAz - randomBz, vectorA.getZ(), 0);
+		Assert.assertEquals(a, b, 0);
+	}
+
+	@Test
+	public void length() {
+		float x = (float) (Math.random() * Integer.MAX_VALUE);
+		float y = (float) (Math.random() * Integer.MAX_VALUE);
+		float z = (float) (Math.random() * Integer.MAX_VALUE);
+
+		float lengthSquared = (x * x) + (y * y) + (z * z);
+		Vector3 vector3 = new Vector3(x, y, z);
+
+		float a = (float) Math.round(lengthSquared * 100000000.0f) / 100000000.0f;
+		float b = vector3.length() * vector3.length();
+		b = (float) Math.round(b * 100000000.0f) / 100000000.0f;
+
+		Assert.assertEquals(a, b, 0);
 	}
 
 }

@@ -2,6 +2,10 @@ package math;
 
 public class Vector3 {
 
+	private static final Vector3 UNIT_X = new Vector3(1, 0, 0);
+	private static final Vector3 UNIT_Y = new Vector3(0, 1, 0);
+	private static final Vector3 UNIT_Z = new Vector3(0, 0, 1);
+
 	private float x;
 	private float y;
 	private float z;
@@ -11,12 +15,22 @@ public class Vector3 {
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	public Vector3 subtract(Vector3 other) {
-		x -= other.x;
-		y -= other.y;
-		z -= other.z;
-		return this;
+		float x = this.x - other.x;
+		float y = this.y - other.y;
+		float z = this.z - other.z;
+		return new Vector3(x, y, z);
+	}
+
+	public float length() {
+		if (this.equals(UNIT_X))
+			return 1;
+		if (this.equals(UNIT_Y))
+			return 1;
+		if (this.equals(UNIT_Z))
+			return 1;
+		return (float) Math.sqrt((x * x) + (y * y) + (z * z));
 	}
 
 	public float getX() {
