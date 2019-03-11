@@ -1,6 +1,7 @@
 package mesh;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -59,7 +60,7 @@ public class MeshTest {
 	@Test
 	public void getFaceCountReturnsOneAfterAddingOneFace() {
 		Mesh mesh = new Mesh();
-		mesh.addFace();
+		mesh.addFace(0, 0, 0);
 		Assert.assertEquals(1, mesh.getFaceCount());
 	}
 
@@ -78,7 +79,7 @@ public class MeshTest {
 		Mesh mesh = new Mesh();
 		int random = (int) (Math.random() * 100);
 		for (int i = 0; i < random; i++) {
-			mesh.addFace();
+			mesh.addFace(0, 0, 0);
 			Assert.assertEquals(i + 1, mesh.getFaceCount());
 		}
 	}
@@ -152,14 +153,15 @@ public class MeshTest {
 	@Test
 	public void getFaceAtIndexZeroReturnsNoneNullObjectAfterAddingOneFace() {
 		Mesh mesh = new Mesh();
-		mesh.addFace();
+		mesh.addVertex(0, 0, 0);
+		mesh.addFace(0, 0, 0);
 		Assert.assertNotNull(mesh.getFaceAt(0));
 	}
 
 	@Test
 	public void getFaceAtIndexZeroReturnsNoneNullObjectOfTypeFaceAfterAddingOneFace() {
 		Mesh mesh = new Mesh();
-		mesh.addFace();
+		mesh.addFace(0, 0, 0);
 		Face face = mesh.getFaceAt(0);
 		Assert.assertNotNull(face);
 	}
@@ -208,7 +210,27 @@ public class MeshTest {
 			Face actualFace = mesh.getFaceAt(i);
 			Assert.assertArrayEquals(expectedFace.getIndices(), actualFace.getIndices());
 		}
-
 	}
-
+	
+	@Test
+	public void createEdgesReturnsNotNullObject() {
+		Mesh mesh = new Mesh();
+		Assert.assertNotNull(mesh.calculateEdges());
+	}
+	
+	@Test
+	public void createEdgesReturnsEmptyCollectionByDefault() {
+		Mesh mesh = new Mesh();
+		Collection<Edge> edges = mesh.calculateEdges();
+		Assert.assertTrue(edges.isEmpty());
+	}
+	
+	@Test
+	public void createEdgesReturnsCollectionWithFourVerticesAfterAddingQauadFace() {
+		Mesh mesh = new Mesh();
+		mesh.addFace(0, 1, 2, 3);
+		Collection<Edge> edges = mesh.calculateEdges();
+		Assert.assertEquals(4, edges.size());
+	}
+	
 }
