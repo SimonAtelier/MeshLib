@@ -27,6 +27,8 @@ public class Mesh {
 	}
 	
 	public void addFace(int... indices) {
+		if (indices == null)
+			throw new IllegalArgumentException();
 		faceCount++;
 		faces.add(new Face(indices));
 	}
