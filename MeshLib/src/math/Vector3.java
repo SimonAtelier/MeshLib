@@ -11,6 +11,13 @@ public class Vector3 {
 		this.y = y;
 		this.z = z;
 	}
+	
+	public Vector3 subtract(Vector3 other) {
+		x -= other.x;
+		y -= other.y;
+		z -= other.z;
+		return this;
+	}
 
 	public float getX() {
 		return x;

@@ -1,11 +1,14 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Assert;
 
+import math.Vector3;
 import mesh.Edge;
 import mesh.Face;
 import mesh.Mesh;
@@ -45,6 +48,19 @@ public class MeshTestUtil {
 		for (List<Face> faceList : map.values()) {
 			Assert.assertTrue(faceList.size() == 1 || faceList.size() == 2);
 		}
+	}
+	
+	public static void allEdgesHaveEqualLength(Mesh mesh) {
+		HashSet<Float> lengths = new HashSet<Float>();
+		Collection<Edge> edges = mesh.calculateEdges();
+		for (Edge edge : edges) {
+			Vector3 fromVertex = mesh.getVertexAt(edge.getFromIndex());
+			Vector3 toVertex = mesh.getVertexAt(edge.getToIndex());
+			float edgeLength = fromVertex.subtract(toVertex).length();
+			System.out.println(edgeLength);
+			lengths.add(edgeLength);
+		}
+		Assert.assertEquals(1, lengths.size());
 	}
 
 }

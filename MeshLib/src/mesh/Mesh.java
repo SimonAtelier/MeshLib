@@ -2,6 +2,7 @@ package mesh;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -13,11 +14,20 @@ public class Mesh {
 	private int vertexCount;
 	private List<Vector3> vertices = new ArrayList<Vector3>();
 	private List<Face> faces = new ArrayList<Face>();
-	private Collection<Edge> edges = new ArrayList<Edge>();
 	
 	public Collection<Edge> calculateEdges() {
-		ArrayList<Edge> edges = new ArrayList<Edge>();
-		edges.addAll(this.edges);
+		HashSet<Edge> edges = new HashSet<Edge>();
+		for (Face face : faces) {
+			int[] indices = face.getIndices();
+			for (int i = 0; i < indices.length; i++) {
+				int fromIndex = indices[i % indices.length];
+				int toIndex = indices[(i + 1) % indices.length];
+				Edge edge = new Edge(fromIndex, toIndex);
+				Edge pair = new Edge(toIndex, fromIndex);
+				if (!edges.contains(pair))
+					edges.add(edge);
+			}
+		}
 		return edges;
 	}
 	
@@ -32,20 +42,12 @@ public class Mesh {
 		
 		faceCount++;
 		addFace(new Face(indices));
-		
-		for (int i = 0; i < 4; i++) {
-			addEdge(new Edge());
-		}
 	}
 	
 	private void addFace(Face face) {
 		faces.add(face);
 	}
-	
-	private void addEdge(Edge edge) {
-		edges.add(edge);
-	}
-	
+
 	public Vector3 getVertexAt(int index) {
 		if (getVertexCount() > 0)
 			return vertices.get(index);
