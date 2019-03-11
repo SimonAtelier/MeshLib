@@ -229,6 +229,10 @@ public class MeshTest {
 	public void createEdgesReturnsCollectionWithFourVerticesAfterAddingQauadFace() {
 		Mesh mesh = new Mesh();
 		mesh.addFace(0, 1, 2, 3);
+		mesh.addVertex(0, 0, 0);
+		mesh.addVertex(0, 0, 0);
+		mesh.addVertex(0, 0, 0);
+		mesh.addVertex(0, 0, 0);
 		Collection<Edge> edges = mesh.calculateEdges();
 		Assert.assertEquals(4, edges.size());
 	}
