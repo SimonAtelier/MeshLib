@@ -72,7 +72,7 @@ public class CubeCreatorTest {
 	}
 	
 	@Test
-	public void theAbsoluteValueOfEachVertexComponentIsOne() {
+	public void theAbsoluteValueOfEachVertexComponentIsOneByDeafult() {
 		CubeCreator creator = new CubeCreator();
 		Mesh mesh = creator.create();
 		for (int index = 0; index < mesh.getVertexCount(); index++) {
