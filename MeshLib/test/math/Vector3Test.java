@@ -272,4 +272,46 @@ public class Vector3Test {
 		Assert.assertEquals(z2, other.getZ(), 0);
 	}
 	
+	@Test
+	public void multiplyReturnsNewVectorInstance() {
+		Vector3 vector3 = new Vector3(0, 0, 0);
+		float scalar = 1;
+		Vector3 result = vector3.multiply(scalar);
+		Assert.assertTrue(result != vector3);
+	}
+	
+	@Test
+	public void multiplyReturnsNoneNullVectorObject() {
+		Vector3 vector3 = new Vector3(0, 0, 0);
+		float scalar = 1;
+		Vector3 result = vector3.multiply(scalar);
+		Assert.assertNotNull(result);
+	}
+	
+	@Test
+	public void multiplyMultipliesEachComponentOfTheOriginalVectorWithTheGivenScalar() {
+		float x = (float) (Math.random() * Integer.MAX_VALUE);
+		float y = (float) (Math.random() * Integer.MAX_VALUE);
+		float z = (float) (Math.random() * Integer.MAX_VALUE);
+		float scalar = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 original = new Vector3(x, y, z);
+		Vector3 result = original.multiply(scalar);
+		Assert.assertEquals(x * scalar, result.getX(), 0);
+		Assert.assertEquals(y * scalar, result.getY(), 0);
+		Assert.assertEquals(z * scalar, result.getZ(), 0);
+	}
+	
+	@Test
+	public void multiplyLeavesTheOriginalVectorUntouched() {
+		float x = (float) (Math.random() * Integer.MAX_VALUE);
+		float y = (float) (Math.random() * Integer.MAX_VALUE);
+		float z = (float) (Math.random() * Integer.MAX_VALUE);
+		float scalar = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 original = new Vector3(x, y, z);
+		original.multiply(scalar);
+		Assert.assertEquals(x, original.getX(), 0);
+		Assert.assertEquals(y, original.getY(), 0);
+		Assert.assertEquals(z, original.getZ(), 0);
+	}
+	
 }

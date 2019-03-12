@@ -57,6 +57,10 @@ public class Vector3 {
 			throw new ArithmeticException("/ by zero");
 		return new Vector3(x / scalar, y / scalar, z / scalar);
 	}
+	
+	public Vector3 multiply(float scalar) {
+		return new Vector3(x * scalar, y * scalar, z * scalar);
+	}
 
 	public float getX() {
 		return x;
