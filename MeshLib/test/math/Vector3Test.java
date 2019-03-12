@@ -81,7 +81,7 @@ public class Vector3Test {
 	}
 
 	@Test
-	public void subtractSubtractsInternally() {
+	public void subtractOtherVectorResultsInNewVectorWithSubtractedValues() {
 		float randomAx = (float) (Math.random() * Integer.MAX_VALUE);
 		float randomAy = (float) (Math.random() * Integer.MAX_VALUE);
 		float randomAz = (float) (Math.random() * Integer.MAX_VALUE);
@@ -148,6 +148,24 @@ public class Vector3Test {
 		b = (float) Math.round(b * 100000000.0f) / 100000000.0f;
 
 		Assert.assertEquals(a, b, 0);
+	}
+	
+	@Test
+	public void addComponentsResultsInNewVectorWithAddedComponents() {
+		float x1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float y1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float z1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float x2 = (float) (Math.random() * Integer.MAX_VALUE);
+		float y2 = (float) (Math.random() * Integer.MAX_VALUE);
+		float z2 = (float) (Math.random() * Integer.MAX_VALUE);
+		
+		Vector3 vectorA = new Vector3(x1, y1, z1);
+		Vector3 result = vectorA.add(x2, y2, z2);
+		
+		Assert.assertTrue(vectorA != result);
+		Assert.assertEquals(x1 + x2, result.getX(), 0);
+		Assert.assertEquals(y1 + y2, result.getY(), 0);
+		Assert.assertEquals(z1 + z2, result.getZ(), 0);
 	}
 
 }

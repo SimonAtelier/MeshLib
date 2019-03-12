@@ -22,6 +22,10 @@ public class Vector3 {
 		float z = this.z - other.z;
 		return new Vector3(x, y, z);
 	}
+	
+	public Vector3 add(float x, float y, float z) {
+		return new Vector3(this.x + x, this.y + y, this.z + z);
+	}
 
 	public float length() {
 		if (this.equals(UNIT_X))
