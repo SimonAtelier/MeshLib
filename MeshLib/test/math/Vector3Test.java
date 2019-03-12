@@ -232,4 +232,44 @@ public class Vector3Test {
 		Assert.assertEquals(1, result.length(), 0);
 	}
 	
+	@Test
+	public void addLocalReturnsAReferenceToTheVectorItself() {
+		Vector3 vector3 = new Vector3(0, 0, 0);
+		Vector3 other = new Vector3(0, 0, 0);
+		Vector3 result = vector3.addLocal(other);
+		Assert.assertTrue(result == vector3);
+	}
+	
+	@Test
+	public void addLocalAddsInternally() {
+		float x1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float y1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float z1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float x2 = (float) (Math.random() * Integer.MAX_VALUE);
+		float y2 = (float) (Math.random() * Integer.MAX_VALUE);
+		float z2 = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 original = new Vector3(x1, y1, z1);
+		Vector3 other = new Vector3(x2, y2, z2);
+		original.addLocal(other);
+		Assert.assertEquals(x1 + x2, original.getX(), 0);
+		Assert.assertEquals(y1 + y2, original.getY(), 0);
+		Assert.assertEquals(z1 + z2, original.getZ(), 0);
+	}
+	
+	@Test
+	public void addLocalLeavesOtherVectorUntouched() {
+		float x1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float y1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float z1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float x2 = (float) (Math.random() * Integer.MAX_VALUE);
+		float y2 = (float) (Math.random() * Integer.MAX_VALUE);
+		float z2 = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 original = new Vector3(x1, y1, z1);
+		Vector3 other = new Vector3(x2, y2, z2);
+		original.addLocal(other);
+		Assert.assertEquals(x2, other.getX(), 0);
+		Assert.assertEquals(y2, other.getY(), 0);
+		Assert.assertEquals(z2, other.getZ(), 0);
+	}
+	
 }

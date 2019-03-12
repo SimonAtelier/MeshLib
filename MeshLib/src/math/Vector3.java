@@ -26,6 +26,13 @@ public class Vector3 {
 	public Vector3 add(float x, float y, float z) {
 		return new Vector3(this.x + x, this.y + y, this.z + z);
 	}
+	
+	public Vector3 addLocal(Vector3 other) {
+		x += other.x;
+		y += other.y;
+		z += other.z;
+		return this;
+	}
 
 	public float length() {
 		if (this.equals(UNIT_X))
