@@ -28,7 +28,7 @@ public class MeshTestUtil {
 		for (int index = 0; index < mesh.getFaceCount(); index++) {
 			Face face = mesh.getFaceAt(index);
 			int[] indices = face.getIndices();
-			for (int vertexIndex = 0; vertexIndex <= indices.length; vertexIndex++) {
+			for (int vertexIndex = 0; vertexIndex < indices.length; vertexIndex++) {
 				int fromIndex = indices[vertexIndex % indices.length];
 				int toIndex = indices[(vertexIndex + 1) % indices.length];
 				Edge edge = new Edge(fromIndex, toIndex);
