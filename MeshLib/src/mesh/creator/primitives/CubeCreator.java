@@ -1,9 +1,9 @@
 package mesh.creator.primitives;
 
 import mesh.Mesh;
-import mesh.creator.IMeshCreator;
+import mesh.creator.MeshCreator;
 
-public class CubeCreator implements IMeshCreator {
+public class CubeCreator implements MeshCreator {
 
 	private float radius;
 	private Mesh mesh;

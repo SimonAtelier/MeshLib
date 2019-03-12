@@ -10,7 +10,7 @@ import math.Vector3;
 import mesh.Edge;
 import mesh.Face;
 import mesh.Mesh;
-import mesh.creator.IMeshCreator;
+import mesh.creator.MeshCreator;
 import util.MeshTestUtil;
 
 public class CubeCreatorTest {
@@ -47,7 +47,7 @@ public class CubeCreatorTest {
 	@Test
 	public void creatorImplementsMeshCreatorInterface() {
 		CubeCreator creator = new CubeCreator();
-		Assert.assertTrue(creator instanceof IMeshCreator);
+		Assert.assertTrue(creator instanceof MeshCreator);
 	}
 
 	@Test
