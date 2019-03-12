@@ -36,6 +36,20 @@ public class Vector3 {
 			return 1;
 		return (float) Math.sqrt((x * x) + (y * y) + (z * z));
 	}
+	
+	public Vector3 normalize() {
+		float length = length();
+		if (length != 0) {
+			return divide(length);
+		}
+		return divide(1);
+	}
+	
+	public Vector3 divide(float scalar) {
+		if (scalar == 0)
+			throw new ArithmeticException("/ by zero");
+		return new Vector3(x / scalar, y / scalar, z / scalar);
+	}
 
 	public float getX() {
 		return x;

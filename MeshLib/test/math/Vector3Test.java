@@ -167,5 +167,69 @@ public class Vector3Test {
 		Assert.assertEquals(y1 + y2, result.getY(), 0);
 		Assert.assertEquals(z1 + z2, result.getZ(), 0);
 	}
-
+	
+	@Test
+	public void normalizeDividesEachComponentByTheLengthOfTheVector() {
+		float x = (float) (Math.random() * Integer.MAX_VALUE);
+		float y = (float) (Math.random() * Integer.MAX_VALUE);
+		float z = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 vector3 = new Vector3(x, y, z);
+		Vector3 result = vector3.normalize();
+		float length = vector3.length();
+		Assert.assertEquals(x / length, result.getX(), 0);
+		Assert.assertEquals(y / length, result.getY(), 0);
+		Assert.assertEquals(z / length, result.getZ(), 0);
+	}
+	
+	@Test
+	public void zeroVectorHasTheLengthZero() {
+		Vector3 vector3 = new Vector3(0, 0, 0);
+		float length = vector3.length();
+		Assert.assertEquals(0, length, 0);
+	}
+	
+	@Test (expected = ArithmeticException.class)
+	public void divideVectorByZero() {
+		Vector3 vector3 = new Vector3(1, 1, 1);
+		vector3.divide(0);
+	}
+	
+	@Test
+	public void normalizeAVectorWithLengthZeroTheComponentsAreDividedByOne() {
+		Vector3 vector3 = new Vector3(0, 0, 0);
+		Vector3 result = vector3.normalize();
+		Assert.assertEquals(0, result.getX(), 0);
+		Assert.assertEquals(0, result.getY(), 0);
+		Assert.assertEquals(0, result.getZ(), 0);
+	}
+	
+	@Test
+	public void normalizeReturnsNewVectorInstance() {
+		Vector3 vector3 = new Vector3(0, 0, 0);
+		Vector3 result = vector3.normalize();
+		Assert.assertTrue(vector3 != result);
+	}
+	
+	@Test
+	public void normalizeLeavesTheOriginalVectorUntouched() {
+		float x = (float) (Math.random() * Integer.MAX_VALUE);
+		float y = (float) (Math.random() * Integer.MAX_VALUE);
+		float z = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 original = new Vector3(x, y, z);
+		original.normalize();
+		Assert.assertEquals(x, original.getX(), 0);
+		Assert.assertEquals(y, original.getY(), 0);
+		Assert.assertEquals(z, original.getZ(), 0);
+	}
+	
+	@Test
+	public void normalizedVectorHasTheLengthOne() {
+		float x = (float) (Math.random() * Integer.MAX_VALUE);
+		float y = (float) (Math.random() * Integer.MAX_VALUE);
+		float z = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 original = new Vector3(x, y, z);
+		Vector3 result = original.normalize();
+		Assert.assertEquals(1, result.length(), 0);
+	}
+	
 }
