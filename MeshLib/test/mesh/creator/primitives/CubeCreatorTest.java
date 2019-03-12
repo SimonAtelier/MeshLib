@@ -116,4 +116,16 @@ public class CubeCreatorTest {
 		MeshTestUtil.allEdgesHaveEqualLength(mesh);
 	}
 	
+	@Test
+	public void creatorCreatesNewMeshAtEveryCreateCall() {
+		int random = (int) (Math.random() * 50);
+		CubeCreator creator = new CubeCreator();
+		Mesh mesh = creator.create();
+		Mesh meshOther;
+		for (int i = 0; i < random; i++) {
+			meshOther = creator.create();
+			Assert.assertTrue(mesh != meshOther);
+		}
+	}
+	
 }
