@@ -28,9 +28,13 @@ public class CubeCreator implements IMeshCreator {
 		mesh.addFace(3, 7, 4, 0);
 	}
 	
+	private void createNewMesh() {
+		mesh = new Mesh();
+	}
+	
 	@Override
 	public Mesh create() {
-		mesh = new Mesh();		
+		createNewMesh();
 		createVertices();
 		createFaces();
 		return mesh;
