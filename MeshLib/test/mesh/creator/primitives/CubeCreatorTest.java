@@ -1,17 +1,48 @@
 package mesh.creator.primitives;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import math.Vector3;
+import mesh.Edge;
 import mesh.Face;
 import mesh.Mesh;
 import mesh.creator.IMeshCreator;
 import util.MeshTestUtil;
 
 public class CubeCreatorTest {
+	
+	@Test
+	public void everyEdgeOfTheCreatedMeshIsTwiceAsLargeAsSettedTheRadius() {
+		float random = (float) (Math.random() * Integer.MAX_VALUE);
+		CubeCreator creator = new CubeCreator();
+		creator.setRadius(random);
+		Mesh mesh = creator.create();
+		Collection<Edge> edges = mesh.calculateEdges();
+		for (Edge edge : edges) {
+			Vector3 from = mesh.getVertexAt(edge.getFromIndex());
+			Vector3 to = mesh.getVertexAt(edge.getToIndex());
+			float edgeLength = from.subtract(to).length();
+			Assert.assertEquals(2 * random, edgeLength, 0);
+		}
+	}
+	
+	@Test
+	public void getRadiusReturnsValueAfterSetValue() {
+		float random = (float) (Math.random() * Integer.MAX_VALUE);
+		CubeCreator creator = new CubeCreator();
+		creator.setRadius(random);
+		Assert.assertEquals(random, creator.getRadius(), 0);
+	}
+	
+	@Test
+	public void getRadiusReturnsOneByDefault() {
+		CubeCreator creator = new CubeCreator();
+		Assert.assertEquals(1, creator.getRadius(), 0);
+	}
 
 	@Test
 	public void creatorImplementsMeshCreatorInterface() {

@@ -5,8 +5,12 @@ import mesh.creator.IMeshCreator;
 
 public class CubeCreator implements IMeshCreator {
 
-	private float radius = 1;
+	private float radius;
 	private Mesh mesh;
+	
+	public CubeCreator() {
+		setRadius(1);
+	}
 	
 	private void createVertices() {
 		mesh.addVertex(radius, -radius, -radius);
@@ -38,6 +42,14 @@ public class CubeCreator implements IMeshCreator {
 		createVertices();
 		createFaces();
 		return mesh;
+	}
+	
+	public float getRadius() {
+		return radius;
+	}
+	
+	public void setRadius(float radius) {
+		this.radius = radius;
 	}
 
 }
