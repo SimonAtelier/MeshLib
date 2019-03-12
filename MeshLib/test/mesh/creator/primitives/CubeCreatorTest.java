@@ -16,6 +16,19 @@ import util.MeshTestUtil;
 public class CubeCreatorTest {
 	
 	@Test
+	public void theDefaultLengthOfEachEdgeOfTheCreatedMeshIsTwo() {
+		CubeCreator creator = new CubeCreator();
+		Mesh mesh = creator.create();
+		Collection<Edge> edges = mesh.calculateEdges();
+		for (Edge edge : edges) {
+			Vector3 from = mesh.getVertexAt(edge.getFromIndex());
+			Vector3 to = mesh.getVertexAt(edge.getToIndex());
+			float edgeLength = from.subtract(to).length();
+			Assert.assertEquals(2, edgeLength, 0);
+		}
+	}
+	
+	@Test
 	public void everyEdgeOfTheCreatedMeshIsTwiceAsLargeAsSettedTheRadius() {
 		float random = (float) (Math.random() * Integer.MAX_VALUE);
 		CubeCreator creator = new CubeCreator();
