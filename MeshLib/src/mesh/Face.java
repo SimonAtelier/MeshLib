@@ -1,5 +1,7 @@
 package mesh;
 
+import mesh.exception.NumberOfIndicesMustBeGreaterOrEqualToThree;
+
 public class Face {
 
 	private int[] indices;
@@ -10,7 +12,7 @@ public class Face {
 
 	private void setIndices(int... indices) {
 		if (indices.length <= 2)
-			throw new IllegalArgumentException("Number of indices must be greater or equal to three.");
+			throw new NumberOfIndicesMustBeGreaterOrEqualToThree();
 		this.indices = indices;
 	}
 
