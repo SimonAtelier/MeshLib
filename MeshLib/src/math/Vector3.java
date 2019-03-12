@@ -27,6 +27,10 @@ public class Vector3 {
 		return new Vector3(this.x + x, this.y + y, this.z + z);
 	}
 	
+	public Vector3 add(Vector3 other) {
+		return new Vector3(x + other.x, y + other.y, z + other.z);
+	}
+	
 	public Vector3 addLocal(Vector3 other) {
 		x += other.x;
 		y += other.y;

@@ -314,4 +314,49 @@ public class Vector3Test {
 		Assert.assertEquals(z, original.getZ(), 0);
 	}
 	
+	@Test
+	public void addOtherReturnsNewInstanceOfVector() {
+		Vector3 original = new Vector3(0, 0, 0);
+		Vector3 other = new Vector3(0, 0, 0);
+		Vector3 result = original.add(other);
+		Assert.assertTrue(original != result);
+	}
+	
+	@Test
+	public void addOtherReturnsNoneNullInstanceOfVector() {
+		Vector3 original = new Vector3(0, 0, 0);
+		Vector3 other = new Vector3(0, 0, 0);
+		Vector3 result = original.add(other);
+		Assert.assertNotNull(result);
+	}
+	
+	@Test
+	public void addOtherLeavesTheOriginalVectorUntouched() {
+		float x = (float) (Math.random() * Integer.MAX_VALUE);
+		float y = (float) (Math.random() * Integer.MAX_VALUE);
+		float z = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 original = new Vector3(0, 0, 0);
+		Vector3 other = new Vector3(x, y, z);
+		original.add(other);
+		Assert.assertEquals(0, original.getX(), 0);
+		Assert.assertEquals(0, original.getY(), 0);
+		Assert.assertEquals(0, original.getZ(), 0);
+	}
+	
+	@Test
+	public void addOtherReturnsResultingVectorWithAddedComponents() {
+		float x1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float y1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float z1 = (float) (Math.random() * Integer.MAX_VALUE);
+		float x2 = (float) (Math.random() * Integer.MAX_VALUE);
+		float y2 = (float) (Math.random() * Integer.MAX_VALUE);
+		float z2 = (float) (Math.random() * Integer.MAX_VALUE);
+		Vector3 original = new Vector3(x1, y1, z1);
+		Vector3 other = new Vector3(x2, y2, z2);
+		Vector3 result = original.add(other);
+		Assert.assertEquals(x1 + x2, result.getX(), 0);
+		Assert.assertEquals(y1 + y2, result.getY(), 0);
+		Assert.assertEquals(z1 + z2, result.getZ(), 0);
+	}
+	
 }
