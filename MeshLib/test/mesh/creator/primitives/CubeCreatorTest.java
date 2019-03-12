@@ -50,6 +50,13 @@ public class CubeCreatorTest {
 	}
 	
 	@Test
+	public void createdMeshHasTwelveEdges() {
+		CubeCreator creator = new CubeCreator();
+		Mesh mesh = creator.create();
+		Assert.assertEquals(12, mesh.calculateEdges().size());
+	}
+	
+	@Test
 	public void eachFaceOfTheCreatedMeshHasDifferentIndices() {
 		CubeCreator creator = new CubeCreator();
 		Mesh mesh = creator.create();
