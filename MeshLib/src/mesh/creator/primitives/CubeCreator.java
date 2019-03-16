@@ -1,15 +1,19 @@
 package mesh.creator.primitives;
 
-import mesh.Mesh;
-import mesh.creator.MeshCreator;
+import mesh.Mesh3D;
+import mesh.creator.IMeshCreator;
 
-public class CubeCreator implements MeshCreator {
+public class CubeCreator implements IMeshCreator {
 
 	private float radius;
-	private Mesh mesh;
-	
+	private Mesh3D mesh;
+
 	public CubeCreator() {
-		setRadius(1);
+		this(1);
+	}
+
+	public CubeCreator(float radius) {
+		this.radius = radius;
 	}
 	
 	private void createVertices() {
@@ -31,23 +35,19 @@ public class CubeCreator implements MeshCreator {
 		mesh.addFace(6, 7, 3, 2);
 		mesh.addFace(3, 7, 4, 0);
 	}
-	
-	private void createNewMesh() {
-		mesh = new Mesh();
-	}
-	
+
 	@Override
-	public Mesh create() {
-		createNewMesh();
+	public Mesh3D create() {
+		mesh = new Mesh3D();
 		createVertices();
 		createFaces();
 		return mesh;
 	}
-	
+
 	public float getRadius() {
 		return radius;
 	}
-	
+
 	public void setRadius(float radius) {
 		this.radius = radius;
 	}

@@ -1,46 +1,48 @@
 package mesh.creator.primitives;
 
-import mesh.Mesh;
-import mesh.creator.MeshCreator;
+import math.Vector3f;
+import mesh.Face3D;
+import mesh.Mesh3D;
+import mesh.creator.IMeshCreator;
 
-public class PlaneCreator implements MeshCreator {
+public class PlaneCreator implements IMeshCreator {
 
 	private float radius;
-	private Mesh mesh;
+	private Mesh3D mesh;
 	
 	public PlaneCreator() {
-		setRadius(1);
+		this(1);
 	}
 	
-	private void createNewMesh() {
-		mesh = new Mesh();
+	public PlaneCreator(float size) {
+		this.radius = size;
 	}
 	
 	private void createVertices() {
-		mesh.addVertex(-radius, 0, radius);
-		mesh.addVertex(radius, 0, radius);
-		mesh.addVertex(radius, 0, -radius);
-		mesh.addVertex(-radius, 0, -radius);
+		mesh.add(new Vector3f(radius, 0, -radius));
+		mesh.add(new Vector3f(radius, 0, radius));
+		mesh.add(new Vector3f(-radius, 0, radius));
+		mesh.add(new Vector3f(-radius, 0, -radius));
 	}
 	
-	private void createFace() {
-		mesh.addFace(0, 1, 2, 3);
+	private void createFaces() {
+		mesh.add(new Face3D(0, 1, 2, 3));
 	}
-	
+
 	@Override
-	public Mesh create() {
-		createNewMesh();
+	public Mesh3D create() {
+		mesh = new Mesh3D();
 		createVertices();
-		createFace();
+		createFaces();
 		return mesh;
 	}
-	
-	public float getRadius() {
+
+	public float getSize() {
 		return radius;
 	}
-	
-	public void setRadius(float radius) {
-		this.radius = radius;
+
+	public void setSize(float size) {
+		this.radius = size;
 	}
 
 }
