@@ -444,12 +444,6 @@ public class Mesh3DUtil {
 		return mesh;
 	}
 
-	public static void scale(Mesh3D mesh, float scale) {
-		for (Vector3f v : mesh.vertices) {
-			v.multLocal(scale);
-		}
-	}
-
 	public static void removeFaceAt(Mesh3D mesh, int index) {
 		mesh.faces.remove(index);
 	}

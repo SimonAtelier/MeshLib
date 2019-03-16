@@ -26,7 +26,7 @@ public class QuadSphereCreator implements IMeshCreator {
 		for (int i = 0; i < subdivisions; i++) {
 			Mesh3DUtil.subdivide(mesh);
 		}
-		Mesh3DUtil.scale(mesh, radius);
+		mesh.scale(radius);
 		new SpherifyModifier(radius).modify(mesh);
 		return mesh;
 	}
