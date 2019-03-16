@@ -12,7 +12,6 @@ public class Morpher {
 	private boolean finished;
 
 	public Morpher(Mesh3D source, Mesh3D target) {
-		super();
 		this.source = source;
 		this.target = target;
 		this.mesh = source.copy();
