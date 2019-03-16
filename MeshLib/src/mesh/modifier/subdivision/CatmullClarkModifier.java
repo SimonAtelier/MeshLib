@@ -22,6 +22,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 	private int subdivisions;
 	private int originalVertexCount;
 	private Mesh3D meshToSubdivide;
+	
 	private HashMap<Pair, Vector3f> mapEdgesToFacePoints;
 	private HashMap<Pair, Integer> mapEdgesToEdgePointIndicies;
 	private HashMap<Integer, Integer> mapVertexIndexToNumberOfOutgoingEdges;
@@ -46,16 +47,20 @@ public class CatmullClarkModifier implements IMeshModifier {
 		this.meshToSubdivide = mesh;
 		for (int i = 0; i < subdivisions; i++) {
 			originalVertexCount = mesh.getVertexCount();
-			mapEdgesToFacePoints.clear();
-			mapEdgesToEdgePointIndicies.clear();
-			mapVertexIndexToNumberOfOutgoingEdges.clear();
-			mapOriginalVerticesToFacePoints.clear();
-			mapVerticesToEdgePoints.clear();
+			clearMaps();
 			subdivideMesh();
 			processEdgePoints();
 			smoothVertices();
 		}
 		return mesh;
+	}
+
+	private void clearMaps() {
+		mapEdgesToFacePoints.clear();
+		mapEdgesToEdgePointIndicies.clear();
+		mapVertexIndexToNumberOfOutgoingEdges.clear();
+		mapOriginalVerticesToFacePoints.clear();
+		mapVerticesToEdgePoints.clear();
 	}
 
 	protected Vector3f getFacePointsAverage(int index) {
