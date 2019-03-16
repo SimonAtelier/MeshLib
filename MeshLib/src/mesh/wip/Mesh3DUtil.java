@@ -18,12 +18,6 @@ import mesh.math.Bounds3;
 
 public class Mesh3DUtil {
 
-	public static Mesh3D toMesh(Bounds3 bounds) {
-		Mesh3D mesh = new BoxCreator(bounds.getWidth(), bounds.getHeight(), bounds.getDepth()).create();
-		mesh.translate(bounds.getCenter());
-		return mesh;
-	}
-
 	/**
 	 * FIXME
 	 * 
