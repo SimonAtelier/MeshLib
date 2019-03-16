@@ -102,5 +102,13 @@ public class TetrahedronCreatorTest {
 			Assert.assertEquals(expectedEdgeLength, length, 0);
 		}
 	}
+	
+	@Test
+	public void setRadiusToValueGetRadiusReturnsValue() {
+		float radius = 444.123f;
+		TetrahedronCreator creator = new TetrahedronCreator();
+		creator.setRadius(radius);
+		Assert.assertEquals(radius, creator.getRadius(), 0);
+	}
 
 }
