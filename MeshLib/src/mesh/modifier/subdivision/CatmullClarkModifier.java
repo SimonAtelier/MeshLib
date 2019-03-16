@@ -63,7 +63,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		mapVerticesToEdgePoints.clear();
 	}
 
-	protected Vector3f getFacePointsAverage(int index) {
+	private Vector3f getFacePointsAverage(int index) {
 		Vector3f v0 = new Vector3f();
 		List<Vector3f> facePoints = mapOriginalVerticesToFacePoints.get(index);
 		for (Vector3f v1 : facePoints) {
@@ -72,7 +72,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		return v0.mult(1f / (float) facePoints.size());
 	}
 
-	protected Vector3f getEdgePointAverage(int index) {
+	private Vector3f getEdgePointAverage(int index) {
 		Vector3f v0 = new Vector3f();
 		List<Vector3f> edgePoints = mapVerticesToEdgePoints.get(index);
 		for (Vector3f v1 : edgePoints) {
@@ -81,7 +81,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		return v0.mult(1f / (float) edgePoints.size());
 	}
 
-	protected void incrementN(Pair[] pairs) {
+	private void incrementN(Pair[] pairs) {
 		for (Pair pair : pairs) {
 			Integer n = mapVertexIndexToNumberOfOutgoingEdges.get(pair.a);
 			if (n == null) {
@@ -92,7 +92,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		}
 	}
 
-	protected void smoothVertices() {
+	private void smoothVertices() {
 		for (int i = 0; i < originalVertexCount; i++) {
 			float n = (float) mapVertexIndexToNumberOfOutgoingEdges.get(i);
 			Vector3f d = meshToSubdivide.vertices.get(i);
@@ -104,7 +104,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		}
 	}
 
-	protected void processEdgePoints() {
+	private void processEdgePoints() {
 		for (Pair pair : mapEdgesToEdgePointIndicies.keySet()) {
 			int index = mapEdgesToEdgePointIndicies.get(pair);
 			Vector3f v0 = meshToSubdivide.vertices.get(pair.a);
@@ -118,7 +118,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		}
 	}
 
-	protected void subdivideMesh() {
+	private void subdivideMesh() {
 		int index = meshToSubdivide.getVertexCount();
 		ArrayList<Face3D> facesToAdd = new ArrayList<Face3D>();
 		ArrayList<Face3D> facesToRemove = new ArrayList<Face3D>();
