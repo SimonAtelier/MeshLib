@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import math.GeometryUtil;
@@ -13,8 +12,6 @@ import math.Matrix3f;
 import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
-import mesh.creator.primitives.BoxCreator;
-import mesh.math.Bounds3;
 
 public class Mesh3DUtil {
 
