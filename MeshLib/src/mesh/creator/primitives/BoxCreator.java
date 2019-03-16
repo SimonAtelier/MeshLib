@@ -2,7 +2,6 @@ package mesh.creator.primitives;
 
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
-import mesh.wip.Mesh3DUtil;
 
 public class BoxCreator implements IMeshCreator {
 
