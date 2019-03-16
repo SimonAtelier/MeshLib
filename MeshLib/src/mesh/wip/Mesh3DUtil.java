@@ -444,8 +444,4 @@ public class Mesh3DUtil {
 		return mesh;
 	}
 
-	public static void removeFaceAt(Mesh3D mesh, int index) {
-		mesh.faces.remove(index);
-	}
-
 }
