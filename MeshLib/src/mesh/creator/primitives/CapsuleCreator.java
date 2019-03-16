@@ -31,7 +31,6 @@ public class CapsuleCreator implements IMeshCreator {
 	public CapsuleCreator(float topRadius, float bottomRadius, float cylinderHeight, float topCapHeight,
 			float bottomCapHeight, int topCapSegments, int bottomCapSegments, int cylinderSegments,
 			int rotationSegments) {
-		super();
 		this.topRadius = topRadius;
 		this.bottomRadius = bottomRadius;
 		this.cylinderHeight = cylinderHeight;
