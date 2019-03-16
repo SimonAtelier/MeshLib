@@ -2,6 +2,7 @@ package mesh.creator.primitives;
 
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
+import mesh.modifier.SpherifyModifier;
 import mesh.wip.Mesh3DUtil;
 
 public class QuadSphereCreator implements IMeshCreator {
@@ -26,7 +27,7 @@ public class QuadSphereCreator implements IMeshCreator {
 			Mesh3DUtil.subdivide(mesh);
 		}
 		Mesh3DUtil.scale(mesh, radius);
-		Mesh3DUtil.pushToSphere(mesh, radius);
+		new SpherifyModifier(radius).modify(mesh);
 		return mesh;
 	}
 	

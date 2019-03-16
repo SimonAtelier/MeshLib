@@ -436,19 +436,6 @@ public class Mesh3DUtil {
 		scaleFace(mesh, f, scale);
 	}
 
-	public static Mesh3D pushToSphere(Mesh3D mesh, float radius) {
-		return pushToSphere(mesh, new Vector3f(), radius);
-	}
-
-	public static Mesh3D pushToSphere(Mesh3D mesh, Vector3f center, float radius) {
-		Vector3f origin = new Vector3f(center);
-		for (Vector3f v : mesh.vertices) {
-			Vector3f v0 = new Vector3f(v.x - origin.x, v.y - origin.y, v.z - origin.z).normalizeLocal();
-			v.set(v0.mult(radius).add(origin));
-		}
-		return mesh;
-	}
-
 	public static Mesh3D translateFace(Mesh3D mesh, Face3D face, Vector3f v) {
 		for (int i = 0; i < face.indices.length; i++) {
 			Vector3f v0 = mesh.vertices.get(face.indices[i]);

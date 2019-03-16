@@ -3,8 +3,8 @@ package mesh.creator.primitives;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.platonic.IcosahedronCreator;
+import mesh.modifier.SpherifyModifier;
 import mesh.modifier.subdivision.OneToFourTriangleSplitModifier;
-import mesh.wip.Mesh3DUtil;
 
 public class IcoSphereCreator implements IMeshCreator {
 
@@ -27,7 +27,7 @@ public class IcoSphereCreator implements IMeshCreator {
 		for (int i = 0; i < subdivisions; i++) {
 			modifier.modify(mesh);
 		}
-		Mesh3DUtil.pushToSphere(mesh, radius);
+		new SpherifyModifier(radius).modify(mesh);
 		return mesh;
 	}
 

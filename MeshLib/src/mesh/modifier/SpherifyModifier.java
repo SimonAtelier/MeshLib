@@ -2,7 +2,6 @@ package mesh.modifier;
 
 import math.Vector3f;
 import mesh.Mesh3D;
-import mesh.wip.Mesh3DUtil;
 
 public class SpherifyModifier implements IMeshModifier {
 
@@ -32,7 +31,11 @@ public class SpherifyModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		Mesh3DUtil.pushToSphere(mesh, center, radius);
+		Vector3f origin = new Vector3f(center);
+		for (Vector3f v : mesh.vertices) {
+			Vector3f v0 = new Vector3f(v.x - origin.x, v.y - origin.y, v.z - origin.z).normalizeLocal();
+			v.set(v0.mult(radius).add(origin));
+		}
 		return mesh;
 	}
 	
