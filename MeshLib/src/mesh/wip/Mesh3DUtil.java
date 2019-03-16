@@ -300,10 +300,6 @@ public class Mesh3DUtil {
 			for (Face3D f : meshes[i].faces) {
 				for (int j = 0; j < f.indices.length; j++) {
 					f.indices[j] += n;
-					// f.indices[0] += n;
-					// f.indices[1] += n;
-					// f.indices[2] += n;
-					// f.indices[3] += n;
 				}
 			}
 			n += m.getVertexCount();
