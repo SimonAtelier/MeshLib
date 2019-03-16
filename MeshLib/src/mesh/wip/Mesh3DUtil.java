@@ -14,49 +14,6 @@ import mesh.Mesh3D;
 
 public class Mesh3DUtil {
 
-	/**
-	 * FIXME
-	 * 
-	 * @param mesh
-	 * @param vertices
-	 * @param segments
-	 * @param height
-	 * @param close
-	 * @return
-	 */
-	public static Mesh3D extrude(Mesh3D mesh, List<Vector3f> vertices, int segments, float height, boolean close) {
-		float halfHeight = height / 2f;
-		float segmentHeight = height / segments;
-		int vertexCount = vertices.size();
-
-		float h = 0;
-
-		for (int i = 0; i <= segments; i++) {
-			for (int j = 0; j < vertexCount; j++) {
-				Vector3f v0 = new Vector3f(vertices.get(j)).subtractLocal(0, h, 0);
-				mesh.vertices.add(v0);
-				if (i < segments) {
-					int idx0 = Mathf.toOneDimensionalIndex(i, j, vertexCount);
-					int idx1 = Mathf.toOneDimensionalIndex(i, (j + 1) % vertexCount, vertexCount);
-					int idx3 = Mathf.toOneDimensionalIndex((i + 1) % (segments + 1), j, vertexCount);
-					int idx2 = Mathf.toOneDimensionalIndex((i + 1) % (segments + 1), (j + 1) % vertexCount,
-							vertexCount);
-					if (j == vertexCount - 1 && !close)
-						continue;
-					if (i % 2 == 0)
-						mesh.add(new Face3D(idx0, idx1, idx2, idx3));
-				}
-			}
-			if (i % 2 == 1)
-				// h += 0.01f;
-				h += 0;
-			else
-				h += 0.1f;
-		}
-
-		return mesh;
-	}
-
 	public static List<Face3D> centerSplit(Mesh3D mesh, Face3D f) {
 		int index = mesh.getVertexCount();
 		int n = f.indices.length;
