@@ -464,19 +464,4 @@ public class Mesh3DUtil {
 		return mesh.vertices.indexOf(v);
 	}
 
-	public static Mesh3D scaleCopy(Mesh3D mesh, Vector3f s) {
-		Mesh3D copy = new Mesh3D();
-		List<Vector3f> vertices = copy.vertices;
-		List<Face3D> faces = copy.faces;
-		// Copy and translate vertices
-		for (Vector3f v : mesh.vertices) {
-			vertices.add(new Vector3f(v).multLocal(s));
-		}
-		// Copy faces
-		for (Face3D f : mesh.faces) {
-			faces.add(new Face3D(f));
-		}
-		return copy;
-	}
-
 }
