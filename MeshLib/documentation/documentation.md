@@ -39,6 +39,8 @@ Creates a *Tetrahedron* with four faces, six edges, and four vertices.
 The deault length of the edges is 2√2.
 * **Radius** The radius of the Tetrahedron (1.0f by default).
 
+![Tetrahedron](./images/tetrahedron-creator.png)
+
 ```java
 import mesh.Mesh3D;
 import mesh.creator.platonic.TetrahedronCreator;
