@@ -11,14 +11,26 @@ public class IcosahedronCreator implements IMeshCreator {
 	private Mesh3D mesh;
 
 	private void createVertices() {
+		createVerticesWithZeroX();
+		createVerticesWithZeroZ();
+		createVerticesWithZeroY();
+	}
+	
+	private void createVerticesWithZeroX() {
 		mesh.addVertex(0, -1, -GOLDEN_RATIO);
 		mesh.addVertex(0, 1, -GOLDEN_RATIO);
 		mesh.addVertex(0, -1, GOLDEN_RATIO);
 		mesh.addVertex(0, 1, GOLDEN_RATIO);
+	}
+	
+	private void createVerticesWithZeroZ() {
 		mesh.addVertex(-1, -GOLDEN_RATIO, 0);
 		mesh.addVertex(1, -GOLDEN_RATIO, 0);
 		mesh.addVertex(-1, GOLDEN_RATIO, 0);
 		mesh.addVertex(1, GOLDEN_RATIO, 0);
+	}
+	
+	private void createVerticesWithZeroY() {
 		mesh.addVertex(-GOLDEN_RATIO, 0, -1);
 		mesh.addVertex(-GOLDEN_RATIO, 0, 1);
 		mesh.addVertex(GOLDEN_RATIO, 0, -1);
