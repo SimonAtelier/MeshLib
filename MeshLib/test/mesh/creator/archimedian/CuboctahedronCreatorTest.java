@@ -7,12 +7,18 @@ import org.junit.Test;
 
 import mesh.Edge3D;
 import mesh.Mesh3D;
+import mesh.creator.IMeshCreator;
 import util.MeshTestUtil;
 
 public class CuboctahedronCreatorTest {
 
 	CuboctahedronCreator creator = new CuboctahedronCreator();
 	Mesh3D mesh = creator.create();
+	
+	@Test
+	public void creatorImplementsMeshCreatorInterface() {
+		Assert.assertTrue(creator instanceof IMeshCreator);
+	}
 	
 	@Test
 	public void createdMeshHasFourteenFaces() {

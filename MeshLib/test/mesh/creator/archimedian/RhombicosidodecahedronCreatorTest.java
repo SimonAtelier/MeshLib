@@ -7,12 +7,18 @@ import org.junit.Test;
 
 import mesh.Edge3D;
 import mesh.Mesh3D;
+import mesh.creator.IMeshCreator;
 import util.MeshTestUtil;
 
 public class RhombicosidodecahedronCreatorTest {
 
 	RhombicosidodecahedronCreator creator = new RhombicosidodecahedronCreator();
 	Mesh3D mesh = creator.create();
+	
+	@Test
+	public void creatorImplementsMeshCreatorInterface() {
+		Assert.assertTrue(creator instanceof IMeshCreator);
+	}
 	
 	@Test
 	public void createdMeshHasSixtyTwoFaces() {

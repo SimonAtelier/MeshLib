@@ -7,12 +7,18 @@ import org.junit.Test;
 
 import mesh.Edge3D;
 import mesh.Mesh3D;
+import mesh.creator.IMeshCreator;
 import util.MeshTestUtil;
 
 public class SnubCubeCreatorTest {
 
 	SnubCubeCreator creator = new SnubCubeCreator();
 	Mesh3D mesh = creator.create();
+	
+	@Test
+	public void creatorImplementsMeshCreatorInterface() {
+		Assert.assertTrue(creator instanceof IMeshCreator);
+	}
 	
 	@Test
 	public void createdMeshHasThirtyEightFaces() {
