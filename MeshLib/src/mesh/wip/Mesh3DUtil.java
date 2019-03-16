@@ -404,12 +404,6 @@ public class Mesh3DUtil {
 		return mesh;
 	}
 
-	public static void translate(Mesh3D mesh, Vector3f t) {
-		for (Vector3f v : mesh.vertices) {
-			v.addLocal(t);
-		}
-	}
-
 	public static Vector3f calculateFaceCenter(Mesh3D mesh, Face3D f) {
 		Vector3f center = new Vector3f();
 		for (int i = 0; i < f.indices.length; i++) {
