@@ -7,7 +7,7 @@ import mesh.creator.IMeshCreator;
 
 public class DodecahedronCreator implements IMeshCreator {
 	
-	private static final float GOLDEN_RATIO = 1.61803398875f;
+	private static final float GOLDEN_RATIO = 0.5f * (1 + Mathf.sqrt(5));
 	private static final float TWO_FIFTHS_PI = Mathf.PI * 0.4f;
 	
 	private float radius;
