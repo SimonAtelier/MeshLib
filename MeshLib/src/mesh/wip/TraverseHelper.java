@@ -11,13 +11,13 @@ public class TraverseHelper {
 	private Mesh3D mesh;
 	private HashMap<Edge3D, Face3D> edgeFaceMap;
 	private HashMap<Edge3D, Edge3D> edgeNextMap;
-	private HashMap<Integer, Edge3D> outgoingEdgeMap; // Maps one of the outgoing half edges
+	private HashMap<Integer, Edge3D> mapOneOfTheOutgoingHalfEdges;
 	
 	public TraverseHelper(Mesh3D mesh) {
 		this.mesh = mesh;
 		edgeFaceMap = new HashMap<Edge3D, Face3D>();
 		edgeNextMap = new HashMap<Edge3D, Edge3D>();
-		outgoingEdgeMap = new HashMap<Integer, Edge3D>();
+		mapOneOfTheOutgoingHalfEdges = new HashMap<Integer, Edge3D>();
 		map();
 	}
 	
@@ -32,13 +32,13 @@ public class TraverseHelper {
 				Edge3D next = new Edge3D(nextFrom, nextTo);
 				edgeFaceMap.put(edge, face);
 				edgeNextMap.put(edge, next);
-				outgoingEdgeMap.put(from, edge);
+				mapOneOfTheOutgoingHalfEdges.put(from, edge);
 			}
 		}
 	}
 	
 	public Edge3D getOutgoing(int index) {
-		return outgoingEdgeMap.get(index);
+		return mapOneOfTheOutgoingHalfEdges.get(index);
 	}
 	
 	public Face3D getFaceByEdge(int fromIndex, int toIndex) {
