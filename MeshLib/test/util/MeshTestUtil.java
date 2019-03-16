@@ -3,6 +3,7 @@ package util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Assert;
@@ -62,6 +63,15 @@ public class MeshTestUtil {
 		int vertexCount = mesh.getVertexCount();
 		int edgeCount = mesh.createEdges().size();
 		Assert.assertEquals(2, faceCount + vertexCount - edgeCount);
+	}
+	
+	public static void meshHasUniqueVertices(Mesh3D mesh) {
+		int vertexCount = mesh.getVertexCount();
+		HashSet<Vector3f> vertices = new HashSet<Vector3f>();
+		for (Vector3f vertex : mesh.vertices) {
+			vertices.add(vertex);
+		}
+		Assert.assertEquals(vertexCount, vertices.size());
 	}
 
 }
