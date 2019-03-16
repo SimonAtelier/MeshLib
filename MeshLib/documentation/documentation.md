@@ -17,9 +17,7 @@ import mesh.Face3D;
 import mesh.Edge3D;
 ```
 
-# Mesh Creators
-
-## Platonic Solid Creators
+# Platonic Solid Creators
 ```java
 package mesh.creator.platonic;
 ```
@@ -34,7 +32,7 @@ The following table gives a quick overview:
 | Dodecahedron | DodecahedronCreator | 12    | 30    | 20       |
 | Icosahedron  | IcosahedronCreator  | 20    | 30    | 12       |
 
-#### Tetrahedron Creator
+### Tetrahedron Creator
 Creates a *Tetrahedron* with four faces, six edges, and four vertices.
 The deault length of the edges is 2√2.
 * **Radius** The radius of the Tetrahedron (1.0f by default).
@@ -50,10 +48,12 @@ Mesh3D mesh = creator.create();
 ```
 [Wikipedia-Link](https://en.wikipedia.org/wiki/Tetrahedron)
 
-#### Hexahedron Creator
+### Hexahedron Creator
 Creates a *Hexahedron* with six faces, twelve edges, and four vertices.
 The length of each edge is 2 by default.
 * **Radius** The radius of the Hexahedron (1.0f by default). The length of each edge is twice as large as the given radius.
+
+![Hexahedron](./images/hexahedron-creator.png)
 
 ```java
 import mesh.Mesh3D;
@@ -66,7 +66,10 @@ mesh = creator.create();
 ```
 [Wikipedia-Link](https://en.wikipedia.org/wiki/Cube)
 
-#### Octahedron Creator
+### Octahedron Creator
+
+![Octahedron](./images/octahedron-creator.png)
+
 ```java
 import mesh.Mesh3D;
 import mesh.creator.platonic.OctahedronCreator;
@@ -74,7 +77,10 @@ import mesh.creator.platonic.OctahedronCreator;
 OctahedronCreator creator = new OctahedronCreator();
 Mesh3D mesh = creator.create();
 ```
-#### Dodecahedron Creator
+### Dodecahedron Creator
+
+![Dodecahedron](./images/dodecahedron-creator.png)
+
 ```java
 import mesh.Mesh3D;
 import mesh.creator.platonic.DodecahedronCreator;
@@ -82,7 +88,10 @@ import mesh.creator.platonic.DodecahedronCreator;
 DodecahedronCreator creator = new DodecahedronCreator();
 Mesh3D mesh = creator.create();
 ```
-#### Icosahedron Creator
+### Icosahedron Creator
+
+![Icosahedron](./images/icosahedron-creator.png)
+
 ```java
 import mesh.Mesh3D;
 import mesh.creator.platonic.IcosahedronCreator;
