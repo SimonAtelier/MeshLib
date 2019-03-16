@@ -82,35 +82,6 @@ public class Mesh3DUtil {
 		return toAdd;
 	}
 
-	public static void removeDoubles(Mesh3D mesh) {
-		Mesh3D m = new Mesh3D();
-		HashSet<Vector3f> vertexSet = new HashSet<Vector3f>();
-
-		for (Face3D f : mesh.faces) {
-			for (int i = 0; i < f.indices.length; i++) {
-				Vector3f v = mesh.getVertexAt(f.indices[i]);
-				vertexSet.add(v);
-			}
-		}
-
-		m.vertices.addAll(vertexSet);
-
-		for (Face3D f : mesh.faces) {
-			for (int i = 0; i < f.indices.length; i++) {
-				Vector3f v = mesh.getVertexAt(f.indices[i]);
-				int index = m.vertices.indexOf(v);
-				f.indices[i] = index;
-			}
-			m.add(f);
-		}
-
-		mesh.vertices.clear();
-		mesh.faces.clear();
-
-		mesh.vertices.addAll(m.vertices);
-		mesh.faces.addAll(m.faces);
-	}
-
 	public static Mesh3D tessellateByCenter(Mesh3D mesh, Face3D f) {
 		int nextIndex = mesh.vertices.size();
 		ArrayList<Face3D> toAdd = new ArrayList<>();
