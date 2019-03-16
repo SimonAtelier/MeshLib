@@ -94,36 +94,6 @@ public class Mesh3DUtil {
 		return mesh;
 	}
 
-	public static void rotateFaceX(Mesh3D mesh, Face3D face, float a) {
-		Matrix3f m = new Matrix3f(1, 0, 0, 0, Mathf.cos(a), -Mathf.sin(a), 0, Mathf.sin(a), Mathf.cos(a));
-
-		for (int i = 0; i < face.indices.length; i++) {
-			Vector3f v = mesh.vertices.get(face.indices[i]);
-			Vector3f v0 = v.mult(m);
-			v.set(v.x, v0.y, v0.z);
-		}
-	}
-
-	public static void rotateFaceY(Mesh3D mesh, Face3D face, float a) {
-		Matrix3f m = new Matrix3f(Mathf.cos(a), 0, Mathf.sin(a), 0, 1, 0, -Mathf.sin(a), 0, Mathf.cos(a));
-
-		for (int i = 0; i < face.indices.length; i++) {
-			Vector3f v = mesh.vertices.get(face.indices[i]);
-			Vector3f v0 = v.mult(m);
-			v.set(v0.x, v.y, v0.z);
-		}
-	}
-
-	public static void rotateFaceZ(Mesh3D mesh, Face3D face, float a) {
-		Matrix3f m = new Matrix3f(Mathf.cos(a), -Mathf.sin(a), 0, Mathf.sin(a), Mathf.cos(a), 0, 0, 0, 1);
-
-		for (int i = 0; i < face.indices.length; i++) {
-			Vector3f v = mesh.vertices.get(face.indices[i]);
-			Vector3f v0 = v.mult(m);
-			v.set(v0.x, v0.y, v.z);
-		}
-	}
-
 	// TODO implement sort method
 	// http://stackoverflow.com/questions/6989100/sort-points-in-clockwise-order
 	public static void flipDirection(Mesh3D mesh, Face3D face) {
