@@ -16,7 +16,6 @@ public class VertexNormals {
 	private HashMap<Vector3f, List<Face3D>> vectorToFace;
 
 	public VertexNormals(Mesh3D mesh) {
-		super();
 		this.mesh = mesh;
 		vertexNormals = new ArrayList<>();
 		faceNormals = new HashMap<>();
