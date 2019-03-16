@@ -199,60 +199,6 @@ public class Mesh3DUtil {
 		}
 	}
 
-	public static void insetFace(Mesh3D mesh, Face3D f, float thickness) {
-		// FIXED: Works now for faces with vertices.length > 4 too
-		int n = f.indices.length;
-		int idx = mesh.vertices.size();
-		Vector3f normal = calculateFaceNormal(mesh, f);
-		Vector3f center = calculateFaceCenter(mesh, f);
-
-		List<Vector3f> verts = new ArrayList<Vector3f>();
-
-		for (int i = 0; i < n; i++) {
-			Vector3f v0 = mesh.vertices.get(f.indices[i]);
-			Vector3f v1 = mesh.vertices.get(f.indices[(i + 1) % f.indices.length]);
-
-			// Vector3f v2 = new Vector3f(v0).subtract(center).mult(scale)
-			// .add(center);
-
-			Vector3f edgeN = v1.add(v0).normalize();
-			// Vector3f mid = v0.add(v1).mult(0.5f);
-			// System.out.println(i);
-			// System.out.println(mid);
-
-			float distance = v1.subtract(v0).length();
-			float a = 1 / distance * thickness;
-
-			Vector3f v4 = v1.subtract(v0).mult(a).add(v0);
-			Vector3f v5 = v1.add(v1.subtract(v0).mult(-a));
-
-			// mesh.add(new Vector3f(v2));
-			// mesh.add(new Vector3f(v3));
-
-			verts.add(v4);
-			verts.add(v5);
-		}
-
-		for (int i = 1; i < verts.size(); i += 2) {
-			int a = verts.size() - 2 + i;
-			Vector3f v0 = verts.get(a % verts.size());
-			Vector3f v1 = verts.get((a + 1) % verts.size());
-			Vector3f v = v1.add(v0).mult(0.5f);
-			mesh.add(v);
-		}
-
-		// mesh.vertices.addAll(verts);
-
-		for (int i = 0; i < n; i++) {
-			Face3D f0 = new Face3D(f.indices[i], f.indices[(i + 1) % n], idx + ((i + 1) % n), idx + i);
-			mesh.add(f0);
-		}
-
-		for (int i = 0; i < n; i++) {
-			f.indices[i] = idx + i;
-		}
-	}
-
 	public static Vector3f calculateFaceNormal(Mesh3D mesh, int index) {
 		Face3D f = mesh.faces.get(index);
 		return calculateFaceNormal(mesh, f);
