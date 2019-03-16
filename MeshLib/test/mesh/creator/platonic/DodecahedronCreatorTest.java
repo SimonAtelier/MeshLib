@@ -4,12 +4,29 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import mesh.Mesh3D;
+import mesh.creator.IMeshCreator;
 import util.MeshTestUtil;
 
 public class DodecahedronCreatorTest {
 	
 	DodecahedronCreator creator = new DodecahedronCreator();
 	Mesh3D mesh = creator.create();
+	
+	@Test
+	public void creatorImplementsMeshCreatorInterface() {
+		Assert.assertTrue(creator instanceof IMeshCreator);
+	}
+	
+	@Test
+	public void creatorCreatedNewMeshInstanceWithEachCallOfCreate() {
+		DodecahedronCreator creator = new DodecahedronCreator();
+		Mesh3D previous = creator.create();
+		for (int i = 0; i < 20; i++) {
+			Mesh3D mesh = creator.create();
+			Assert.assertTrue(mesh != previous);
+			previous = mesh;
+		}
+	}
 	
 	@Test
 	public void createdMeshHasTwelveFaces() {
