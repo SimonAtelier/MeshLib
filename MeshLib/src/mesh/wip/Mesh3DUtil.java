@@ -11,28 +11,12 @@ import math.GeometryUtil;
 import math.Mathf;
 import math.Matrix3f;
 import math.Vector3f;
-import mesh.Edge3D;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.primitives.BoxCreator;
 import mesh.math.Bounds3;
 
 public class Mesh3DUtil {
-
-//	public static Collection<Edge3D> getEdges(Mesh3D mesh) {
-//		HashSet<Edge3D> edges = new HashSet<Edge3D>();
-//		for (Face3D f : mesh.faces) {
-//			for (int i = 0; i <= f.indices.length; i++) {
-//				int fromIndex = f.indices[i % f.indices.length];
-//				int toIndex = f.indices[(i + 1) % f.indices.length];
-//				Edge3D edge = new Edge3D(fromIndex, toIndex);
-//				Edge3D pair = new Edge3D(toIndex, fromIndex);
-//				if (!edges.contains(pair))
-//					edges.add(edge);
-//			}
-//		}
-//		return new ArrayList<Edge3D>(edges);
-//	}
 
 	public static Mesh3D toMesh(Bounds3 bounds) {
 		Mesh3D mesh = new BoxCreator(bounds.getWidth(), bounds.getHeight(), bounds.getDepth()).create();
@@ -193,14 +177,6 @@ public class Mesh3DUtil {
 		}
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param v0
-	 * @param v1
-	 * @param v2
-	 * @param v3
-	 */
 	public static void bridge(Mesh3D mesh, Vector3f v0, Vector3f v1, Vector3f v2, Vector3f v3) {
 		int idx0 = mesh.vertices.indexOf(v0);
 		int idx1 = mesh.vertices.indexOf(v1);
@@ -214,12 +190,6 @@ public class Mesh3DUtil {
 		mesh.faces.add(face);
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param f0
-	 * @param f1
-	 */
 	public static void bridge(Mesh3D mesh, Face3D f0, Face3D f1) {
 		Face3D f2 = new Face3D(f0.indices[0], f0.indices[1], f1.indices[1], f1.indices[0]);
 		Face3D f3 = new Face3D(f0.indices[1], f0.indices[2], f1.indices[2], f1.indices[1]);
@@ -240,36 +210,6 @@ public class Mesh3DUtil {
 		}
 	}
 
-	// public static Vector3f innkreis(Mesh3D mesh, Face3D face) {
-	// http://www.mathe-online.at/lernpfade/Schwerpunkte/?kapitel=3&navig=l
-	// Vector3f va = mesh.getVertexAt(face.indices[2]);
-	// Vector3f vb = mesh.getVertexAt(face.indices[1]);
-	// Vector3f vc = mesh.getVertexAt(face.indices[0]);
-	//
-	// float a = vb.subtract(vc).length();
-	// float b = vc.subtract(va).length();
-	// float c = va.subtract(vb).length();
-	// float u = a + b + c;
-	//
-	// Vector3f va0 = va.mult(a);
-	// Vector3f vb0 = vb.mult(b);
-	// Vector3f vc0 = vc.mult(c);
-	//
-	// Vector3f result = va0.add(vb0).add(vc0);
-	// result.divideLocal(u);
-	//
-	//// mesh.add(result);
-	//
-	// return result;
-	// }
-
-	/**
-	 * 
-	 * @param mesh
-	 * @param f
-	 * @param scale
-	 * @param amount
-	 */
 	public static void extrudeFace(Mesh3D mesh, Face3D f, float scale, float amount) {
 		// FIXED: Works now for faces with vertices.length > 4 too
 		int n = f.indices.length;
@@ -297,13 +237,6 @@ public class Mesh3DUtil {
 		}
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param f
-	 * @param thickness
-	 * @param amount
-	 */
 	public static void insetFace(Mesh3D mesh, Face3D f, float thickness) {
 		// FIXED: Works now for faces with vertices.length > 4 too
 		int n = f.indices.length;
@@ -358,23 +291,11 @@ public class Mesh3DUtil {
 		}
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param index
-	 * @return
-	 */
 	public static Vector3f calculateFaceNormal(Mesh3D mesh, int index) {
 		Face3D f = mesh.faces.get(index);
 		return calculateFaceNormal(mesh, f);
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param f
-	 * @return
-	 */
 	public static Vector3f calculateFaceNormal(Mesh3D mesh, Face3D f) {
 		// https://www.opengl.org/wiki/Calculating_a_Surface_Normal
 		Vector3f normal = new Vector3f();
@@ -401,10 +322,6 @@ public class Mesh3DUtil {
 		return normal.normalize();
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 */
 	public static void subdivide(Mesh3D mesh) {
 		List<Face3D> toAdd = new ArrayList<>();
 		HashMap<Vector3f, Integer> map = new HashMap<>();
@@ -461,11 +378,6 @@ public class Mesh3DUtil {
 		return append(meshes.toArray(new Mesh3D[meshes.size()]));
 	}
 
-	/**
-	 * 
-	 * @param meshes
-	 * @return
-	 */
 	public static Mesh3D append(Mesh3D... meshes) {
 		// FIXME copy vertices and faces
 		int n = 0;
@@ -492,25 +404,12 @@ public class Mesh3DUtil {
 		return mesh;
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param t
-	 */
 	public static void translate(Mesh3D mesh, Vector3f t) {
 		for (Vector3f v : mesh.vertices) {
 			v.addLocal(t);
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param mesh
-	 * @param f
-	 * @return
-	 * @version 0.2, Works now for faces with n vertices.
-	 */
 	public static Vector3f calculateFaceCenter(Mesh3D mesh, Face3D f) {
 		Vector3f center = new Vector3f();
 		for (int i = 0; i < f.indices.length; i++) {
@@ -519,27 +418,11 @@ public class Mesh3DUtil {
 		return center.divideLocal(f.indices.length);
 	}
 
-	/**
-	 * Works for faces with n vertices.
-	 * 
-	 * @param mesh
-	 * @param index
-	 * @return
-	 * @version 0.2, Works now for faces with n vertices.
-	 */
 	public static Vector3f calculateFaceCenter(Mesh3D mesh, int index) {
 		Face3D f = mesh.faces.get(index);
 		return calculateFaceCenter(mesh, f);
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param f
-	 * @param index
-	 * @param scale
-	 * @version 0.2, Works now for faces with n vertices.
-	 */
 	public static void scaleFace(Mesh3D mesh, Face3D f, float scale) {
 		Vector3f center = calculateFaceCenter(mesh, f);
 		for (int i = 0; i < f.indices.length; i++) {
@@ -548,24 +431,11 @@ public class Mesh3DUtil {
 		}
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param index
-	 * @param scale
-	 * @version 0.2, Works now for faces with n vertices.
-	 */
 	public static void scaleFaceAt(Mesh3D mesh, int index, float scale) {
 		Face3D f = mesh.faces.get(index);
 		scaleFace(mesh, f, scale);
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param radius
-	 * @return
-	 */
 	public static Mesh3D pushToSphere(Mesh3D mesh, float radius) {
 		return pushToSphere(mesh, new Vector3f(), radius);
 	}
@@ -579,13 +449,6 @@ public class Mesh3DUtil {
 		return mesh;
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param face
-	 * @param v
-	 * @return
-	 */
 	public static Mesh3D translateFace(Mesh3D mesh, Face3D face, Vector3f v) {
 		for (int i = 0; i < face.indices.length; i++) {
 			Vector3f v0 = mesh.vertices.get(face.indices[i]);
@@ -594,45 +457,23 @@ public class Mesh3DUtil {
 		return mesh;
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param scale
-	 */
 	public static void scale(Mesh3D mesh, float scale) {
 		for (Vector3f v : mesh.vertices) {
 			v.multLocal(scale);
 		}
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
 	public static void scale(Mesh3D mesh, float x, float y, float z) {
 		Vector3f scale = new Vector3f(x, y, z);
 		scale(mesh, scale);
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param scale
-	 */
 	public static void scale(Mesh3D mesh, Vector3f scale) {
 		for (Vector3f v : mesh.vertices) {
 			v.multLocal(scale);
 		}
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param index
-	 */
 	public static void removeFaceAt(Mesh3D mesh, int index) {
 		mesh.faces.remove(index);
 	}
@@ -654,44 +495,18 @@ public class Mesh3DUtil {
 	// mesh.faces.removeAll(toRemove);
 	// }
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param v
-	 * @return
-	 */
 	public static int indexOf(Mesh3D mesh, Vector3f v) {
 		return mesh.vertices.indexOf(v);
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param from
-	 * @param to
-	 * @return
-	 */
 	public static List<Face3D> getFaces(Mesh3D mesh, int from, int to) {
 		return new ArrayList<>(mesh.faces.subList(from, to));
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param from
-	 * @param to
-	 * @return
-	 */
 	public static List<Vector3f> getVertices(Mesh3D mesh, int from, int to) {
 		return new ArrayList<>(mesh.vertices.subList(from, to));
 	}
 
-	/**
-	 * 
-	 * @param mesh
-	 * @param s
-	 * @return a handle to the scaled copy of the provided mesh
-	 */
 	public static Mesh3D scaleCopy(Mesh3D mesh, Vector3f s) {
 		Mesh3D copy = new Mesh3D();
 		List<Vector3f> vertices = copy.vertices;
