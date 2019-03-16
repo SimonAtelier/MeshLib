@@ -4,8 +4,6 @@ import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.modifier.SpherifyModifier;
 import mesh.modifier.subdivision.TessellationEdgeModifier;
-import mesh.modifier.subdivision.TessellationFaceCenterModifier;
-import mesh.wip.Mesh3DUtil;
 
 public class QuadSphereCreator implements IMeshCreator {
 
