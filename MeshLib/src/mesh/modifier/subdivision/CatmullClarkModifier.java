@@ -46,7 +46,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 	public Mesh3D modify(Mesh3D mesh) {
 		this.meshToSubdivide = mesh;
 		for (int i = 0; i < subdivisions; i++) {
-			originalVertexCount = mesh.getVertexCount();
+			setMeshToSubdivide(mesh);
 			clearMaps();
 			subdivideMesh();
 			processEdgePoints();
@@ -205,6 +205,10 @@ public class CatmullClarkModifier implements IMeshModifier {
 		meshToSubdivide.faces.removeAll(facesToRemove);
 		// add all new faces to the mesh
 		meshToSubdivide.faces.addAll(facesToAdd);
+	}
+	
+	private void setMeshToSubdivide(Mesh3D mesh) {
+		originalVertexCount = mesh.getVertexCount();
 	}
 
 	public int getSubdivisions() {
