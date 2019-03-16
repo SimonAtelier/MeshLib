@@ -37,8 +37,6 @@ Creates a *Tetrahedron* with four faces, six edges, and four vertices.
 The deault length of the edges is 2√2.
 * **Radius** The radius of the Tetrahedron (1.0f by default).
 
-![Tetrahedron](./images/tetrahedron-creator.png)
-
 ```java
 import mesh.Mesh3D;
 import mesh.creator.platonic.TetrahedronCreator;
@@ -53,8 +51,6 @@ Creates a *Hexahedron* with six faces, twelve edges, and four vertices.
 The length of each edge is 2 by default.
 * **Radius** The radius of the Hexahedron (1.0f by default). The length of each edge is twice as large as the given radius.
 
-![Hexahedron](./images/hexahedron-creator.png)
-
 ```java
 import mesh.Mesh3D;
 import mesh.creator.platonic.HexahedronCreator;
@@ -68,8 +64,6 @@ mesh = creator.create();
 
 ### Octahedron Creator
 
-![Octahedron](./images/octahedron-creator.png)
-
 ```java
 import mesh.Mesh3D;
 import mesh.creator.platonic.OctahedronCreator;
@@ -79,8 +73,6 @@ Mesh3D mesh = creator.create();
 ```
 ### Dodecahedron Creator
 
-![Dodecahedron](./images/dodecahedron-creator.png)
-
 ```java
 import mesh.Mesh3D;
 import mesh.creator.platonic.DodecahedronCreator;
@@ -89,8 +81,6 @@ DodecahedronCreator creator = new DodecahedronCreator();
 Mesh3D mesh = creator.create();
 ```
 ### Icosahedron Creator
-
-![Icosahedron](./images/icosahedron-creator.png)
 
 ```java
 import mesh.Mesh3D;
