@@ -418,11 +418,6 @@ public class Mesh3DUtil {
 		return center.divideLocal(f.indices.length);
 	}
 
-	public static Vector3f calculateFaceCenter(Mesh3D mesh, int index) {
-		Face3D f = mesh.faces.get(index);
-		return calculateFaceCenter(mesh, f);
-	}
-
 	public static void scaleFace(Mesh3D mesh, Face3D f, float scale) {
 		Vector3f center = calculateFaceCenter(mesh, f);
 		for (int i = 0; i < f.indices.length; i++) {
