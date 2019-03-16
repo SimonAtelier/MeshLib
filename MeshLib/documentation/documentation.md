@@ -36,7 +36,7 @@ The following table gives a quick overview:
 
 #### Tetrahedron Creator
 Creates a *Tetrahedron* with four faces, six edges, and four vertices.
-The length of each edge is 2 by default.
+* **Radius** The radius of the Tetrahedron (1.0f by default).
 
 ```java
 import mesh.Mesh3D;
@@ -49,6 +49,7 @@ Mesh3D mesh = creator.create();
 
 #### Hexahedron Creator
 Creates a *Hexahedron* with six faces, twelve edges, and four vertices.
+The length of each edge is 2 by default.
 * **Radius** The radius of the Hexahedron (1.0f by default). The length of each edge is twice as large as the given radius.
 
 ```java
