@@ -481,10 +481,6 @@ public class Mesh3DUtil {
 		return mesh.vertices.indexOf(v);
 	}
 
-	public static List<Face3D> getFaces(Mesh3D mesh, int from, int to) {
-		return new ArrayList<>(mesh.faces.subList(from, to));
-	}
-
 	public static Mesh3D scaleCopy(Mesh3D mesh, Vector3f s) {
 		Mesh3D copy = new Mesh3D();
 		List<Vector3f> vertices = copy.vertices;

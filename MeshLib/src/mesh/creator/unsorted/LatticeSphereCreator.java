@@ -1,6 +1,5 @@
 package mesh.creator.unsorted;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mesh.Face3D;
@@ -38,8 +37,7 @@ public class LatticeSphereCreator implements IMeshCreator {
 	}
 
 	private void extrudeFaces() {
-		List<Face3D> faces = new ArrayList<Face3D>(Mesh3DUtil.getFaces(mesh, 0,
-				mesh.getFaceCount()));
+		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D f : faces) {
 			Mesh3DUtil.extrudeFace(mesh, f, scale, 0);
 		}
