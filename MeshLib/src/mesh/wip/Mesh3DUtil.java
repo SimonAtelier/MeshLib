@@ -485,10 +485,6 @@ public class Mesh3DUtil {
 		return new ArrayList<>(mesh.faces.subList(from, to));
 	}
 
-	public static List<Vector3f> getVertices(Mesh3D mesh, int from, int to) {
-		return new ArrayList<>(mesh.vertices.subList(from, to));
-	}
-
 	public static Mesh3D scaleCopy(Mesh3D mesh, Vector3f s) {
 		Mesh3D copy = new Mesh3D();
 		List<Vector3f> vertices = copy.vertices;
