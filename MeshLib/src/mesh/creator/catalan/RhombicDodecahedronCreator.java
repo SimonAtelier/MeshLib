@@ -47,7 +47,7 @@ public class RhombicDodecahedronCreator implements IMeshCreator {
 		initializeMesh();
 		createVertices();
 		createFaces();
-		return mesh.scale(0.5f);
+		return mesh;
 	}
 	
 }
