@@ -448,8 +448,4 @@ public class Mesh3DUtil {
 		mesh.faces.remove(index);
 	}
 
-	public static int indexOf(Mesh3D mesh, Vector3f v) {
-		return mesh.vertices.indexOf(v);
-	}
-
 }
