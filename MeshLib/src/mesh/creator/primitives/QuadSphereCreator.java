@@ -3,6 +3,8 @@ package mesh.creator.primitives;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.modifier.SpherifyModifier;
+import mesh.modifier.subdivision.TessellationEdgeModifier;
+import mesh.modifier.subdivision.TessellationFaceCenterModifier;
 import mesh.wip.Mesh3DUtil;
 
 public class QuadSphereCreator implements IMeshCreator {
@@ -24,7 +26,7 @@ public class QuadSphereCreator implements IMeshCreator {
 	public Mesh3D create() {
 		Mesh3D mesh = new CubeCreator().create();
 		for (int i = 0; i < subdivisions; i++) {
-			Mesh3DUtil.subdivide(mesh);
+			new TessellationEdgeModifier().modify(mesh);
 		}
 		mesh.scale(radius);
 		new SpherifyModifier(radius).modify(mesh);
