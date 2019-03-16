@@ -8,7 +8,6 @@ import java.util.List;
 
 import math.GeometryUtil;
 import math.Mathf;
-import math.Matrix3f;
 import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
