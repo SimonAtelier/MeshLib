@@ -46,7 +46,6 @@ public class CatmullClarkModifier implements IMeshModifier {
 	}
 
 	public CatmullClarkModifier(int subdivisions) {
-		super();
 		this.subdivisions = subdivisions;
 		this.originalVertexCount = 0;
 		this.mesh = null; // TODO Decide if we initialize with = new Mesh3D();
