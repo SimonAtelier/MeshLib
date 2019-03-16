@@ -450,11 +450,6 @@ public class Mesh3DUtil {
 		}
 	}
 
-	public static void scale(Mesh3D mesh, float x, float y, float z) {
-		Vector3f scale = new Vector3f(x, y, z);
-		scale(mesh, scale);
-	}
-
 	public static void scale(Mesh3D mesh, Vector3f scale) {
 		for (Vector3f v : mesh.vertices) {
 			v.multLocal(scale);

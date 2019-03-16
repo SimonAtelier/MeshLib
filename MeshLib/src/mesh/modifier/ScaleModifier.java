@@ -1,7 +1,6 @@
 package mesh.modifier;
 
 import mesh.Mesh3D;
-import mesh.wip.Mesh3DUtil;
 
 public class ScaleModifier implements IMeshModifier {
 
@@ -29,7 +28,7 @@ public class ScaleModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		Mesh3DUtil.scale(mesh, scaleX, scaleY, scaleZ);
+		mesh.scale(scaleX, scaleY, scaleZ);
 		return mesh;
 	}
 
