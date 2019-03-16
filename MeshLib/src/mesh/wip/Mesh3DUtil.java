@@ -460,23 +460,6 @@ public class Mesh3DUtil {
 		mesh.faces.remove(index);
 	}
 
-	// /**
-	// * Will also remove faces.
-	// *
-	// * @param mesh
-	// * @param index
-	// */
-	// public static void removeVertexAt(Mesh3D mesh, int index) {
-	// List<Face3D> toRemove = new ArrayList<>();
-	// mesh.vertices.remove(index);
-	// for (Face3D f : mesh.faces) {
-	// if (f.containsIndex(index)) {
-	// toRemove.add(f);
-	// }
-	// }
-	// mesh.faces.removeAll(toRemove);
-	// }
-
 	public static int indexOf(Mesh3D mesh, Vector3f v) {
 		return mesh.vertices.indexOf(v);
 	}
