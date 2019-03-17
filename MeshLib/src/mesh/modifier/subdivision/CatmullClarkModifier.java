@@ -144,6 +144,16 @@ public class CatmullClarkModifier implements IMeshModifier {
 			}
 		}
 	}
+	
+	private Vector3f calculateFacePoint(Face3D face) {
+		Vector3f facePoint = new Vector3f();
+		for (int i = 0; i < face.indices.length; i++) {
+			Vector3f v = getVertexAt(face.indices[i]);
+			facePoint.addLocal(v);
+		}
+		facePoint.divideLocal(face.indices.length);
+		return facePoint;
+	}
 
 	private void processFace(Face3D face) {
 		int faceIndexCount = face.indices.length;
@@ -152,31 +162,19 @@ public class CatmullClarkModifier implements IMeshModifier {
 		Vector3f[] vertices = new Vector3f[faceIndexCount];
 		Vector3f[] edgePoints = new Vector3f[faceIndexCount];
 
-		// face point F = average of all points defining the face (center)
-		Vector3f facePoint = new Vector3f();
-
-		for (int i = 0; i < faceIndexCount; i++) {
-			Vector3f v = getVertexAt(face.indices[i]);
-			facePoint.addLocal(v);
-			vertices[i] = v;
-		}
-
-		facePoint.divideLocal(face.indices.length);
+		Vector3f facePoint = calculateFacePoint(face);
 		// store face point
 		meshToSubdivide.vertices.add(facePoint);
+		
 		// face point index
 		idxs[0] = nextVertexIndex;
 		nextVertexIndex++;
-
-		// edges of the face
-		for (int i = 0; i < faceIndexCount; i++) {
-			Edge3D edge = new Edge3D(face.indices[i % faceIndexCount], face.indices[(i + 1) % faceIndexCount]);
-			edges[i] = edge;
-			// map edges to face point
-			mapEdgesToFacePoints.put(edge, facePoint);
-			// midpoints (edge points)
-			edgePoints[i] = GeometryUtil.getMidpoint(vertices[i % faceIndexCount], vertices[(i + 1) % faceIndexCount]);
+		
+		for (int i = 0; i < face.indices.length; i++) {
+			vertices[i] = getVertexAt(face.indices[i]);
 		}
+		
+		progessEdges(face, edges, vertices, edgePoints, facePoint);
 
 		incrementEdgesOutgoingFromAVertex(edges);
 
@@ -219,6 +217,22 @@ public class CatmullClarkModifier implements IMeshModifier {
 
 			// map vertices to edge point
 			edgePoints2.add(new Vector3f(edgePoints[i]));
+		}
+	}
+
+	private void progessEdges(Face3D face, Edge3D[] edges, Vector3f[] vertices,
+			Vector3f[] edgePoints, Vector3f facePoint) {
+		int faceIndexCount = face.indices.length;
+		// edges of the face
+		for (int i = 0; i < faceIndexCount; i++) {
+			int fromIndex = face.indices[i % faceIndexCount];
+			int toIndex = face.indices[(i + 1) % faceIndexCount];
+			Edge3D edge = new Edge3D(fromIndex, toIndex);
+			edges[i] = edge;
+			// map edges to face point
+			mapEdgesToFacePoints.put(edge, facePoint);
+			// midpoints (edge points)
+			edgePoints[i] = GeometryUtil.getMidpoint(getVertexAt(fromIndex), getVertexAt(toIndex));
 		}
 	}
 
