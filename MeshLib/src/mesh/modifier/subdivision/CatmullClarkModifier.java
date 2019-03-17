@@ -38,10 +38,10 @@ public class CatmullClarkModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		this.meshToSubdivide = mesh;
+		setMeshToSubdivide(mesh);
 		for (int i = 0; i < subdivisions; i++) {
-			setOriginalVertexCount(mesh.getVertexCount());
 			clearMaps();
+			setOriginalVertexCount(mesh.getVertexCount());
 			subdivideMesh();
 			processEdgePoints();
 			smoothVertices();
@@ -77,12 +77,12 @@ public class CatmullClarkModifier implements IMeshModifier {
 
 	private void countEdgesOutgoingFromAVertex(Edge3D[] edges) {
 		for (Edge3D edge : edges) {
-			Integer n = mapVertexIndexToNumberOfOutgoingEdges.get(edge.getFromIndex());
-			if (n == null) {
-				n = 0;
+			Integer outgoingEdges = mapVertexIndexToNumberOfOutgoingEdges.get(edge.getFromIndex());
+			if (outgoingEdges == null) {
+				outgoingEdges = 0;
 			}
-			n++;
-			mapVertexIndexToNumberOfOutgoingEdges.put(edge.getFromIndex(), n);
+			outgoingEdges++;
+			mapVertexIndexToNumberOfOutgoingEdges.put(edge.getFromIndex(), outgoingEdges);
 		}
 	}
 
@@ -167,7 +167,8 @@ public class CatmullClarkModifier implements IMeshModifier {
 
 		for (int i = 0; i < n; i++) {
 			// adjacent edge already processed?
-			Integer edgePointIndex = mapEdgesToEdgePointIndicies.get(new Edge3D(edges[i].getToIndex(), edges[i].getFromIndex()));
+			Edge3D edge = new Edge3D(edges[i].getToIndex(), edges[i].getFromIndex());
+			Integer edgePointIndex = mapEdgesToEdgePointIndicies.get(edge);
 			if (edgePointIndex == null) {
 				meshToSubdivide.vertices.add(edgePoints[i]); // next index + 1
 				idxs[i + 1] = index;
@@ -204,6 +205,10 @@ public class CatmullClarkModifier implements IMeshModifier {
 			edgePoints2.add(new Vector3f(edgePoints[i]));
 		}
 		return index;
+	}
+	
+	private void setMeshToSubdivide(Mesh3D meshToSubdivide) {
+		this.meshToSubdivide = meshToSubdivide;
 	}
 	
 	private void setOriginalVertexCount(int originalVertexCount) {
