@@ -163,45 +163,46 @@ public class CatmullClarkModifier implements IMeshModifier {
 	}
 
 	private void processFace(Face3D face) {
-		int[] idxs = new int[face.indices.length + 1];
+		int[] indices = new int[face.indices.length + 1];
 		Edge3D[] edges = new Edge3D[face.indices.length];
-		Vector3f[] edgePoints;
-
+		
 		Vector3f facePoint = calculateFacePoint(face);
 		
 		// store face point
 		meshToSubdivide.vertices.add(facePoint);
 		// face point index
-		idxs[0] = nextVertexIndex;
+		indices[0] = nextVertexIndex;
 		nextVertexIndex++;
 		
-		edgePoints = progessEdges(face, edges, facePoint);
-
+		Vector3f[] edgePoints = progessEdges(face, edges, facePoint);
 		incrementEdgesOutgoingFromAVertex(edges);
-
+		
 		for (int i = 0; i < face.indices.length; i++) {
-			// adjacent edge already processed?
-//			Edge3D edge = new Edge3D(edges[i].getToIndex(), edges[i].getFromIndex());
-			
-			Edge3D edge = new Edge3D( face.indices[(i + 1) % face.indices.length], face.indices[i % face.indices.length]);
-			
-			Integer edgePointIndex = mapEdgesToEdgePointIndicies.get(edge);
-			if (edgePointIndex == null) {
-				meshToSubdivide.vertices.add(edgePoints[i]); // next index + 1
-				idxs[i + 1] = nextVertexIndex;
-				mapEdgesToEdgePointIndicies.put(edges[i], nextVertexIndex);
-				nextVertexIndex++;
-			} else {
-				idxs[i + 1] = edgePointIndex;
-				mapEdgesToEdgePointIndicies.put(edges[i], edgePointIndex);
-			}
-			
 			int vertexIndex = face.indices[i];
 			mapVertexToFacePoint(vertexIndex, facePoint);
 			mapVertexToEdgePoint(vertexIndex, edgePoints[i]);
+			indices[i + 1] = calculateEdgePointIndex(edges[i], edgePoints[i]);
+			mapEdgesToEdgePointIndicies.put(edges[i], indices[i + 1]);
 		}
 
-		createNewFaces(face, idxs);
+		createNewFaces(face, indices);
+	}
+
+	private int calculateEdgePointIndex(Edge3D edge, Vector3f edgePoint) {
+		Edge3D adjacentEdge = createPair(edge);
+		Integer edgePointIndex = mapEdgesToEdgePointIndicies.get(adjacentEdge);
+		
+		if (edgePointIndex == null) {
+			meshToSubdivide.vertices.add(edgePoint);
+			edgePointIndex = nextVertexIndex;
+			nextVertexIndex++;
+		}
+			
+		return edgePointIndex;
+	}
+	
+	private Edge3D createPair(Edge3D edge) {
+		 return new Edge3D(edge.getToIndex(), edge.getFromIndex());
 	}
 
 	private void createNewFaces(Face3D face, int[] idxs) {
