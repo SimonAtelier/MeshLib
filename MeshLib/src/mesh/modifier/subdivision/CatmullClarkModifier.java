@@ -159,8 +159,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		int faceIndexCount = face.indices.length;
 		int[] idxs = new int[faceIndexCount + 1];
 		Edge3D[] edges = new Edge3D[faceIndexCount];
-		Vector3f[] vertices = new Vector3f[faceIndexCount];
-		Vector3f[] edgePoints = new Vector3f[faceIndexCount];
+		Vector3f[] edgePoints;
 
 		Vector3f facePoint = calculateFacePoint(face);
 		// store face point
@@ -170,11 +169,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		idxs[0] = nextVertexIndex;
 		nextVertexIndex++;
 		
-		for (int i = 0; i < face.indices.length; i++) {
-			vertices[i] = getVertexAt(face.indices[i]);
-		}
-		
-		progessEdges(face, edges, vertices, edgePoints, facePoint);
+		edgePoints = progessEdges(face, edges, facePoint);
 
 		incrementEdgesOutgoingFromAVertex(edges);
 
@@ -220,10 +215,9 @@ public class CatmullClarkModifier implements IMeshModifier {
 		}
 	}
 
-	private void progessEdges(Face3D face, Edge3D[] edges, Vector3f[] vertices,
-			Vector3f[] edgePoints, Vector3f facePoint) {
+	private Vector3f[] progessEdges(Face3D face, Edge3D[] edges, Vector3f facePoint) {
 		int faceIndexCount = face.indices.length;
-		// edges of the face
+		Vector3f[] edgePoints = new Vector3f[faceIndexCount];
 		for (int i = 0; i < faceIndexCount; i++) {
 			int fromIndex = face.indices[i % faceIndexCount];
 			int toIndex = face.indices[(i + 1) % faceIndexCount];
@@ -231,9 +225,16 @@ public class CatmullClarkModifier implements IMeshModifier {
 			edges[i] = edge;
 			// map edges to face point
 			mapEdgesToFacePoints.put(edge, facePoint);
-			// midpoints (edge points)
-			edgePoints[i] = GeometryUtil.getMidpoint(getVertexAt(fromIndex), getVertexAt(toIndex));
+			edgePoints[i] = calculateMidpoint(edge);
 		}
+		return edgePoints;
+	}
+	
+	private Vector3f calculateMidpoint(Edge3D edge) {
+		Vector3f fromVertex = getVertexAt(edge.getFromIndex());
+		Vector3f toVertex = getVertexAt(edge.getToIndex());
+		Vector3f midpoint = GeometryUtil.getMidpoint(fromVertex, toVertex);
+		return midpoint;
 	}
 
 	private Vector3f getVertexAt(int index) {
