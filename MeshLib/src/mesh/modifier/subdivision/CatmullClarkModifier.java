@@ -58,21 +58,21 @@ public class CatmullClarkModifier implements IMeshModifier {
 	}
 
 	private Vector3f getFacePointsAverage(int index) {
-		Vector3f v0 = new Vector3f();
+		Vector3f average = new Vector3f();
 		List<Vector3f> facePoints = mapOriginalVerticesToFacePoints.get(index);
-		for (Vector3f v1 : facePoints) {
-			v0.addLocal(v1);
+		for (Vector3f facePoint : facePoints) {
+			average.addLocal(facePoint);
 		}
-		return v0.mult(1f / (float) facePoints.size());
+		return average.mult(1f / (float) facePoints.size());
 	}
 
 	private Vector3f getEdgePointAverage(int index) {
-		Vector3f v0 = new Vector3f();
+		Vector3f average = new Vector3f();
 		List<Vector3f> edgePoints = mapVerticesToEdgePoints.get(index);
-		for (Vector3f v1 : edgePoints) {
-			v0.addLocal(v1);
+		for (Vector3f edgePoint : edgePoints) {
+			average.addLocal(edgePoint);
 		}
-		return v0.mult(1f / (float) edgePoints.size());
+		return average.mult(1f / (float) edgePoints.size());
 	}
 
 	private void countEdgesOutgoingFromAVertex(Edge3D[] edges) {
