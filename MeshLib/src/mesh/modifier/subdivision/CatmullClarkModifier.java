@@ -195,38 +195,42 @@ public class CatmullClarkModifier implements IMeshModifier {
 				idxs[i + 1] = edgePointIndex;
 				mapEdgesToEdgePointIndicies.put(edges[i], edgePointIndex);
 			}
-		}
-
-		extractedMethod(face, idxs, edgePoints, facePoint);
-	}
-
-	private void extractedMethod(Face3D face, int[] idxs, Vector3f[] edgePoints, Vector3f facePoint) {
-		for (int i = 0; i < face.indices.length; i++) {
+			
 			int vertexIndex = face.indices[i];
-			// create new faces
-			Face3D f0 = new Face3D(face.indices[i], idxs[i + 1], idxs[0], idxs[i == 0 ? face.indices.length : i]);
-			newFacesToAdd.add(f0);
 			mapVertexToFacePoint(vertexIndex, facePoint);
 			mapVertexToEdgePoint(vertexIndex, edgePoints[i]);
+		}
+
+		createNewFaces(face, idxs);
+	}
+
+	private void createNewFaces(Face3D face, int[] idxs) {
+		for (int index = 0; index < face.indices.length; index++) {
+			int index0 = face.indices[index];
+			int index1 = idxs[index + 1];
+			int index2 = idxs[0];
+			int index3 = idxs[index == 0 ? face.indices.length : index];
+			Face3D newFace = new Face3D(index0, index1, index2, index3);
+			newFacesToAdd.add(newFace);
 		}
 	}
 	
 	private void mapVertexToFacePoint(int vertexIndex, Vector3f facePoint) {
-		List<Vector3f> facepoints = mapOriginalVerticesToFacePoints.get(vertexIndex);
-		if (facepoints == null) {
-			facepoints = new ArrayList<Vector3f>();
-			mapOriginalVerticesToFacePoints.put(vertexIndex, facepoints);
+		List<Vector3f> facePoints = mapOriginalVerticesToFacePoints.get(vertexIndex);
+		if (facePoints == null) {
+			facePoints = new ArrayList<Vector3f>();
+			mapOriginalVerticesToFacePoints.put(vertexIndex, facePoints);
 		}
-		facepoints.add(facePoint);
+		facePoints.add(facePoint);
 	}
 	
 	private void mapVertexToEdgePoint(int vertexIndex, Vector3f edgePoint) {
-		List<Vector3f> edgePoints2 = mapVerticesToEdgePoints.get(vertexIndex);
-		if (edgePoints2 == null) {
-			edgePoints2 = new ArrayList<Vector3f>();
-			mapVerticesToEdgePoints.put(vertexIndex, edgePoints2);
+		List<Vector3f> edgePoints = mapVerticesToEdgePoints.get(vertexIndex);
+		if (edgePoints == null) {
+			edgePoints = new ArrayList<Vector3f>();
+			mapVerticesToEdgePoints.put(vertexIndex, edgePoints);
 		}
-		edgePoints2.add(edgePoint);
+		edgePoints.add(edgePoint);
 	}
 
 	private Vector3f[] progessEdges(Face3D face, Edge3D[] edges, Vector3f facePoint) {
