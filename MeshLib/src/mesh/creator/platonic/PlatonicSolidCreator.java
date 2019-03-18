@@ -8,7 +8,7 @@ public class PlatonicSolidCreator implements IMeshCreator {
 	private PlatonicSolid type;
 
 	public PlatonicSolidCreator(PlatonicSolid type) {
-		this.type = type;
+		setType(type);
 	}
 	
 	protected IMeshCreator getCreator() {
@@ -34,11 +34,9 @@ public class PlatonicSolidCreator implements IMeshCreator {
 		return creator.create();
 	}
 
-	public PlatonicSolid getType() {
-		return type;
-	}
-
-	public void setType(PlatonicSolid type) {
+	private void setType(PlatonicSolid type) {
+		if (type == null)
+			throw new IllegalArgumentException();
 		this.type = type;
 	}
 	
