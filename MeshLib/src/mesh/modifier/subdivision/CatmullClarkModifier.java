@@ -47,14 +47,18 @@ public class CatmullClarkModifier implements IMeshModifier {
 	public Mesh3D modify(Mesh3D mesh) {
 		setMeshToSubdivide(mesh);
 		for (int i = 0; i < subdivisions; i++) {
-			clearMaps();
-			clearFaceLists();
-			setOriginalVertexCount(mesh.getVertexCount());
-			subdivideMesh();
-			smoothEdgePoints();
-			smoothOriginalVertices();
+			processOneSubdivisionIteration();
 		}
 		return mesh;
+	}
+	
+	private void processOneSubdivisionIteration() {
+		clearMaps();
+		clearFaceLists();
+		setOriginalVertexCountFromCurrentMesh();
+		subdivideMesh();
+		smoothEdgePoints();
+		smoothOriginalVertices();
 	}
 
 	private void subdivideMesh() {
@@ -126,17 +130,13 @@ public class CatmullClarkModifier implements IMeshModifier {
 			Edge3D pair = new Edge3D(edge.getToIndex(), edge.getFromIndex());
 			Vector3f fromIndex = getVertexAt(edge.getFromIndex());
 			Vector3f toIndex = getVertexAt(edge.getToIndex());
-			Vector3f fp0 = getMappedFacePoint(edge);
-			Vector3f fp1 = getMappedFacePoint(pair);
+			Vector3f fp0 = mapEdgesToFacePoints.get(edge);
+			Vector3f fp1 = mapEdgesToFacePoints.get(pair);
 			if (fromIndex != null && toIndex != null && fp0 != null && fp1 != null) {
 				Vector3f edgePoint = fromIndex.add(toIndex).add(fp0).add(fp1).mult(0.25f);
 				getVertexAt(index).set(edgePoint);
 			}
 		}
-	}
-	
-	private Vector3f getMappedFacePoint(Edge3D edge) {
-		return mapEdgesToFacePoints.get(edge);
 	}
 
 	private void processFace(Face3D face) {
@@ -145,7 +145,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		Vector3f facePoint = calculateFaceCenter(face);
 
 		indices[0] = addFacePointToMesh(facePoint);
-
+		
 		for (int index = 0; index < faceIndicesLength; index++) {
 			int vertexIndex = face.indices[index];
 			Edge3D edge = createEdge(face, index);
@@ -184,8 +184,9 @@ public class CatmullClarkModifier implements IMeshModifier {
 		Edge3D adjacentEdge = createPair(edge);
 		Integer edgePointIndex = mapEdgesToEdgePointIndicies.get(adjacentEdge);
 
-		if (edgePointIndex == null)
+		if (edgePointIndex == null) {
 			edgePointIndex = addVertex(edgePoint);
+		}
 
 		return edgePointIndex;
 	}
@@ -264,8 +265,8 @@ public class CatmullClarkModifier implements IMeshModifier {
 		this.meshToSubdivide = meshToSubdivide;
 	}
 
-	private void setOriginalVertexCount(int originalVertexCount) {
-		this.originalVertexCount = originalVertexCount;
+	private void setOriginalVertexCountFromCurrentMesh() {
+		this.originalVertexCount = meshToSubdivide.getVertexCount();
 	}
 
 	public int getSubdivisions() {
