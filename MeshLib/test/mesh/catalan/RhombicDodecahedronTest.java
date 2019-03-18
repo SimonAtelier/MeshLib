@@ -53,5 +53,10 @@ public class RhombicDodecahedronTest {
 	public void eachEdgeOfTheCreatedMeshIsIncidentToOnlyOneOrTwoFaces() {
 		MeshTestUtil.eachEdgeIsIncidentToOnlyOneOrTwoFaces(mesh);
 	}
+
+	@Test
+	public void createdMeshHasTwelveFacesQuadFaces() {
+		Assert.assertEquals(12, mesh.getNumberOfFacesWithVertexCountOfN(4));
+	}
 	
 }
