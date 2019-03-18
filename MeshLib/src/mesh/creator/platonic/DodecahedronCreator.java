@@ -1,54 +1,61 @@
 package mesh.creator.platonic;
 
 import math.Mathf;
-import math.Vector3f;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 
 public class DodecahedronCreator implements IMeshCreator {
 	
-	private static final float GOLDEN_RATIO = 0.5f * (1 + Mathf.sqrt(5));
-	private static final float TWO_FIFTHS_PI = Mathf.PI * 0.4f;
-	
-	private float radius;
+	private float h;
+	private float hSquared;
+	private float radius = 1;
 	private Mesh3D mesh;
-
+	
 	public DodecahedronCreator() {
-		this.radius = Mathf.sqrt(3f) / 4f * (1f + Mathf.sqrt(5f));
+		h = (-1 - Mathf.sqrt(5)) * 0.5f;
+		hSquared = h * h;
 	}
-
-	public DodecahedronCreator(float radius) {
-		this.radius = radius;
+	
+	private void createVerticesOnCube() {
+		mesh.addVertex(1, -1, -1);
+		mesh.addVertex(1, -1, 1);
+		mesh.addVertex(-1, -1, 1);
+		mesh.addVertex(-1, -1, -1);
+		mesh.addVertex(1, 1, -1);
+		mesh.addVertex(1, 1, 1);
+		mesh.addVertex(-1, 1, 1);
+		mesh.addVertex(-1, 1, -1);
 	}
-
+	
 	private void createVertices() {
-		float scalar = 3.2945564f;
-		for (int i = 0; i < 5; i++) {
-			Vector3f v0 = new Vector3f(2 * Mathf.cos(TWO_FIFTHS_PI * i),
-					2 * Mathf.sin(TWO_FIFTHS_PI * i), GOLDEN_RATIO + 1);
-			Vector3f v1 = new Vector3f(2 * GOLDEN_RATIO
-					* Mathf.cos(TWO_FIFTHS_PI * i), 2 * GOLDEN_RATIO
-					* Mathf.sin(TWO_FIFTHS_PI * i), GOLDEN_RATIO - 1);
-			mesh.add(v0.divide(scalar).mult(radius));
-			mesh.add(v0.negate().divide(scalar).mult(radius));
-			mesh.add(v1.divide(scalar).mult(radius));
-			mesh.add(v1.negate().divide(scalar).mult(radius));
-		}
+		createVerticesOnCube();
+		mesh.addVertex(0, -(1 + h), (1 -hSquared));
+		mesh.addVertex(0, -(1 + h), -(1 - hSquared));
+		mesh.addVertex(0, (1 + h), (1 - hSquared));
+		mesh.addVertex(0, (1 + h), -(1 - hSquared));
+		mesh.addVertex(-(1 + h), (1 - hSquared), 0);
+		mesh.addVertex(-(1 + h), -(1 - hSquared), 0);
+		mesh.addVertex((1 + h), (1 - hSquared), 0);
+		mesh.addVertex((1 + h), -(1 - hSquared), 0);
+		mesh.addVertex(-(1 - hSquared), 0, (1 + h));
+		mesh.addVertex(-(1 - hSquared), 0, -(1 + h));
+		mesh.addVertex((1 - hSquared), 0, (1 + h));
+		mesh.addVertex((1 - hSquared), 0, -(1 + h));
 	}
-
+	
 	private void createFaces() {
-		mesh.addFace(4, 8, 12, 16, 0);
-		mesh.addFace(6, 19, 10, 8, 4);
-		mesh.addFace(10, 3, 14, 12, 8);
-		mesh.addFace(14, 7, 18, 16, 12);
-		mesh.addFace(18, 11, 2, 0, 16);
-		mesh.addFace(2, 15, 6, 4, 0);
-		mesh.addFace(17, 1, 3, 10, 19);
-		mesh.addFace(1, 5, 7, 14, 3);
-		mesh.addFace(5, 9, 11, 18, 7);
-		mesh.addFace(9, 13, 15, 2, 11);
-		mesh.addFace(13, 17, 19, 6, 15);
-		mesh.addFace(13, 9, 5, 1, 17);
+		mesh.addFace(12, 1, 11, 2, 14);
+		mesh.addFace(12, 0, 16, 17, 1);
+		mesh.addFace(1, 17, 5, 9, 11);
+		mesh.addFace(2, 11, 9, 6, 19);
+		mesh.addFace(12, 14, 3, 10, 0);
+		mesh.addFace(0, 10, 8, 4, 16);
+		mesh.addFace(14, 2, 19, 18, 3);
+		mesh.addFace(3, 18, 7, 8, 10);
+		mesh.addFace(9, 5, 13, 15, 6);
+		mesh.addFace(16, 4, 13, 5, 17);
+		mesh.addFace(18, 19, 6, 15, 7);
+		mesh.addFace(15, 13, 4, 8, 7);
 	}
 
 	@Override
@@ -56,15 +63,9 @@ public class DodecahedronCreator implements IMeshCreator {
 		mesh = new Mesh3D();
 		createVertices();
 		createFaces();
+		mesh.scale(1 / -h);
+		mesh.scale(radius);
 		return mesh;
-	}
-
-	public float getRadius() {
-		return radius;
-	}
-
-	public void setRadius(float radius) {
-		this.radius = radius;
 	}
 	
 }
