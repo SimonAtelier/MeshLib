@@ -33,6 +33,11 @@ public class HexahedronCreatorTest {
 	}
 	
 	@Test
+	public void createdMeshHasSixSquareFaces() {
+		Assert.assertEquals(6, mesh.getNumberOfFacesWithVertexCountOfN(4));
+	}
+	
+	@Test
 	public void createdMeshHasUniqueVertices() {
 		MeshTestUtil.meshHasUniqueVertices(mesh);
 	}
