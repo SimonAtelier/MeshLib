@@ -126,13 +126,17 @@ public class CatmullClarkModifier implements IMeshModifier {
 			Edge3D pair = new Edge3D(edge.getToIndex(), edge.getFromIndex());
 			Vector3f fromIndex = getVertexAt(edge.getFromIndex());
 			Vector3f toIndex = getVertexAt(edge.getToIndex());
-			Vector3f fp0 = mapEdgesToFacePoints.get(edge);
-			Vector3f fp1 = mapEdgesToFacePoints.get(pair);
+			Vector3f fp0 = getMappedFacePoint(edge);
+			Vector3f fp1 = getMappedFacePoint(pair);
 			if (fromIndex != null && toIndex != null && fp0 != null && fp1 != null) {
 				Vector3f edgePoint = fromIndex.add(toIndex).add(fp0).add(fp1).mult(0.25f);
 				getVertexAt(index).set(edgePoint);
 			}
 		}
+	}
+	
+	private Vector3f getMappedFacePoint(Edge3D edge) {
+		return mapEdgesToFacePoints.get(edge);
 	}
 
 	private void processFace(Face3D face) {
@@ -180,9 +184,8 @@ public class CatmullClarkModifier implements IMeshModifier {
 		Edge3D adjacentEdge = createPair(edge);
 		Integer edgePointIndex = mapEdgesToEdgePointIndicies.get(adjacentEdge);
 
-		if (edgePointIndex == null) {
+		if (edgePointIndex == null)
 			edgePointIndex = addVertex(edgePoint);
-		}
 
 		return edgePointIndex;
 	}
