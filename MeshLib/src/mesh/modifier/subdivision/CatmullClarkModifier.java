@@ -69,14 +69,6 @@ public class CatmullClarkModifier implements IMeshModifier {
 		addNewFacesToMesh();
 	}
 
-	private void removeOldFacesFromMesh() {
-		meshToSubdivide.faces.removeAll(oldFacesToRemove);
-	}
-
-	private void addNewFacesToMesh() {
-		meshToSubdivide.faces.addAll(newFacesToAdd);
-	}
-
 	private void clearMaps() {
 		mapEdgesToFacePoints.clear();
 		mapEdgesToEdgePointIndicies.clear();
@@ -145,66 +137,64 @@ public class CatmullClarkModifier implements IMeshModifier {
 		}
 	}
 	
-	private Vector3f calculateFacePoint(Face3D face) {
-		Vector3f facePoint = new Vector3f();
-		for (int i = 0; i < face.indices.length; i++) {
-			Vector3f v = getVertexAt(face.indices[i]);
-			facePoint.addLocal(v);
-		}
-		facePoint.divideLocal(face.indices.length);
-		return facePoint;
-	}
-	
-	private Vector3f calculateMidpoint(Edge3D edge) {
-		Vector3f fromVertex = getVertexAt(edge.getFromIndex());
-		Vector3f toVertex = getVertexAt(edge.getToIndex());
-		Vector3f midpoint = GeometryUtil.getMidpoint(fromVertex, toVertex);
-		return midpoint;
-	}
-
 	private void processFace(Face3D face) {
 		int[] indices = new int[face.indices.length + 1];
 		Edge3D[] edges = new Edge3D[face.indices.length];
 		
-		Vector3f facePoint = calculateFacePoint(face);
+		Vector3f facePoint = calculateFaceCenter(face);
 		
-		// store face point
-		meshToSubdivide.vertices.add(facePoint);
-		// face point index
 		indices[0] = nextVertexIndex;
-		nextVertexIndex++;
+		addFacePointToMesh(facePoint);
+
 		
-		Vector3f[] edgePoints = progessEdges(face, edges, facePoint);
+		Vector3f[] edgePoints = progessEdges(face, edges);
+		
+		
 		incrementEdgesOutgoingFromAVertex(edges);
 		
 		for (int i = 0; i < face.indices.length; i++) {
 			int vertexIndex = face.indices[i];
 			mapVertexToFacePoint(vertexIndex, facePoint);
 			mapVertexToEdgePoint(vertexIndex, edgePoints[i]);
-			indices[i + 1] = calculateEdgePointIndex(edges[i], edgePoints[i]);
-			mapEdgesToEdgePointIndicies.put(edges[i], indices[i + 1]);
+			mapEdgeToFacePoint(edges[i], facePoint);
+			indices[i + 1] = mapEdgeToEdgePointIndex(edges[i], edgePoints[i]);
 		}
 
 		createNewFaces(face, indices);
 	}
+	
+	private Vector3f[] progessEdges(Face3D face, Edge3D[] edges) {
+		int faceIndiciesLength = face.indices.length;
+		Vector3f[] edgePoints = new Vector3f[faceIndiciesLength];
+		for (int i = 0; i < faceIndiciesLength; i++) {
+			int fromIndex = face.indices[i % faceIndiciesLength];
+			int toIndex = face.indices[(i + 1) % faceIndiciesLength];
+			Edge3D edge = new Edge3D(fromIndex, toIndex);
+			edges[i] = edge;
+			edgePoints[i] = calculateEdgeMidpoint(edge);
+		}
+		return edgePoints;
+	}
+	
+	private boolean isAdjacentEdgeIsAlreadyProcessed(Edge3D edge) {
+		Edge3D pair = createPair(edge);
+		return mapEdgesToEdgePointIndicies.containsKey(pair);
+	}
 
-	private int calculateEdgePointIndex(Edge3D edge, Vector3f edgePoint) {
+	private int mapEdgeToEdgePointIndex(Edge3D edge, Vector3f edgePoint) {
 		Edge3D adjacentEdge = createPair(edge);
 		Integer edgePointIndex = mapEdgesToEdgePointIndicies.get(adjacentEdge);
 		
 		if (edgePointIndex == null) {
-			meshToSubdivide.vertices.add(edgePoint);
 			edgePointIndex = nextVertexIndex;
-			nextVertexIndex++;
+			addEdgePointPointToMesh(edgePoint);
 		}
+		
+		mapEdgesToEdgePointIndicies.put(edge, edgePointIndex);
 			
 		return edgePointIndex;
 	}
 	
-	private Edge3D createPair(Edge3D edge) {
-		 return new Edge3D(edge.getToIndex(), edge.getFromIndex());
-	}
-
 	private void createNewFaces(Face3D face, int[] idxs) {
 		for (int index = 0; index < face.indices.length; index++) {
 			int index0 = face.indices[index];
@@ -214,6 +204,10 @@ public class CatmullClarkModifier implements IMeshModifier {
 			Face3D newFace = new Face3D(index0, index1, index2, index3);
 			newFacesToAdd.add(newFace);
 		}
+	}
+	
+	private void mapEdgeToFacePoint(Edge3D edge, Vector3f facePoint) {
+		mapEdgesToFacePoints.put(edge, facePoint);
 	}
 	
 	private void mapVertexToFacePoint(int vertexIndex, Vector3f facePoint) {
@@ -234,18 +228,46 @@ public class CatmullClarkModifier implements IMeshModifier {
 		edgePoints.add(edgePoint);
 	}
 
-	private Vector3f[] progessEdges(Face3D face, Edge3D[] edges, Vector3f facePoint) {
-		int faceIndexCount = face.indices.length;
-		Vector3f[] edgePoints = new Vector3f[faceIndexCount];
-		for (int i = 0; i < faceIndexCount; i++) {
-			int fromIndex = face.indices[i % faceIndexCount];
-			int toIndex = face.indices[(i + 1) % faceIndexCount];
-			Edge3D edge = new Edge3D(fromIndex, toIndex);
-			edges[i] = edge;
-			mapEdgesToFacePoints.put(edge, facePoint);
-			edgePoints[i] = calculateMidpoint(edge);
+	private Vector3f calculateFaceCenter(Face3D face) {
+		int faceIndiciesLength = face.indices.length;
+		Vector3f facePoint = new Vector3f();
+		for (int i = 0; i < faceIndiciesLength; i++) {
+			Vector3f vertex = getVertexAt(face.indices[i]);
+			facePoint.addLocal(vertex);
 		}
-		return edgePoints;
+		return facePoint.divideLocal(faceIndiciesLength);
+	}
+	
+	private Vector3f calculateEdgeMidpoint(Edge3D edge) {
+		Vector3f fromVertex = getVertexAt(edge.getFromIndex());
+		Vector3f toVertex = getVertexAt(edge.getToIndex());
+		Vector3f midpoint = GeometryUtil.getMidpoint(fromVertex, toVertex);
+		return midpoint;
+	}
+	
+	private Edge3D createPair(Edge3D edge) {
+		 return new Edge3D(edge.getToIndex(), edge.getFromIndex());
+	}
+	
+	private void addFacePointToMesh(Vector3f facePoint) {
+		addVertex(facePoint);
+	}
+	
+	private void addEdgePointPointToMesh(Vector3f edgePoint) {
+		addVertex(edgePoint);
+	}
+	
+	private void addVertex(Vector3f vertex) {
+		meshToSubdivide.vertices.add(vertex);
+		nextVertexIndex++;
+	}
+	
+	private void removeOldFacesFromMesh() {
+		meshToSubdivide.faces.removeAll(oldFacesToRemove);
+	}
+
+	private void addNewFacesToMesh() {
+		meshToSubdivide.faces.addAll(newFacesToAdd);
 	}
 
 	private Vector3f getVertexAt(int index) {
