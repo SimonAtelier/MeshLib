@@ -102,4 +102,9 @@ public class OctahedronCreatorTest {
 		}
 	}
 	
+	@Test
+	public void createdMeshHasEightTriangularFaces() {
+		Assert.assertEquals(8, mesh.getNumberOfFacesWithVertexCountOfN(3));
+	}
+	
 }
