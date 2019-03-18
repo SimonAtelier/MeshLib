@@ -10,7 +10,7 @@ import mesh.creator.catalan.RhombicDodecahedronCreator;
 import mesh.creator.primitives.CubeCreator;
 import util.MeshTestUtil;
 
-public class RhombicDodecahedronTest {
+public class RhombicDodecahedronCreatorTest {
 
 	RhombicDodecahedronCreator creator = new RhombicDodecahedronCreator();
 	Mesh3D mesh = creator.create();

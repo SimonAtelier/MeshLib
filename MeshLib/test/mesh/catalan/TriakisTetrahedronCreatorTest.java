@@ -8,7 +8,7 @@ import mesh.creator.IMeshCreator;
 import mesh.creator.catalan.TriakisTetrahedronCreator;
 import util.MeshTestUtil;
 
-public class TriakisTetrahedronTest {
+public class TriakisTetrahedronCreatorTest {
 	
 	TriakisTetrahedronCreator creator = new TriakisTetrahedronCreator();
 	Mesh3D mesh = creator.create();
