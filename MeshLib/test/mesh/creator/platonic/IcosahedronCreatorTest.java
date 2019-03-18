@@ -18,6 +18,17 @@ public class IcosahedronCreatorTest {
 	}
 	
 	@Test
+	public void creatorCreatedNewMeshInstanceWithEachCallOfCreate() {
+		IcosahedronCreator creator = new IcosahedronCreator();
+		Mesh3D previous = creator.create();
+		for (int i = 0; i < 20; i++) {
+			Mesh3D mesh = creator.create();
+			Assert.assertTrue(mesh != previous);
+			previous = mesh;
+		}
+	}
+	
+	@Test
 	public void createdMeshHasTwentyFaces() {
 		Assert.assertEquals(20, mesh.getFaceCount());
 	}
