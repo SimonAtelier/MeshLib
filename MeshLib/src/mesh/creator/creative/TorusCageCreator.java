@@ -22,7 +22,6 @@ public class TorusCageCreator implements IMeshCreator {
 	private Mesh3D mesh;
 
 	public TorusCageCreator() {
-		super();
 		this.subdivisions = 1;
 		this.majorSegments = 24;
 		this.minorSegments = 12;
