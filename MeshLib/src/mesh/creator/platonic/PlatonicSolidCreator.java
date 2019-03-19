@@ -10,7 +10,7 @@ public class PlatonicSolidCreator implements IMeshCreator {
 	public PlatonicSolidCreator(PlatonicSolid type) {
 		setType(type);
 	}
-	
+
 	protected IMeshCreator getCreator() {
 		switch (type) {
 		case TETRAHEDRON:
@@ -24,7 +24,7 @@ public class PlatonicSolidCreator implements IMeshCreator {
 		case DODECAHEDRON:
 			return new DodecahedronCreator();
 		default:
-			return null;
+			throw new IllegalArgumentException();
 		}
 	}
 
@@ -33,11 +33,11 @@ public class PlatonicSolidCreator implements IMeshCreator {
 		IMeshCreator creator = getCreator();
 		return creator.create();
 	}
-
+	
 	private void setType(PlatonicSolid type) {
 		if (type == null)
 			throw new IllegalArgumentException();
 		this.type = type;
 	}
-	
+
 }
