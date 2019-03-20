@@ -17,14 +17,8 @@ public class HelixCreator implements IMeshCreator {
 	private float dy;
 	private boolean cap;
 
-	public HelixCreator() {
-		this.majorRadius = 1.0f;
-		this.minorRadius = 0.25f;
-		this.majorSegments = 48;
-		this.minorSegments = 12;
-		this.turns = 4;
-		this.dy = 0.6f;
-		this.cap = true;
+	public HelixCreator() {		
+		this(1.0f, 0.25f, 48, 12, 4, 0.6f, true);
 	}
 
 	public HelixCreator(float majorRadius, float minorRadius, int majorSegments, int minorSegments, int turns, float dy,
@@ -41,6 +35,15 @@ public class HelixCreator implements IMeshCreator {
 	@Override
 	public Mesh3D create() {
 		Mesh3D mesh = new Mesh3D();
+		Vector3f[] verts = createVertices();
+		createFaces(mesh);
+		mesh.add(verts);
+		if (cap)
+			createCaps(mesh);
+		return mesh;
+	}
+
+	private Vector3f[] createVertices() {
 		float y0 = -(turns * dy) / 2f; // Apply offset to center the helix
 		float stepY = dy / (float) majorSegments;
 		float majorAngle = 0;
@@ -71,15 +74,10 @@ public class HelixCreator implements IMeshCreator {
 				majorAngle += majorStep;
 			}
 		}
+		return verts;
+	}
 
-		createFaces(mesh);
-
-		mesh.add(verts);
-
-		if (!cap)
-			return mesh;
-
-		// End caps
+	private void createCaps(Mesh3D mesh) {
 		int n = mesh.vertices.size() - 1;
 		int m = minorSegments - 1;
 		Face3D f0 = new Face3D(new int[minorSegments]);
@@ -95,8 +93,6 @@ public class HelixCreator implements IMeshCreator {
 
 		Mesh3DUtil.centerSplit(mesh, f0);
 		Mesh3DUtil.centerSplit(mesh, f1);
-
-		return mesh;
 	}
 
 	private void createFaces(Mesh3D mesh) {
