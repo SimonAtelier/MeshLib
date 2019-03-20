@@ -17,19 +17,14 @@ public class HelixCreator implements IMeshCreator {
 	private float dy;
 	private boolean cap;
 
-	public HelixCreator() {		
-		this(1.0f, 0.25f, 48, 12, 4, 0.6f, true);
-	}
-
-	public HelixCreator(float majorRadius, float minorRadius, int majorSegments, int minorSegments, int turns, float dy,
-			boolean cap) {
-		this.majorRadius = majorRadius;
-		this.minorRadius = minorRadius;
-		this.majorSegments = majorSegments;
-		this.minorSegments = minorSegments;
-		this.turns = turns;
-		this.dy = dy;
-		this.cap = cap;
+	public HelixCreator() {
+		this.majorRadius = 1.0f;
+		this.minorRadius = 0.25f;
+		this.majorSegments = 48;
+		this.minorSegments = 12;
+		this.turns = 4;
+		this.dy = 0.6f;
+		this.cap = true;
 	}
 
 	@Override
