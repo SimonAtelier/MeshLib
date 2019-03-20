@@ -2,9 +2,8 @@ package mesh.creator.unsorted;
 
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
-import mesh.creator.primitives.CubeCreator;
+import mesh.creator.primitives.FlatTopPyramidCreator;
 import mesh.modifier.subdivision.CatmullClarkModifier;
-import mesh.wip.Mesh3DUtil;
 
 public class EggCreator implements IMeshCreator {
 
@@ -25,23 +24,21 @@ public class EggCreator implements IMeshCreator {
 		this.subdivisions = subdivisions;
 	}
 	
-	private void createCube() {
-		mesh = new CubeCreator(size).create();
+	private void createFlatTopPyramid() {
+		FlatTopPyramidCreator creator = new FlatTopPyramidCreator();
+		creator.setBottomRadius(size);
+		creator.setTopRadius(topScale);
+		mesh = creator.create();
 	}
 	
-	private void scaleCubeTopFace() {
-		Mesh3DUtil.scaleFaceAt(mesh, 0, topScale);
-	}
-	
-	private void subdivideCube() {
+	private void subdividesFlatTopPyramid() {
 		new CatmullClarkModifier(subdivisions).modify(mesh);
 	}
 
 	@Override
 	public Mesh3D create() {
-		createCube();
-		scaleCubeTopFace();
-		subdivideCube();
+		createFlatTopPyramid();
+		subdividesFlatTopPyramid();
 		return mesh;
 	}
 	

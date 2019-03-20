@@ -2,44 +2,71 @@ package mesh.creator.primitives;
 
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
-import mesh.wip.Mesh3DUtil;
 
 public class FlatTopPyramidCreator implements IMeshCreator {
 
-	private float size;
-	private float topScale;
+	private float bottomRadius;
+	private float topRadius;
+	private float height;
 
 	public FlatTopPyramidCreator() {
-		this.size = 1f;
-		this.topScale = 0.5f;
+		bottomRadius = 1.0f;
+		topRadius = 0.5f;
+		height = 2.0f;
 	}
 	
-	public FlatTopPyramidCreator(float size, float topScale) {
-		this.size = size;
-		this.topScale = topScale;
+	public FlatTopPyramidCreator(float bottomRadius, float topRadius) {
+		this.bottomRadius = bottomRadius;
+		this.topRadius = topRadius;
 	}
 
 	@Override
 	public Mesh3D create() {
-		Mesh3D mesh = new CubeCreator(size).create();
-		Mesh3DUtil.scaleFaceAt(mesh, 0, topScale);
+		Mesh3D mesh = new Mesh3D();
+
+		float halfHeight = height * 0.5f;
+		
+		mesh.addVertex(topRadius, -halfHeight, -topRadius);
+		mesh.addVertex(topRadius, -halfHeight, topRadius);
+		mesh.addVertex(-topRadius, -halfHeight, topRadius);
+		mesh.addVertex(-topRadius, -halfHeight, -topRadius);
+		mesh.addVertex(bottomRadius, halfHeight, -bottomRadius);
+		mesh.addVertex(bottomRadius, halfHeight, bottomRadius);
+		mesh.addVertex(-bottomRadius, halfHeight, bottomRadius);
+		mesh.addVertex(-bottomRadius, halfHeight, -bottomRadius);
+		
+		mesh.addFace(3, 0, 1, 2);
+		mesh.addFace(6, 5, 4, 7);
+		mesh.addFace(1, 0, 4, 5);
+		mesh.addFace(1, 5, 6, 2);
+		mesh.addFace(6, 7, 3, 2);
+		mesh.addFace(3, 7, 4, 0);
+		
 		return mesh;
 	}
 	
-	public float getSize() {
-		return size;
+	public float getBottomRadius() {
+		return bottomRadius;
 	}
 
-	public void setSize(float size) {
-		this.size = size;
+	public void setBottomRadius(float bottomRadius) {
+		this.bottomRadius = bottomRadius;
 	}
 
-	public float getTopScale() {
-		return topScale;
+	public float getTopRadius() {
+		return topRadius;
 	}
 
-	public void setTopScale(float topScale) {
-		this.topScale = topScale;
+	public void setTopRadius(float topRadius) {
+		this.topRadius = topRadius;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
 	}
 	
 }
