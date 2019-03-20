@@ -27,8 +27,8 @@ public class HelixCreator implements IMeshCreator {
 		this.cap = true;
 	}
 
-	public HelixCreator(float majorRadius, float minorRadius,
-			int majorSegments, int minorSegments, int turns, float dy, boolean cap) {
+	public HelixCreator(float majorRadius, float minorRadius, int majorSegments, int minorSegments, int turns, float dy,
+			boolean cap) {
 		this.majorRadius = majorRadius;
 		this.minorRadius = minorRadius;
 		this.majorSegments = majorSegments;
@@ -52,12 +52,11 @@ public class HelixCreator implements IMeshCreator {
 		// Create vertices
 		for (int n = 0; n < turns; n++) {
 			for (int j = 0; j < majorSegments; j++) {
-				Vector3f v0 = new Vector3f(majorRadius * Mathf.cos(majorAngle),
-						y0, majorRadius * Mathf.sin(majorAngle));
+				Vector3f v0 = new Vector3f(majorRadius * Mathf.cos(majorAngle), y0,
+						majorRadius * Mathf.sin(majorAngle));
 				for (int i = 0; i < minorSegments; i++) {
-					Vector3f v1 = new Vector3f(minorRadius
-							* Mathf.cos(minorAngle), minorRadius
-							* Mathf.sin(minorAngle), 0);
+					Vector3f v1 = new Vector3f(minorRadius * Mathf.cos(minorAngle), minorRadius * Mathf.sin(minorAngle),
+							0);
 					// Rotate
 					float a = Mathf.TWO_PI - majorAngle;
 					float x2 = Mathf.cos(a) * v1.x + Mathf.sin(a) * v1.z;
@@ -66,40 +65,26 @@ public class HelixCreator implements IMeshCreator {
 					v1.addLocal(v0);
 					minorAngle += minorStep;
 
-					verts[n * (majorSegments * minorSegments)
-							+ (j * minorSegments + i)] = v1;
+					verts[n * (majorSegments * minorSegments) + (j * minorSegments + i)] = v1;
 				}
 				y0 += stepY;
 				majorAngle += majorStep;
 			}
 		}
 
-		// Create faces
-		int l = majorSegments * turns;
-		for (int j = 0; j < majorSegments * turns - 1; j++) {
-			for (int i = 0; i < minorSegments; i++) {
-				int[] k = new int[] { j % l, (j + 1) % l, i % minorSegments,
-						(i + 1) % minorSegments };
-				int index0 = k[1] * minorSegments + k[2];
-				int index1 = k[0] * minorSegments + k[2];
-				int index2 = k[1] * minorSegments + k[3];
-				int index3 = k[0] * minorSegments + k[3];
-				Face3D f = new Face3D(index0, index1, index3, index2);
-				mesh.add(f);
-			}
-		}
+		createFaces(mesh);
 
 		mesh.add(verts);
 
 		if (!cap)
 			return mesh;
-		
+
 		// End caps
 		int n = mesh.vertices.size() - 1;
 		int m = minorSegments - 1;
 		Face3D f0 = new Face3D(new int[minorSegments]);
 		Face3D f1 = new Face3D(new int[minorSegments]);
-		
+
 		for (int i = 0; i < minorSegments; i++) {
 			f0.indices[m - i] = i;
 			f1.indices[m - i] = n - i;
@@ -112,6 +97,21 @@ public class HelixCreator implements IMeshCreator {
 		Mesh3DUtil.centerSplit(mesh, f1);
 
 		return mesh;
+	}
+
+	private void createFaces(Mesh3D mesh) {
+		int l = majorSegments * turns;
+		for (int j = 0; j < majorSegments * turns - 1; j++) {
+			for (int i = 0; i < minorSegments; i++) {
+				int[] k = new int[] { j % l, (j + 1) % l, i % minorSegments, (i + 1) % minorSegments };
+				int index0 = k[1] * minorSegments + k[2];
+				int index1 = k[0] * minorSegments + k[2];
+				int index2 = k[1] * minorSegments + k[3];
+				int index3 = k[0] * minorSegments + k[3];
+				Face3D f = new Face3D(index0, index1, index3, index2);
+				mesh.add(f);
+			}
+		}
 	}
 
 	public float getMajorRadius() {
