@@ -187,12 +187,4 @@ public class Mesh3DUtil {
 		return center.divideLocal(f.indices.length);
 	}
 
-	public static Mesh3D translateFace(Mesh3D mesh, Face3D face, Vector3f v) {
-		for (int i = 0; i < face.indices.length; i++) {
-			Vector3f v0 = mesh.vertices.get(face.indices[i]);
-			v0.addLocal(v);
-		}
-		return mesh;
-	}
-
 }
