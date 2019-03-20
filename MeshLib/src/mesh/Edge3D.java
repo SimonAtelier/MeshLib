@@ -17,6 +17,10 @@ public class Edge3D {
 	public int getToIndex() {
 		return toIndex;
 	}
+	
+	public Edge3D createPair() {
+		return new Edge3D(toIndex, fromIndex);
+	}
 
 	@Override
 	public int hashCode() {
