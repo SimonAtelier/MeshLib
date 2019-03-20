@@ -11,7 +11,7 @@ import mesh.Mesh3D;
 
 public class Mesh3DUtil {
 
-	public static List<Face3D> centerSplit(Mesh3D mesh, Face3D f) {
+	public static void centerSplit(Mesh3D mesh, Face3D f) {
 		int index = mesh.getVertexCount();
 		int n = f.indices.length;
 		List<Face3D> toAdd = new ArrayList<Face3D>();
@@ -23,28 +23,6 @@ public class Mesh3DUtil {
 		}
 		mesh.faces.addAll(toAdd);
 		mesh.faces.remove(f);
-		return toAdd;
-	}
-
-	public static Mesh3D tessellateByCenter(Mesh3D mesh, Face3D f) {
-		int nextIndex = mesh.vertices.size();
-		ArrayList<Face3D> toAdd = new ArrayList<>();
-
-		int n = f.indices.length;
-		Vector3f center = Mesh3DUtil.calculateFaceCenter(mesh, f);
-		mesh.add(center);
-
-		for (int i = 0; i < f.indices.length; i++) {
-			Face3D f1 = new Face3D(f.indices[i % n], f.indices[(i + 1) % n], nextIndex);
-			toAdd.add(f1);
-		}
-
-		nextIndex++;
-
-		mesh.faces.remove(f);
-		mesh.faces.addAll(toAdd);
-
-		return mesh;
 	}
 
 	// TODO implement sort method
