@@ -104,12 +104,12 @@ public class CatmullClarkModifier implements IMeshModifier {
 		return average.mult(1f / (float) edgePoints.size());
 	}
 
-	private void incrementEdgesOutgoingFromAVertex(Edge3D edge) {
-		Integer outgoingEdges = mapVertexIndexToNumberOfOutgoingEdges.get(edge.getFromIndex());
+	private void incrementEdgesOutgoingFromAVertex(int vertexIndex) {
+		Integer outgoingEdges = mapVertexIndexToNumberOfOutgoingEdges.get(vertexIndex);
 		if (outgoingEdges == null)
 			outgoingEdges = 0;
 		outgoingEdges++;
-		mapVertexIndexToNumberOfOutgoingEdges.put(edge.getFromIndex(), outgoingEdges);
+		mapVertexIndexToNumberOfOutgoingEdges.put(vertexIndex, outgoingEdges);
 	}
 
 	private void smoothOriginalVertices() {
@@ -150,18 +150,18 @@ public class CatmullClarkModifier implements IMeshModifier {
 			Edge3D edge = createEdge(face, index);
 			Vector3f edgePoint = calculateEdgeMidpoint(edge);
 			int edgePointIndex= addEdgePoint(edge, edgePoint);
-			incrementEdgesOutgoingFromAVertex(edge);
-			doMappings(facePoint, edge, edgePoint, edgePointIndex);
+			mapVertexToFacePoint(edge.getFromIndex(), facePoint);
+			mapEdgeData(facePoint, edge, edgePoint, edgePointIndex);
+			incrementEdgesOutgoingFromAVertex(edge.getFromIndex());
 			indices[index + 1] = edgePointIndex;
 		}
 
 		createNewFaces(face, indices);
 	}
 
-	private void doMappings(Vector3f facePoint, Edge3D edge, Vector3f edgePoint, int edgePointIndex) {
+	private void mapEdgeData(Vector3f facePoint, Edge3D edge, Vector3f edgePoint, int edgePointIndex) {
 		int vertexIndex = edge.getFromIndex();
 		mapEdgeToEdgePointIndex(edge, edgePointIndex);
-		mapVertexToFacePoint(vertexIndex, facePoint);
 		mapVertexToEdgePoint(vertexIndex, edgePoint);
 		mapEdgeToFacePoint(edge, facePoint);
 	}
