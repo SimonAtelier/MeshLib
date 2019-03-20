@@ -147,19 +147,23 @@ public class CatmullClarkModifier implements IMeshModifier {
 		indices[0] = addFacePointToMesh(facePoint);
 		
 		for (int index = 0; index < faceIndicesLength; index++) {
-			int vertexIndex = face.indices[index];
 			Edge3D edge = createEdge(face, index);
 			Vector3f edgePoint = calculateEdgeMidpoint(edge);
 			int edgePointIndex= addEdgePoint(edge, edgePoint);
 			incrementEdgesOutgoingFromAVertex(edge);
-			mapEdgeToEdgePointIndex(edge, edgePointIndex);
-			mapVertexToFacePoint(vertexIndex, facePoint);
-			mapVertexToEdgePoint(vertexIndex, edgePoint);
-			mapEdgeToFacePoint(edge, facePoint);
+			doMappings(facePoint, edge, edgePoint, edgePointIndex);
 			indices[index + 1] = edgePointIndex;
 		}
 
 		createNewFaces(face, indices);
+	}
+
+	private void doMappings(Vector3f facePoint, Edge3D edge, Vector3f edgePoint, int edgePointIndex) {
+		int vertexIndex = edge.getFromIndex();
+		mapEdgeToEdgePointIndex(edge, edgePointIndex);
+		mapVertexToFacePoint(vertexIndex, facePoint);
+		mapVertexToEdgePoint(vertexIndex, edgePoint);
+		mapEdgeToFacePoint(edge, facePoint);
 	}
 
 	private Edge3D createEdge(Face3D face, int index) {
