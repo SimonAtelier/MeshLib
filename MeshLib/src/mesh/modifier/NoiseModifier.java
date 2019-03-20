@@ -9,8 +9,8 @@ import mesh.wip.VertexNormals;
 
 public class NoiseModifier implements IMeshModifier {
 
-	float minimum;
-	float maximum;
+	private float minimum;
+	private float maximum;
 	
 	public NoiseModifier() {
 		this.minimum = 0f;
