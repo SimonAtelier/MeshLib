@@ -18,7 +18,6 @@ public class MobiusStripCreator implements IMeshCreator {
 	}
 	
 	public MobiusStripCreator(int rings, int segments, float radius) {
-		super();
 		this.rings = rings;
 		this.segments = segments;
 		this.radius = radius;
