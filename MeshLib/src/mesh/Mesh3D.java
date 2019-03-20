@@ -9,7 +9,6 @@ import java.util.List;
 import math.Mathf;
 import math.Matrix3f;
 import math.Vector3f;
-import mesh.wip.Mesh3DUtil;
 
 public class Mesh3D {
 
@@ -24,12 +23,6 @@ public class Mesh3D {
 	public Mesh3D(Vector3f[] vertices, Face3D[] faces) {
 		this.vertices.addAll(Arrays.asList(vertices));
 		this.faces.addAll(Arrays.asList(faces));
-	}
-	
-	public void updateFaceNormals() {
-		for (Face3D face : faces) {
-			face.normal = Mesh3DUtil.calculateFaceCenter(this, face);
-		}
 	}
 	
 	public Mesh3D rotateX(float angle) {
