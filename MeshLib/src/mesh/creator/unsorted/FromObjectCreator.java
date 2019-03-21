@@ -5,7 +5,7 @@ import java.io.File;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.io.SimpleObjectReader;
-import mesh.wip.Mesh3DUtil;
+import mesh.modifier.FlipFacesModifier;
 
 public class FromObjectCreator implements IMeshCreator {
 
@@ -30,7 +30,7 @@ public class FromObjectCreator implements IMeshCreator {
 		Mesh3D mesh = in.read(file);
 		mesh.scale(scale);
 		if (flipDirection)
-			Mesh3DUtil.flipDirection(mesh);
+			new FlipFacesModifier().modify(mesh);
 		return mesh;
 	}
 

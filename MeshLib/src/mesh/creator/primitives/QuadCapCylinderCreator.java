@@ -7,6 +7,7 @@ import math.Mathf;
 import math.Vector3f;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
+import mesh.modifier.FlipFacesModifier;
 import mesh.modifier.SpherifyModifier;
 import mesh.wip.Mesh3DUtil;
 
@@ -122,7 +123,7 @@ public class QuadCapCylinderCreator implements IMeshCreator {
 		
 		Mesh3D bottom = top.copy();
 		bottom.translateY(height);
-		Mesh3DUtil.flipDirection(bottom);
+		new FlipFacesModifier().modify(bottom);
 
 		List<Mesh3D> meshes = new ArrayList<Mesh3D>();
 		

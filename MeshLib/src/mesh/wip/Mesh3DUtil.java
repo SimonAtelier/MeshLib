@@ -19,12 +19,6 @@ public class Mesh3DUtil {
 		}
 	}
 
-	public static void flipDirection(Mesh3D mesh) {
-		for (Face3D face : mesh.faces) {
-			flipDirection(mesh, face);
-		}
-	}
-
 	public static void bridge(Mesh3D mesh, Vector3f v0, Vector3f v1, Vector3f v2, Vector3f v3) {
 		int idx0 = mesh.vertices.indexOf(v0);
 		int idx1 = mesh.vertices.indexOf(v1);
