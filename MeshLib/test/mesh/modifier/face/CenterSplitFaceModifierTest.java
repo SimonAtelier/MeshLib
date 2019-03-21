@@ -62,4 +62,11 @@ public class CenterSplitFaceModifierTest {
 		MeshTestUtil.eachEdgeIsIncidentToOnlyOneOrTwoFaces(mesh);
 	}
 	
+	@Test
+	public void centerSplittedCubeHasUniqueVertices() {
+		selection.selectAll();
+		modifier.modify(selection);
+		MeshTestUtil.meshHasUniqueVertices(mesh);
+	}
+	
 }
