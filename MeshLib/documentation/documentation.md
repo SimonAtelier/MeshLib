@@ -1,3 +1,7 @@
+# Knowledge
+[Conway-Notation-Wikipedia](https://en.wikipedia.org/wiki/Conway_polyhedron_notation)
+[Conway-Operators-Ceciliebrandt](http://www.ceciliebrandt.com/cases/conway-operators/)
+
 # Core Classes
 ```java
 package mesh;

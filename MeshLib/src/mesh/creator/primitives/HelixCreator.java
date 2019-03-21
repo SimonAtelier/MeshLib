@@ -5,7 +5,8 @@ import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
-import mesh.wip.Mesh3DUtil;
+import mesh.modifier.face.CenterSplitFaceModifier;
+import mesh.wip.FaceSelection;
 
 public class HelixCreator implements IMeshCreator {
 
@@ -90,9 +91,12 @@ public class HelixCreator implements IMeshCreator {
 
 		mesh.add(f0);
 		mesh.add(f1);
-
-		Mesh3DUtil.centerSplit(mesh, f0);
-		Mesh3DUtil.centerSplit(mesh, f1);
+		
+		CenterSplitFaceModifier modifier = new CenterSplitFaceModifier();
+		FaceSelection selection = new FaceSelection(mesh);
+		selection.add(f0);
+		selection.add(f1);
+		modifier.modify(selection);
 	}
 
 	private void createFaces(Mesh3D mesh) {

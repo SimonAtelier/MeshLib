@@ -4,7 +4,8 @@ import math.Mathf;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
-import mesh.wip.Mesh3DUtil;
+import mesh.modifier.face.CenterSplitFaceModifier;
+import mesh.wip.FaceSelection;
 
 public class ConeCreator implements IMeshCreator {
 
@@ -105,8 +106,10 @@ public class ConeCreator implements IMeshCreator {
 	private void splitFace(int faceIndex, float offsetY) {
 		int index = mesh.vertices.size();
 		Face3D face = mesh.getFaceAt(faceIndex);
-
-		Mesh3DUtil.centerSplit(mesh, face);
+		CenterSplitFaceModifier modifier = new CenterSplitFaceModifier();
+		FaceSelection selection = new FaceSelection(mesh);
+		selection.add(face);
+		modifier.modify(selection);
 		mesh.getVertexAt(index).addLocal(0, offsetY, 0);
 	}
 
