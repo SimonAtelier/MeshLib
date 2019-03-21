@@ -1,9 +1,9 @@
 package mesh.creator.primitives;
 
-import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.FillType;
 import mesh.creator.IMeshCreator;
+import mesh.modifier.FlipFacesModifier;
 import mesh.wip.Mesh3DUtil;
 
 public class CylinderCreator implements IMeshCreator {
@@ -39,9 +39,7 @@ public class CylinderCreator implements IMeshCreator {
 	}
 
 	private void flipDirectionOfFaces(Mesh3D mesh) {
-		for (Face3D face : mesh.faces) {
-			Mesh3DUtil.flipDirection(mesh, face);
-		}
+		new FlipFacesModifier().modify(mesh);
 	}
 
 	private void bridge(Mesh3D m0, Mesh3D m1) {
