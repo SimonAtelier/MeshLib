@@ -59,7 +59,6 @@ public class Mesh3DUtil {
 	}
 
 	public static void extrudeFace(Mesh3D mesh, Face3D f, float scale, float amount) {
-		// FIXED: Works now for faces with vertices.length > 4 too
 		int n = f.indices.length;
 		int idx = mesh.vertices.size();
 		Vector3f normal = calculateFaceNormal(mesh, f);
