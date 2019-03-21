@@ -34,14 +34,14 @@ public class CircleCreator implements IMeshCreator {
 	}
 
 	private void createVertices() {
-		float angle = 0;
-		float step = Mathf.TWO_PI / vertices;
+		float currentAngle = 0;
+		float segmentAngle = Mathf.TWO_PI / vertices;
 
 		for (int i = 0; i < vertices; i++) {
-			float x = radius * Mathf.cos(angle);
-			float z = radius * Mathf.sin(angle);
+			float x = radius * Mathf.cos(currentAngle);
+			float z = radius * Mathf.sin(currentAngle);
 			mesh.add(new Vector3f(x, centerY, z));
-			angle += step;
+			currentAngle += segmentAngle;
 		}
 
 		if (fillType == FillType.TRIANGLE_FAN) {
