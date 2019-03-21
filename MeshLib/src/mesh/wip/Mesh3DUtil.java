@@ -10,8 +10,7 @@ import mesh.Mesh3D;
 
 public class Mesh3DUtil {
 	
-	// TODO implement sort method
-	// http://stackoverflow.com/questions/6989100/sort-points-in-clockwise-order
+	@Deprecated
 	public static void flipDirection(Mesh3D mesh, Face3D face) {
 		int[] copy = Arrays.copyOf(face.indices, face.indices.length);
 		for (int i = 0; i < face.indices.length; i++) {
