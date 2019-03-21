@@ -6,10 +6,11 @@ import java.util.List;
 import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
+import mesh.modifier.IMeshModifier;
 import mesh.wip.FaceSelection;
 import mesh.wip.Mesh3DUtil;
 
-public class CenterSplitFaceModifier {
+public class CenterSplitFaceModifier implements IMeshModifier {
 
 	private Mesh3D mesh;
 	private FaceSelection selection;
@@ -20,9 +21,23 @@ public class CenterSplitFaceModifier {
 	}
 	
 	public void modify(FaceSelection selection) {
-		clearNewlyCreatedFaces();
 		setMesh(selection.getMesh());
 		setSelection(selection);
+		split();
+	}
+	
+	@Override
+	public Mesh3D modify(Mesh3D mesh) {
+		FaceSelection selection = new FaceSelection(mesh);
+		selection.selectAll();
+		setMesh(mesh);
+		setSelection(selection);
+		split();
+		return mesh;
+	}
+	
+	private void split() {
+		clearNewlyCreatedFaces();
 		centerSplitSelectedFaces();
 		addNewlyCreatedFaces();
 	}
