@@ -51,11 +51,11 @@ public class PortedCubeCreator implements IMeshCreator {
 
 	private void extrudeCenterFaces() {
 		List<Face3D> toExtrude = new ArrayList<>();
-		for (Face3D f : mesh.faces) {
-			Vector3f center = Mesh3DUtil.calculateFaceCenter(mesh, f)
+		for (Face3D face : mesh.faces) {
+			Vector3f center = Mesh3DUtil.calculateFaceCenter(mesh, face)
 					.divideLocal(3f);
 			if (center.length() == 1) {
-				toExtrude.add(f);
+				toExtrude.add(face);
 			}
 		}
 		for (Face3D f : toExtrude) {
