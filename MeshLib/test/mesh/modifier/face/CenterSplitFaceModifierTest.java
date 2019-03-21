@@ -55,4 +55,11 @@ public class CenterSplitFaceModifierTest {
 		MeshTestUtil.meshFulFillsEulersCharacteristic(mesh);
 	}
 	
+	@Test
+	public void eachEdgeOfTheCenterSplittedCubeIsIncidentToOnlyOneOrTwoFaces() {
+		selection.selectAll();
+		modifier.modify(selection);
+		MeshTestUtil.eachEdgeIsIncidentToOnlyOneOrTwoFaces(mesh);
+	}
+	
 }
