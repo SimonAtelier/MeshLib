@@ -10,7 +10,6 @@ import math.Vector3f;
 import mesh.Edge3D;
 import mesh.Face3D;
 import mesh.Mesh3D;
-import mesh.Pair;
 import mesh.modifier.IMeshModifier;
 import mesh.wip.Mesh3DUtil;
 import mesh.wip.TraverseHelper;
@@ -29,8 +28,8 @@ public class DooSabinModifier implements IMeshModifier {
 	private int subdivisions;
 	private Mesh3D source;
 	private Mesh3D target;
-	private HashSet<Pair> edges;
-	private HashMap<Pair, Face3D> edgeToFaceMap;
+	private HashSet<Edge3D> edges;
+	private HashMap<Edge3D, Face3D> edgeToFaceMap;
 	private HashMap<Vector3f, List<Vector3f>> oldToNewVertexMap;
 	private HashMap<VertexFacePair, Integer> vertexFaceMap;
 
@@ -51,8 +50,8 @@ public class DooSabinModifier implements IMeshModifier {
 	public DooSabinModifier(int subdivisions) {
 		this.subdivisions = subdivisions;
 		oldToNewVertexMap = new HashMap<Vector3f, List<Vector3f>>();
-		edgeToFaceMap = new HashMap<Pair, Face3D>();
-		edges = new HashSet<Pair>();
+		edgeToFaceMap = new HashMap<Edge3D, Face3D>();
+		edges = new HashSet<Edge3D>();
 		vertexFaceMap = new HashMap<VertexFacePair, Integer>();
 	}
 
@@ -104,11 +103,11 @@ public class DooSabinModifier implements IMeshModifier {
 	 * generated for the faces that are adjacent to the respective edge.
 	 */
 	private void createFacesAdjacentToEdge() {
-		for (Pair pair : edges) {
+		for (Edge3D pair : edges) {
 			Face3D face0 = edgeToFaceMap.get(pair);
-			Face3D face1 = edgeToFaceMap.get(new Pair(pair.b, pair.a));
-			Vector3f v0 = source.getVertexAt(pair.a);
-			Vector3f v1 = source.getVertexAt(pair.b);
+			Face3D face1 = edgeToFaceMap.get(new Edge3D(pair.getToIndex(), pair.getFromIndex()));
+			Vector3f v0 = source.getVertexAt(pair.getFromIndex());
+			Vector3f v1 = source.getVertexAt(pair.getToIndex());
 			int idx0 = vertexFaceMap.get(new VertexFacePair(v1, face0));
 			int idx1 = vertexFaceMap.get(new VertexFacePair(v0, face0));
 			int idx2 = vertexFaceMap.get(new VertexFacePair(v0, face1));
@@ -180,8 +179,8 @@ public class DooSabinModifier implements IMeshModifier {
 			for (int i = 0; i < face.indices.length; i++) {
 				int a = face.indices[i];
 				int b = face.indices[(i + 1) % face.indices.length];
-				Pair pair0 = new Pair(a, b);
-				Pair pair1 = new Pair(b, a);
+				Edge3D pair0 = new Edge3D(a, b);
+				Edge3D pair1 = new Edge3D(b, a);
 				if (!edges.contains(pair1)) {
 					edges.add(pair0);
 				}

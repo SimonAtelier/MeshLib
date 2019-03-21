@@ -6,9 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import math.Vector3f;
+import mesh.Edge3D;
 import mesh.Face3D;
 import mesh.Mesh3D;
-import mesh.Pair;
 import mesh.wip.Mesh3DUtil;
 
 public class SolidifyModifier implements IMeshModifier {
@@ -32,7 +32,7 @@ public class SolidifyModifier implements IMeshModifier {
 		// Store the face normal of each face the vertex belongs to.
 		HashMap<Vector3f, List<Vector3f>> map = new HashMap<>();
 		List<Vector3f> vertexNormals = new ArrayList<Vector3f>();
-		HashSet<Pair> pairs = new HashSet<>();
+		HashSet<Edge3D> pairs = new HashSet<>();
 		
 		for (Face3D f : mesh.faces) {
 			int size = f.indices.length;
@@ -48,7 +48,7 @@ public class SolidifyModifier implements IMeshModifier {
 				}
 				list.add(n);
 				// Map edge.
-				Pair pair = new Pair(f.indices[i], f.indices[(i + 1) % size]);
+				Edge3D pair = new Edge3D(f.indices[i], f.indices[(i + 1) % size]);
 				pairs.add(pair);
 			}
 		}
@@ -88,13 +88,13 @@ public class SolidifyModifier implements IMeshModifier {
 		for (Face3D f : faces) {
 			int size = f.indices.length;
 			for (int i = 0; i < f.indices.length; i++) {
-				Pair pair0 = new Pair(f.indices[i], f.indices[(i + 1) % size]);
-				Pair pair1 = new Pair(f.indices[(i + 1) % size], f.indices[i]);
+				Edge3D pair0 = new Edge3D(f.indices[i], f.indices[(i + 1) % size]);
+				Edge3D pair1 = new Edge3D(f.indices[(i + 1) % size], f.indices[i]);
 				if (!pairs.contains(pair1)) {
-					Vector3f v0 = copy.getVertexAt(pair0.a);
-					Vector3f v1 = copy.getVertexAt(pair0.b);
-					Vector3f v2 = mesh.getVertexAt(pair0.a);
-					Vector3f v3 = mesh.getVertexAt(pair0.b);
+					Vector3f v0 = copy.getVertexAt(pair0.getFromIndex());
+					Vector3f v1 = copy.getVertexAt(pair0.getToIndex());
+					Vector3f v2 = mesh.getVertexAt(pair0.getFromIndex());
+					Vector3f v3 = mesh.getVertexAt(pair0.getToIndex());
 					Mesh3DUtil.bridge(m0, v0, v1, v2, v3);
 				}
 			}
