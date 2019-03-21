@@ -8,7 +8,8 @@ public class FlatTopPyramidCreator implements IMeshCreator {
 	private float bottomRadius;
 	private float topRadius;
 	private float height;
-
+	private Mesh3D mesh;
+	
 	public FlatTopPyramidCreator() {
 		bottomRadius = 1.0f;
 		topRadius = 0.5f;
@@ -22,8 +23,26 @@ public class FlatTopPyramidCreator implements IMeshCreator {
 
 	@Override
 	public Mesh3D create() {
-		Mesh3D mesh = new Mesh3D();
+		initializeMesh();
+		createVertices();
+		createFaces();
+		return mesh;
+	}
 
+	private void initializeMesh() {
+		mesh = new Mesh3D();
+	}
+
+	private void createFaces() {
+		mesh.addFace(3, 0, 1, 2);
+		mesh.addFace(6, 5, 4, 7);
+		mesh.addFace(1, 0, 4, 5);
+		mesh.addFace(1, 5, 6, 2);
+		mesh.addFace(6, 7, 3, 2);
+		mesh.addFace(3, 7, 4, 0);
+	}
+
+	private void createVertices() {
 		float halfHeight = height * 0.5f;
 		
 		mesh.addVertex(topRadius, -halfHeight, -topRadius);
@@ -34,15 +53,6 @@ public class FlatTopPyramidCreator implements IMeshCreator {
 		mesh.addVertex(bottomRadius, halfHeight, bottomRadius);
 		mesh.addVertex(-bottomRadius, halfHeight, bottomRadius);
 		mesh.addVertex(-bottomRadius, halfHeight, -bottomRadius);
-		
-		mesh.addFace(3, 0, 1, 2);
-		mesh.addFace(6, 5, 4, 7);
-		mesh.addFace(1, 0, 4, 5);
-		mesh.addFace(1, 5, 6, 2);
-		mesh.addFace(6, 7, 3, 2);
-		mesh.addFace(3, 7, 4, 0);
-		
-		return mesh;
 	}
 	
 	public float getBottomRadius() {
