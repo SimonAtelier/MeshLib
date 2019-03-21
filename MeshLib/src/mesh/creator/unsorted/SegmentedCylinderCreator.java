@@ -29,7 +29,6 @@ public class SegmentedCylinderCreator implements IMeshCreator {
 
 	public SegmentedCylinderCreator(float topRadius, float bottomRadius, float height, int rotationSegments,
 			int heightSegments, boolean capTop, boolean capBottom, FillType capFillType) {
-		super();
 		this.topRadius = topRadius;
 		this.bottomRadius = bottomRadius;
 		this.height = height;
