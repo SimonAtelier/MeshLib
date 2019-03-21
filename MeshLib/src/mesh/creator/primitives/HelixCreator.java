@@ -15,7 +15,9 @@ public class HelixCreator implements IMeshCreator {
 	private int minorSegments;
 	private int turns;
 	private float dy;
-	private boolean cap;
+	private boolean capEnds;
+	
+	private Mesh3D mesh;
 
 	public HelixCreator() {
 		this.majorRadius = 1.0f;
@@ -24,32 +26,35 @@ public class HelixCreator implements IMeshCreator {
 		this.minorSegments = 12;
 		this.turns = 4;
 		this.dy = 0.6f;
-		this.cap = true;
+		this.capEnds = true;
 	}
 
 	@Override
 	public Mesh3D create() {
-		Mesh3D mesh = new Mesh3D();
+		initializeMesh();
 		Vector3f[] verts = createVertices();
 		createFaces(mesh);
 		mesh.add(verts);
-		if (cap)
+		if (capEnds)
 			createCaps(mesh);
 		return mesh;
+	}
+
+	private void initializeMesh() {
+		mesh = new Mesh3D();
 	}
 
 	private Vector3f[] createVertices() {
 		float y0 = -(turns * dy) / 2f; // Apply offset to center the helix
 		float stepY = dy / (float) majorSegments;
-		float majorAngle = 0;
-		float minorAngle = 0;
-		float majorStep = Mathf.TWO_PI / majorSegments;
-		float minorStep = Mathf.TWO_PI / minorSegments;
 		Vector3f[] verts = new Vector3f[majorSegments * minorSegments * turns];
 
-		// Create vertices
 		for (int n = 0; n < turns; n++) {
+			float majorAngle = 0;
+			float majorStep = Mathf.TWO_PI / majorSegments;
 			for (int j = 0; j < majorSegments; j++) {
+				float minorAngle = 0;
+				float minorStep = Mathf.TWO_PI / minorSegments;
 				Vector3f v0 = new Vector3f(majorRadius * Mathf.cos(majorAngle), y0,
 						majorRadius * Mathf.sin(majorAngle));
 				for (int i = 0; i < minorSegments; i++) {
@@ -154,11 +159,11 @@ public class HelixCreator implements IMeshCreator {
 	}
 
 	public boolean isCap() {
-		return cap;
+		return capEnds;
 	}
 
 	public void setCap(boolean cap) {
-		this.cap = cap;
+		this.capEnds = cap;
 	}
 
 }
