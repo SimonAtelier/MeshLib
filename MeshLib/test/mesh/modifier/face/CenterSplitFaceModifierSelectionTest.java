@@ -8,7 +8,7 @@ import mesh.creator.primitives.CubeCreator;
 import mesh.wip.FaceSelection;
 import util.MeshTestUtil;
 
-public class CenterSplitFaceModifierTest {
+public class CenterSplitFaceModifierSelectionTest {
 
 	Mesh3D mesh = new CubeCreator().create();
 	FaceSelection selection = new FaceSelection(mesh);
