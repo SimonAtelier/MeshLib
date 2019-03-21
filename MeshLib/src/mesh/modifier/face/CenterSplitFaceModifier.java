@@ -10,7 +10,7 @@ import mesh.modifier.IMeshModifier;
 import mesh.wip.FaceSelection;
 import mesh.wip.Mesh3DUtil;
 
-public class CenterSplitFaceModifier implements IMeshModifier {
+public class CenterSplitFaceModifier implements IMeshModifier, FaceSelectionModifier {
 
 	private Mesh3D mesh;
 	private FaceSelection selection;
@@ -20,6 +20,7 @@ public class CenterSplitFaceModifier implements IMeshModifier {
 		newFaces = new ArrayList<Face3D>();
 	}
 	
+	@Override
 	public void modify(FaceSelection selection) {
 		setMesh(selection.getMesh());
 		setSelection(selection);
