@@ -69,9 +69,7 @@ public class SolidifyModifier implements IMeshModifier {
 		}
 
 		// Flip inner mesh.
-		for (Face3D f : copy.faces) {
-			Mesh3DUtil.flipDirection(mesh, f);
-		}
+		new FlipFacesModifier().modify(copy);
 
 		// Combine meshes.
 		m0 = Mesh3DUtil.append(mesh, copy);
