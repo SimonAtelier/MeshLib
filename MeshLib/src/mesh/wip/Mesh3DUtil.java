@@ -77,19 +77,6 @@ public class Mesh3DUtil {
 		}
 	}
 
-//	public static Vector3f calculateFaceNormal(Mesh3D mesh, Face3D f) {
-//		// https://www.opengl.org/wiki/Calculating_a_Surface_Normal
-//		Vector3f normal = new Vector3f();
-//		for (int i = 0; i < f.indices.length; i++) {
-//			Vector3f current = mesh.vertices.get(f.indices[i]);
-//			Vector3f next = mesh.vertices.get(f.indices[(i + 1) % f.indices.length]);
-//			normal.x += (current.y - next.y) * (current.z + next.z);
-//			normal.y += (current.z - next.z) * (current.x + next.x);
-//			normal.z += (current.x - next.x) * (current.y + next.y);
-//		}
-//		return normal.normalize();
-//	}
-
 	public static Mesh3D append(Collection<Mesh3D> meshes) {
 		return append(meshes.toArray(new Mesh3D[meshes.size()]));
 	}
