@@ -18,6 +18,7 @@ public class Mesh3DUtil {
 		}
 	}
 
+	@Deprecated
 	public static void bridge(Mesh3D mesh, Vector3f v0, Vector3f v1, Vector3f v2, Vector3f v3) {
 		int idx0 = mesh.vertices.indexOf(v0);
 		int idx1 = mesh.vertices.indexOf(v1);
@@ -31,6 +32,7 @@ public class Mesh3DUtil {
 		mesh.faces.add(face);
 	}
 
+	@Deprecated
 	public static void bridge(Mesh3D mesh, Face3D f0, Face3D f1) {
 		Face3D f2 = new Face3D(f0.indices[0], f0.indices[1], f1.indices[1], f1.indices[0]);
 		Face3D f3 = new Face3D(f0.indices[1], f0.indices[2], f1.indices[2], f1.indices[1]);
