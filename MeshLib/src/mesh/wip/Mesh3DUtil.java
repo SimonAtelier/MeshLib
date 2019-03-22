@@ -1,7 +1,6 @@
 package mesh.wip;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import math.Vector3f;
@@ -64,10 +63,6 @@ public class Mesh3DUtil {
 		for (int i = 0; i < n; i++) {
 			f.indices[i] = idx + i;
 		}
-	}
-
-	public static Mesh3D append(Collection<Mesh3D> meshes) {
-		return append(meshes.toArray(new Mesh3D[meshes.size()]));
 	}
 
 	public static Mesh3D append(Mesh3D... meshes) {
