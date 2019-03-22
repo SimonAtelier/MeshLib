@@ -25,10 +25,6 @@ public class Mesh3DUtil {
 		int idx2 = mesh.vertices.indexOf(v2);
 		int idx3 = mesh.vertices.indexOf(v3);
 		Face3D face = new Face3D(idx0, idx1, idx3, idx2);
-		// FIXME sort points in clockwise order
-		// SortFacepoints sort = new SortFacepoints();
-		// sort.sort(mesh, face);
-		//
 		mesh.faces.add(face);
 	}
 
