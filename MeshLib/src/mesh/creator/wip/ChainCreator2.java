@@ -3,8 +3,8 @@ package mesh.creator.wip;
 import math.Mathf;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.creator.special.ChainLinkCreator;
-import mesh.wip.Mesh3DUtil;
 
 public class ChainCreator2 implements IMeshCreator {
 
@@ -27,7 +27,7 @@ public class ChainCreator2 implements IMeshCreator {
 			if (i % 2 == 0) {
 				link.rotateZ(Mathf.HALF_PI);
 			}
-			mesh = Mesh3DUtil.append(mesh, link);
+			mesh = new AppendCreator(mesh, link).create();
 		}
 		
 		mesh.translateZ(-creator.getCenterPieceSize() * links / 2f);

@@ -7,6 +7,7 @@ import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CubeCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.wip.Mesh3DUtil;
 
 public class CrateCreator implements IMeshCreator {
@@ -57,28 +58,28 @@ public class CrateCreator implements IMeshCreator {
 	private void createTopCrossBeam() {
 		Mesh3D mesh = createCrossBeam();
 		mesh.translateY(-this.radius);
-		this.mesh = Mesh3DUtil.append(this.mesh, mesh);
+		this.mesh = new AppendCreator(this.mesh, mesh).create();
 	}
 
 	private void createBottomCrossBeam() {
 		Mesh3D mesh = createCrossBeam();
 		mesh.rotateX(Mathf.PI);
 		mesh.translateY(this.radius);
-		this.mesh = Mesh3DUtil.append(this.mesh, mesh);
+		this.mesh = new AppendCreator(this.mesh, mesh).create();
 	}
 
 	private void createFrontCrossBeam() {
 		Mesh3D mesh = createCrossBeam();
 		mesh.rotateX(-Mathf.HALF_PI);
 		mesh.translateZ(this.radius);
-		this.mesh = Mesh3DUtil.append(this.mesh, mesh);
+		this.mesh = new AppendCreator(this.mesh, mesh).create();
 	}
 
 	private void createBackCrossBeam() {
 		Mesh3D mesh = createCrossBeam();
 		mesh.rotateX(Mathf.HALF_PI);
 		mesh.translateZ(-this.radius);
-		this.mesh = Mesh3DUtil.append(this.mesh, mesh);
+		this.mesh = new AppendCreator(this.mesh, mesh).create();
 	}
 
 	private void createLeftCrossBeam() {
@@ -86,7 +87,7 @@ public class CrateCreator implements IMeshCreator {
 		mesh.rotateX(-Mathf.HALF_PI);
 		mesh.rotateY(-Mathf.HALF_PI);
 		mesh.translateX(-this.radius);
-		this.mesh = Mesh3DUtil.append(this.mesh, mesh);
+		this.mesh = new AppendCreator(this.mesh, mesh).create();
 	}
 
 	private void createRightCrossBeam() {
@@ -94,7 +95,7 @@ public class CrateCreator implements IMeshCreator {
 		mesh.rotateX(-Mathf.HALF_PI);
 		mesh.rotateY(Mathf.HALF_PI);
 		mesh.translateX(this.radius);
-		this.mesh = Mesh3DUtil.append(this.mesh, mesh);
+		this.mesh = new AppendCreator(this.mesh, mesh).create();
 	}
 
 	private Mesh3D createCrossBeam() {
@@ -133,8 +134,7 @@ public class CrateCreator implements IMeshCreator {
 
 			Mesh3D mesh2 = mesh1.copy();
 			mesh2.rotateY(Mathf.PI);
-
-			mesh = Mesh3DUtil.append(mesh, mesh1, mesh2);
+			this.mesh = new AppendCreator(mesh, mesh1, mesh2).create();
 		}
 
 		return mesh;

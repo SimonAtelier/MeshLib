@@ -5,7 +5,6 @@ import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
-import mesh.wip.Mesh3DUtil;
 
 public class ChainLinkCreator implements IMeshCreator {
 
@@ -82,7 +81,7 @@ public class ChainLinkCreator implements IMeshCreator {
 	}
 	
 	private void appendParts() {
-		mesh = Mesh3DUtil.append(partOne, partTwo);
+		mesh = new AppendCreator(partOne, partTwo).create();
 	}
 	
 	@Override

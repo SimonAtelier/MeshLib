@@ -3,6 +3,7 @@ package mesh.creator.primitives;
 import mesh.Mesh3D;
 import mesh.creator.FillType;
 import mesh.creator.IMeshCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.modifier.FlipFacesModifier;
 import mesh.wip.Mesh3DUtil;
 
@@ -63,7 +64,7 @@ public class CylinderCreator implements IMeshCreator {
 	public Mesh3D create() {
 		Mesh3D topCap = createTopCap();
 		Mesh3D bottomCap = createBottomCap();
-		mesh = Mesh3DUtil.append(topCap, bottomCap);
+		mesh = new AppendCreator(topCap, bottomCap).create();
 		bridge(topCap, bottomCap);
 		return mesh;
 	}

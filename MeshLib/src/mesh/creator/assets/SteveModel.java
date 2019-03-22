@@ -4,7 +4,7 @@ import math.Vector3f;
 import mesh.Mesh3D;
 import mesh.creator.primitives.BoxCreator;
 import mesh.creator.primitives.CubeCreator;
-import mesh.wip.Mesh3DUtil;
+import mesh.creator.special.AppendCreator;
 
 public class SteveModel {
 	
@@ -81,41 +81,41 @@ public class SteveModel {
 	private void createHead() {
 		head = new CubeCreator(4 * unit).create();
 		head.translateY(4 * unit);
-		mesh = Mesh3DUtil.append(mesh, head);
+		mesh = new AppendCreator(mesh, head).create();
 	}
 	
 	private void createTorso() {
 		torso = new BoxCreator(8 * unit, 12 * unit, 4 * unit).create();
 		torso.translateY(14 * unit);
-		mesh = Mesh3DUtil.append(mesh, torso);	
+		mesh = new AppendCreator(mesh, torso).create();
 	}
 	
 	private void createLeftArm() {
 		leftArm = new BoxCreator(4 * unit, 12 * unit, 4 * unit).create();
 		leftArm.translateX(-6 * unit);
 		leftArm.translateY(14 * unit);
-		mesh = Mesh3DUtil.append(mesh, leftArm);	
+		mesh = new AppendCreator(mesh, leftArm).create();
 	}
 	
 	private void createRightArm() {
 		rightArm = new BoxCreator(4 * unit, 12 * unit, 4 * unit).create();
 		rightArm.translateX(6 * unit);
 		rightArm.translateY(14 * unit);
-		mesh = Mesh3DUtil.append(mesh, rightArm);	
+		mesh = new AppendCreator(mesh, rightArm).create();	
 	}
 	
 	private void createLeftLeg() {
 		leftLeg = new BoxCreator(4 * unit, 12 * unit, 4 * unit).create();
 		leftLeg.translateX(-2 * unit);
 		leftLeg.translateY(26 * unit);
-		mesh = Mesh3DUtil.append(mesh, leftLeg);	
+		mesh = new AppendCreator(mesh, leftLeg).create();
 	}
 	
 	private void createRightLeg() {
 		rightLeg = new BoxCreator(4 * unit, 12 * unit, 4 * unit).create();
 		rightLeg.translateX(2 * unit);
 		rightLeg.translateY(26 * unit);
-		mesh = Mesh3DUtil.append(mesh, rightLeg);	
+		mesh = new AppendCreator(mesh, rightLeg).create();
 	}
 	
 	private Mesh3D create() {

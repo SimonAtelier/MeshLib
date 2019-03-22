@@ -7,6 +7,7 @@ import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CircleCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.CatmullClarkModifier;
 import mesh.wip.Mesh3DUtil;
@@ -38,7 +39,7 @@ public class RingCageCreator implements IMeshCreator {
 
 	private void append(List<Mesh3D> meshes) {
 		for (Mesh3D mesh : meshes) {
-			this.mesh = Mesh3DUtil.append(this.mesh, mesh);
+			this.mesh = new AppendCreator(this.mesh, mesh).create();
 		}
 	}
 

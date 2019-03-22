@@ -5,6 +5,7 @@ import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CubeCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.wip.Mesh3DUtil;
 
 public class CubeJointLatticeCylinderCreator implements IMeshCreator {
@@ -55,7 +56,7 @@ public class CubeJointLatticeCylinderCreator implements IMeshCreator {
 				cubes[i][j] = new CubeCreator(jointSize).create();
 				cubes[i][j].rotateY(-angle);
 				cubes[i][j].translate(x, i * dy, y);
-				mesh = Mesh3DUtil.append(mesh, cubes[i][j]);
+				mesh = new AppendCreator(mesh, cubes[i][j]).create();
 				angle += step;
 			}
 			angle = 0;

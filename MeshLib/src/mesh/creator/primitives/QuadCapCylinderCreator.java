@@ -7,6 +7,7 @@ import math.Mathf;
 import math.Vector3f;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.modifier.FlipFacesModifier;
 import mesh.modifier.SpherifyModifier;
 import mesh.wip.Mesh3DUtil;
@@ -100,7 +101,7 @@ public class QuadCapCylinderCreator implements IMeshCreator {
 		new SpherifyModifier(radius).modify(grid);
 
 		flatten(grid, -height / 2f);
-		mesh = Mesh3DUtil.append(mesh, grid);
+		mesh = new AppendCreator(mesh, grid).create();
 		
 		int idx = ((capCols / 2) + 1) - (capCols % 2 == 1 ? 0 : 1);
 		for (int i = 0; i < gridTopBorderVertices.size(); i++) {
@@ -128,7 +129,7 @@ public class QuadCapCylinderCreator implements IMeshCreator {
 		List<Mesh3D> meshes = new ArrayList<Mesh3D>();
 		
 		meshes.add(top);
-		mesh = Mesh3DUtil.append(mesh, top);
+		mesh = new AppendCreator(mesh, top).create();
 		
 		float segmentHeight = height / segments;
 		for (int i = 0; i < segments - 1; i++) {
@@ -136,11 +137,11 @@ public class QuadCapCylinderCreator implements IMeshCreator {
 			Mesh3D circle = new CircleCreator(vertices, radius, segmentHeight + i * segmentHeight - height / 2f).create();
 			circle.rotateY(Mathf.HALF_PI + (capCols % 2 == 1 ? -a / 2f : 0));
 			meshes.add(circle);
-			mesh = Mesh3DUtil.append(mesh, circle);
+			mesh = new AppendCreator(mesh, circle).create();
 		}
 		
 		meshes.add(bottom);
-		mesh = Mesh3DUtil.append(mesh, bottom);
+		mesh = new AppendCreator(mesh, bottom).create();
 		
 		for (int j = 0; j < meshes.size() - 1; j++) {
 			Mesh3D mesh0 = meshes.get(j);

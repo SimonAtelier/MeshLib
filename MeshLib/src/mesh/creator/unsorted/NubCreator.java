@@ -4,8 +4,8 @@ import math.Mathf;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CircleCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.modifier.subdivision.CatmullClarkModifier;
-import mesh.wip.Mesh3DUtil;
 
 public class NubCreator implements IMeshCreator {
 
@@ -42,9 +42,9 @@ public class NubCreator implements IMeshCreator {
 			circle0.translateY(0.5f * i);
 			circle1.translateY(0.5f * i);
 			if (i % 2 == 0) {
-				mesh = Mesh3DUtil.append(mesh, circle1, circle0);
+				mesh = new AppendCreator(mesh, circle1, circle0).create();
 			} else {
-				mesh = Mesh3DUtil.append(mesh, circle0, circle1);
+				mesh = new AppendCreator(mesh, circle0, circle1).create();
 			}
 		}
 		

@@ -9,6 +9,7 @@ import math.Vector3f;
 import mesh.Edge3D;
 import mesh.Face3D;
 import mesh.Mesh3D;
+import mesh.creator.special.AppendCreator;
 import mesh.wip.Mesh3DUtil;
 
 public class SolidifyModifier implements IMeshModifier {
@@ -72,7 +73,7 @@ public class SolidifyModifier implements IMeshModifier {
 		new FlipFacesModifier().modify(copy);
 
 		// Combine meshes.
-		m0 = Mesh3DUtil.append(mesh, copy);
+		m0 = new AppendCreator(mesh, copy).create();
 
 		// Move vertices along the vertex normals.
 		for (int i = 0; i < copy.vertices.size(); i++) {

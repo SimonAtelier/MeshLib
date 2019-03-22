@@ -4,6 +4,7 @@ import math.Vector3f;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CircleCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.modifier.HolesModifier;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.TessellationEdgeModifier;
@@ -45,7 +46,7 @@ public class TessellationRingCreator implements IMeshCreator {
 		bottomCircle = new CircleCreator(vertices, bottomRadius).create();
 		topCircle.translateY(-0.25f);
 		bottomCircle.translateY(0.25f);
-		mesh = Mesh3DUtil.append(topCircle, bottomCircle);
+		mesh = new AppendCreator(topCircle, bottomCircle).create();
 	}
 	
 	private void tessellate() {		

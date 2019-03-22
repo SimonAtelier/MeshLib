@@ -4,6 +4,7 @@ import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CubeCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.wip.Mesh3DUtil;
 
 public class CubeJointLatticeCubeCreator implements IMeshCreator {
@@ -60,7 +61,7 @@ public class CubeJointLatticeCubeCreator implements IMeshCreator {
 					cubes[i][j][k] = new CubeCreator(jointSize).create();
 					cubes[i][j][k].translate(j * tileSizeX, i * tileSizeY, k
 							* tileSizeZ);
-					mesh = Mesh3DUtil.append(mesh, cubes[i][j][k]);
+					mesh = new AppendCreator(mesh, cubes[i][j][k]).create();
 				}
 			}
 		}

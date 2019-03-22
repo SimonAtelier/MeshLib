@@ -8,7 +8,7 @@ import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.GridCreator;
-import mesh.wip.Mesh3DUtil;
+import mesh.creator.special.AppendCreator;
 
 public class SegmentedCubeCreator implements IMeshCreator {
 
@@ -32,7 +32,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 	private void createTop() {
 		Mesh3D top = new GridCreator(segments, segments, creationSize).create();
 		top.translateY(-creationSize);
-		mesh = Mesh3DUtil.append(mesh, top);
+		mesh = new AppendCreator(mesh, top).create();
 	}
 
 	private void createBottom() {
@@ -40,7 +40,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 				.create();
 		bottom.rotateX(Mathf.toRadians(180));
 		bottom.translateY(creationSize);
-		mesh = Mesh3DUtil.append(mesh, bottom);
+		mesh = new AppendCreator(mesh, bottom).create();
 	}
 
 	private void createFront() {
@@ -48,7 +48,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 				.create();
 		front.rotateX(Mathf.HALF_PI);
 		front.translateZ(-creationSize);
-		mesh = Mesh3DUtil.append(mesh, front);
+		mesh = new AppendCreator(mesh, front).create();
 	}
 
 	private void createBack() {
@@ -56,7 +56,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 				.create();
 		front.rotateX(-Mathf.HALF_PI);
 		front.translateZ(creationSize);
-		mesh = Mesh3DUtil.append(mesh, front);
+		mesh = new AppendCreator(mesh, front).create();
 	}
 
 	private void createLeft() {
@@ -64,7 +64,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 				.create();
 		front.rotateZ(-Mathf.HALF_PI);
 		front.translateX(-creationSize);
-		mesh = Mesh3DUtil.append(mesh, front);
+		mesh = new AppendCreator(mesh, front).create();
 	}
 
 	private void createRight() {
@@ -72,7 +72,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 				.create();
 		front.rotateZ(Mathf.HALF_PI);
 		front.translateX(creationSize);
-		mesh = Mesh3DUtil.append(mesh, front);
+		mesh = new AppendCreator(mesh, front).create();
 	}
 
 	private void roundVertices() {

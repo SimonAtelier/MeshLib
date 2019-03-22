@@ -8,6 +8,7 @@ import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CubeCreator;
+import mesh.creator.special.AppendCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.CatmullClarkModifier;
 import mesh.wip.Mesh3DUtil;
@@ -36,7 +37,7 @@ public class CubicLatticeCreator implements IMeshCreator {
 				for (int j = 0; j < segmentsX; j++) {
 					Mesh3D mesh = createSegment();
 					mesh.translate(j * 3, i * 3, k * 3);
-					this.mesh = Mesh3DUtil.append(this.mesh, mesh);
+					this.mesh = new AppendCreator(this.mesh, mesh).create();
 				}
 			}
 		}
