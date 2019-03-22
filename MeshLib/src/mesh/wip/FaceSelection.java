@@ -44,7 +44,7 @@ public class FaceSelection {
 	 */
 	public void selectSimilarNormal(Vector3f normal, float threshold) {
 		for (Face3D face : mesh.faces) {
-			Vector3f normal0 = Mesh3DUtil.calculateFaceNormal(mesh, face);
+			Vector3f normal0 = mesh.calculateFaceNormal(face);
 			Vector3f delta = normal0.subtract(normal).abs();
 			// FIXME
 			if (delta.x <= threshold && delta.y <= threshold && delta.z <= threshold) {
@@ -130,7 +130,7 @@ public class FaceSelection {
 
 	public void selectLeftFaces() {
 		for (Face3D f : mesh.faces) {
-			Vector3f v = Mesh3DUtil.calculateFaceNormal(mesh, f);
+			Vector3f v = mesh.calculateFaceNormal(f);
 			Vector3f v0 = new Vector3f(Mathf.round(v.x), Mathf.round(v.y), Mathf.round(v.z));
 			if (v0.x == -1) {
 				faceSet.add(f);
@@ -140,7 +140,7 @@ public class FaceSelection {
 
 	public void selectRightFaces() {
 		for (Face3D f : mesh.faces) {
-			Vector3f v = Mesh3DUtil.calculateFaceNormal(mesh, f);
+			Vector3f v = mesh.calculateFaceNormal(f);
 			Vector3f v0 = new Vector3f(Mathf.round(v.x), Mathf.round(v.y), Mathf.round(v.z));
 			if (v0.x == 1) {
 				faceSet.add(f);
@@ -150,7 +150,7 @@ public class FaceSelection {
 
 	public void selectTopFaces() {
 		for (Face3D f : mesh.faces) {
-			Vector3f v = Mesh3DUtil.calculateFaceNormal(mesh, f);
+			Vector3f v = mesh.calculateFaceNormal(f);
 			Vector3f v0 = new Vector3f(Mathf.round(v.x), Mathf.round(v.y), Mathf.round(v.z));
 			if (v0.y == -1) {
 				faceSet.add(f);
@@ -160,7 +160,7 @@ public class FaceSelection {
 
 	public void selectBottomFaces() {
 		for (Face3D f : mesh.faces) {
-			Vector3f v = Mesh3DUtil.calculateFaceNormal(mesh, f);
+			Vector3f v = mesh.calculateFaceNormal(f);
 			Vector3f v0 = new Vector3f(Mathf.round(v.x), Mathf.round(v.y), Mathf.round(v.z));
 			if (v0.y == 1) {
 				faceSet.add(f);
@@ -170,7 +170,7 @@ public class FaceSelection {
 
 	public void selectFrontFaces() {
 		for (Face3D f : mesh.faces) {
-			Vector3f v = Mesh3DUtil.calculateFaceNormal(mesh, f);
+			Vector3f v = mesh.calculateFaceNormal(f);
 			Vector3f v0 = new Vector3f(Mathf.round(v.x), Mathf.round(v.y), Mathf.round(v.z));
 			if (v0.z == 1) {
 				faceSet.add(f);
@@ -180,7 +180,7 @@ public class FaceSelection {
 
 	public void selectBackFaces() {
 		for (Face3D f : mesh.faces) {
-			Vector3f v = Mesh3DUtil.calculateFaceNormal(mesh, f);
+			Vector3f v = mesh.calculateFaceNormal(f);
 			Vector3f v0 = new Vector3f(Mathf.round(v.x), Mathf.round(v.y), Mathf.round(v.z));
 			if (v0.z == -1) {
 				faceSet.add(f);
@@ -207,7 +207,7 @@ public class FaceSelection {
 
 	public void selectOuter() {
 		for (Face3D face : mesh.faces) {
-			Vector3f normal = Mesh3DUtil.calculateFaceNormal(mesh, face);
+			Vector3f normal = mesh.calculateFaceNormal(face);
 			Vector3f v = mesh.getVertexAt(face.indices[0]);
 			if (normal.dot(v) > 0) {
 				faceSet.add(face);
@@ -217,7 +217,7 @@ public class FaceSelection {
 
 	public void selectInner() {
 		for (Face3D face : mesh.faces) {
-			Vector3f normal = Mesh3DUtil.calculateFaceNormal(mesh, face);
+			Vector3f normal = mesh.calculateFaceNormal(face);
 			Vector3f v = mesh.getVertexAt(face.indices[0]);
 			if (normal.dot(v) < 0) {
 				faceSet.add(face);

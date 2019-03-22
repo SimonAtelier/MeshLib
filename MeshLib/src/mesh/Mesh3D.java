@@ -24,95 +24,95 @@ public class Mesh3D {
 		this.vertices.addAll(Arrays.asList(vertices));
 		this.faces.addAll(Arrays.asList(faces));
 	}
-	
+
 	public Mesh3D rotateX(float angle) {
-		Matrix3f m = new Matrix3f(1, 0, 0, 0, Mathf.cos(angle),
-				-Mathf.sin(angle), 0, Mathf.sin(angle), Mathf.cos(angle));
+		Matrix3f m = new Matrix3f(1, 0, 0, 0, Mathf.cos(angle), -Mathf.sin(angle), 0, Mathf.sin(angle),
+				Mathf.cos(angle));
 
 		for (Vector3f v : vertices) {
 			Vector3f v0 = v.mult(m);
 			v.set(v.x, v0.y, v0.z);
 		}
-		
+
 		return this;
 	}
 
 	public Mesh3D rotateY(float angle) {
-		Matrix3f m = new Matrix3f(Mathf.cos(angle), 0, Mathf.sin(angle), 0, 1,
-				0, -Mathf.sin(angle), 0, Mathf.cos(angle));
+		Matrix3f m = new Matrix3f(Mathf.cos(angle), 0, Mathf.sin(angle), 0, 1, 0, -Mathf.sin(angle), 0,
+				Mathf.cos(angle));
 
 		for (Vector3f v : vertices) {
 			Vector3f v0 = v.mult(m);
 			v.set(v0.x, v.y, v0.z);
 		}
-		
+
 		return this;
 	}
 
 	public Mesh3D rotateZ(float angle) {
-		Matrix3f m = new Matrix3f(Mathf.cos(angle), -Mathf.sin(angle), 0,
-				Mathf.sin(angle), Mathf.cos(angle), 0, 0, 0, 1);
+		Matrix3f m = new Matrix3f(Mathf.cos(angle), -Mathf.sin(angle), 0, Mathf.sin(angle), Mathf.cos(angle), 0, 0, 0,
+				1);
 
 		for (Vector3f v : vertices) {
 			Vector3f v0 = v.mult(m);
 			v.set(v0.x, v0.y, v.z);
 		}
-		
+
 		return this;
 	}
-	
+
 	public Mesh3D scale(float scale) {
 		for (Vector3f v : vertices) {
 			v.multLocal(scale);
 		}
 		return this;
 	}
-	
+
 	public Mesh3D scale(float sx, float sy, float sz) {
 		Vector3f scale = new Vector3f(sx, sy, sz);
 		return scale(scale);
 	}
-	
+
 	public Mesh3D scale(Vector3f scale) {
 		for (Vector3f v : vertices) {
 			v.multLocal(scale);
 		}
 		return this;
 	}
-	
+
 	public Mesh3D translateX(float tx) {
 		for (Vector3f v : vertices) {
 			v.addLocal(tx, 0, 0);
 		}
 		return this;
 	}
-	
+
 	public Mesh3D translateY(float ty) {
 		for (Vector3f v : vertices) {
 			v.addLocal(0, ty, 0);
 		}
 		return this;
 	}
-	
+
 	public Mesh3D translateZ(float tz) {
 		for (Vector3f v : vertices) {
 			v.addLocal(0, 0, tz);
 		}
 		return this;
 	}
-	
+
 	public void translate(float tx, float ty, float tz) {
 		for (Vector3f v : vertices) {
 			v.addLocal(tx, ty, tz);
 		}
 	}
-	
+
 	public void translate(Vector3f t) {
 		for (Vector3f v : vertices) {
 			v.addLocal(t);
 		}
 	}
-	
+
 	public Mesh3D copy() {
 		Mesh3D copy = new Mesh3D();
 		List<Vector3f> vertices = copy.vertices;
@@ -123,14 +123,14 @@ public class Mesh3D {
 
 		for (Face3D f : this.faces)
 			faces.add(new Face3D(f));
-		
+
 		return copy;
 	}
-	
+
 	public void addVertex(float x, float y, float z) {
 		vertices.add(new Vector3f(x, y, z));
 	}
-	
+
 	public void addFace(int... indices) {
 		faces.add(new Face3D(indices));
 	}
@@ -158,7 +158,7 @@ public class Mesh3D {
 	public int getFaceCount() {
 		return faces.size();
 	}
-	
+
 	public int getNumberOfFacesWithVertexCountOfN(int n) {
 		int faceCount = 0;
 		for (Face3D face : faces) {
@@ -167,7 +167,7 @@ public class Mesh3D {
 		}
 		return faceCount;
 	}
-	
+
 	public Collection<Edge3D> createEdges() {
 		HashSet<Edge3D> edges = new HashSet<Edge3D>();
 		for (Face3D f : faces) {
@@ -182,7 +182,19 @@ public class Mesh3D {
 		}
 		return new ArrayList<Edge3D>(edges);
 	}
-	
+
+	public Vector3f calculateFaceNormal(Face3D face) {
+		Vector3f faceNormal = new Vector3f();
+		for (int i = 0; i < face.indices.length; i++) {
+			Vector3f currentVertex = vertices.get(face.indices[i]);
+			Vector3f nextVertex = vertices.get(face.indices[(i + 1) % face.indices.length]);
+			faceNormal.x += (currentVertex.y - nextVertex.y) * (currentVertex.z + nextVertex.z);
+			faceNormal.y += (currentVertex.z - nextVertex.z) * (currentVertex.x + nextVertex.x);
+			faceNormal.z += (currentVertex.x - nextVertex.x) * (currentVertex.y + nextVertex.y);
+		}
+		return faceNormal.normalize();
+	}
+
 	public List<Face3D> getFaces(int from, int to) {
 		return new ArrayList<>(faces.subList(from, to));
 	}
@@ -198,5 +210,5 @@ public class Mesh3D {
 	public Face3D getFaceAt(int index) {
 		return faces.get(index);
 	}
-	
+
 }

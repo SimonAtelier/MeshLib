@@ -45,7 +45,7 @@ public class Mesh3DOperations {
 	public static List<Vector3f> getFaceNormals(Mesh3D mesh) {
 		List<Vector3f> normals = new ArrayList<>();
 		for (Face3D f : mesh.faces) {
-			Vector3f v = Mesh3DUtil.calculateFaceNormal(mesh, f);
+			Vector3f v = mesh.calculateFaceNormal(f);
 			normals.add(v);
 		}
 		return normals;
