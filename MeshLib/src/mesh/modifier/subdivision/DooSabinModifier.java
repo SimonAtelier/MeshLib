@@ -11,7 +11,6 @@ import mesh.Edge3D;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.modifier.IMeshModifier;
-import mesh.wip.Mesh3DUtil;
 import mesh.wip.TraverseHelper;
 
 /**
@@ -62,7 +61,7 @@ public class DooSabinModifier implements IMeshModifier {
 	private void createAndConnectNewVertices() {
 		List<Face3D> faces = source.getFaces(0, source.getFaceCount());
 		for (Face3D face : faces) {
-			Vector3f center = Mesh3DUtil.calculateFaceCenter(source, face);
+			Vector3f center = source.calculateFaceCenter(face);
 			int[] indices = new int[face.indices.length];
 			int n = indices.length;
 			for (int i = 0; i < face.indices.length; i++) {

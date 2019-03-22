@@ -8,7 +8,6 @@ import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.modifier.IMeshModifier;
 import mesh.wip.FaceSelection;
-import mesh.wip.Mesh3DUtil;
 
 public class CenterSplitFaceModifier implements IMeshModifier, FaceSelectionModifier {
 
@@ -60,7 +59,7 @@ public class CenterSplitFaceModifier implements IMeshModifier, FaceSelectionModi
 	private void centerSplit(Face3D face) {
 		int nextIndex = mesh.getVertexCount();
 		int indicesLength = face.indices.length;
-		Vector3f center = Mesh3DUtil.calculateFaceCenter(mesh, face);
+		Vector3f center = mesh.calculateFaceCenter(face);
 		mesh.add(center);
 		for (int i = 0; i < face.indices.length; i++) {
 			int index0 = face.indices[i % indicesLength];

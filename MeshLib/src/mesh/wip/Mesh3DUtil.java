@@ -55,7 +55,7 @@ public class Mesh3DUtil {
 		int n = f.indices.length;
 		int idx = mesh.vertices.size();
 		Vector3f normal = mesh.calculateFaceNormal(f);
-		Vector3f center = calculateFaceCenter(mesh, f);
+		Vector3f center = mesh.calculateFaceCenter(f);
 
 		normal.multLocal(amount);
 
@@ -101,14 +101,6 @@ public class Mesh3DUtil {
 		}
 
 		return mesh;
-	}
-
-	public static Vector3f calculateFaceCenter(Mesh3D mesh, Face3D f) {
-		Vector3f center = new Vector3f();
-		for (int i = 0; i < f.indices.length; i++) {
-			center.addLocal(mesh.vertices.get(f.indices[i]));
-		}
-		return center.divideLocal(f.indices.length);
 	}
 
 }

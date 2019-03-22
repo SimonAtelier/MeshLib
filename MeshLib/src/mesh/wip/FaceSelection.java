@@ -93,7 +93,7 @@ public class FaceSelection {
 	// Test
 	public void selectWithYLassThan(float y) {
 		for (Face3D face : mesh.faces) {
-			Vector3f center = Mesh3DUtil.calculateFaceCenter(mesh, face);
+			Vector3f center = mesh.calculateFaceCenter(face);
 			if (center.y <= y) {
 				faceSet.add(face);
 			}

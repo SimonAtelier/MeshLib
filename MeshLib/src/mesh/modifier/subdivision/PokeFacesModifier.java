@@ -6,7 +6,6 @@ import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.modifier.IMeshModifier;
-import mesh.wip.Mesh3DUtil;
 
 public class PokeFacesModifier implements IMeshModifier {
 
@@ -31,7 +30,7 @@ public class PokeFacesModifier implements IMeshModifier {
 	}
 
 	private void createVertex(Face3D face) {
-		Vector3f center = Mesh3DUtil.calculateFaceCenter(mesh, face);
+		Vector3f center = mesh.calculateFaceCenter(face);
 		Vector3f normal = mesh.calculateFaceNormal(face);
 		center.addLocal(normal.multLocal(pokeOffset));
 		mesh.add(center);

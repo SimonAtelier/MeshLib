@@ -195,6 +195,14 @@ public class Mesh3D {
 		return faceNormal.normalize();
 	}
 
+	public Vector3f calculateFaceCenter(Face3D face) {
+		Vector3f center = new Vector3f();
+		for (int i = 0; i < face.indices.length; i++) {
+			center.addLocal(vertices.get(face.indices[i]));
+		}
+		return center.divideLocal(face.indices.length);
+	}
+
 	public List<Face3D> getFaces(int from, int to) {
 		return new ArrayList<>(faces.subList(from, to));
 	}

@@ -7,7 +7,6 @@ import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.modifier.IMeshModifier;
-import mesh.wip.Mesh3DUtil;
 
 /**
  * This modifier implements the Linear/Polyhedral Subdivision Scheme. This
@@ -64,7 +63,7 @@ public class LinearSubdivisionModifier implements IMeshModifier {
 	private void createFaceCenter() {
 		if (face.indices.length <= 3)
 			return;
-		Vector3f center = Mesh3DUtil.calculateFaceCenter(mesh, face);
+		Vector3f center = mesh.calculateFaceCenter(face);
 		mesh.vertices.add(center);
 		indices[0] = nextIndex;
 		nextIndex++;
