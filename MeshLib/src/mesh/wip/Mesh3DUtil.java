@@ -77,11 +77,6 @@ public class Mesh3DUtil {
 		}
 	}
 
-	public static Vector3f calculateFaceNormal(Mesh3D mesh, int index) {
-		Face3D f = mesh.faces.get(index);
-		return calculateFaceNormal(mesh, f);
-	}
-
 	public static Vector3f calculateFaceNormal(Mesh3D mesh, Face3D f) {
 		// https://www.opengl.org/wiki/Calculating_a_Surface_Normal
 		Vector3f normal = new Vector3f();
