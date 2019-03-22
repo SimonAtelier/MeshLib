@@ -42,15 +42,6 @@ public class Mesh3DUtil {
 		mesh.faces.add(f5);
 	}
 
-	public static void bridge(Mesh3D target, Mesh3D m0, Mesh3D m1) {
-		// if m0.vertices.length != m1.vertices.length
-		int vertices = m0.getVertexCount();
-		for (int i = 0; i < vertices; i++) {
-			Mesh3DUtil.bridge(target, m1.getVertexAt(i), m1.getVertexAt((i + 1) % vertices), m0.getVertexAt(i),
-					m0.getVertexAt((i + 1) % vertices));
-		}
-	}
-
 	public static void extrudeFace(Mesh3D mesh, Face3D f, float scale, float amount) {
 		int n = f.indices.length;
 		int idx = mesh.vertices.size();
