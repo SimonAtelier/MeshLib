@@ -1,7 +1,6 @@
 package mesh.wip;
 
 import java.util.Arrays;
-import java.util.List;
 
 import math.Vector3f;
 import mesh.Face3D;
