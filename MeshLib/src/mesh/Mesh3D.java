@@ -20,11 +20,6 @@ public class Mesh3D {
 		faces = new ArrayList<Face3D>();
 	}
 
-	public Mesh3D(Vector3f[] vertices, Face3D[] faces) {
-		this.vertices.addAll(Arrays.asList(vertices));
-		this.faces.addAll(Arrays.asList(faces));
-	}
-
 	public Mesh3D rotateX(float angle) {
 		Matrix3f m = new Matrix3f(1, 0, 0, 0, Mathf.cos(angle), -Mathf.sin(angle), 0, Mathf.sin(angle),
 				Mathf.cos(angle));
