@@ -1,21 +1,11 @@
 package mesh.wip;
 
-import java.util.Arrays;
-
 import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
 
 public class Mesh3DUtil {
 	
-	@Deprecated
-	public static void flipDirection(Mesh3D mesh, Face3D face) {
-		int[] copy = Arrays.copyOf(face.indices, face.indices.length);
-		for (int i = 0; i < face.indices.length; i++) {
-			face.indices[i] = copy[face.indices.length - 1 - i];
-		}
-	}
-
 	@Deprecated
 	public static void bridge(Mesh3D mesh, Vector3f v0, Vector3f v1, Vector3f v2, Vector3f v3) {
 		int idx0 = mesh.vertices.indexOf(v0);

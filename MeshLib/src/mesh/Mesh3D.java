@@ -197,7 +197,7 @@ public class Mesh3D {
 		}
 		return center.divideLocal(face.indices.length);
 	}
-
+	
 	public List<Face3D> getFaces(int from, int to) {
 		return new ArrayList<>(faces.subList(from, to));
 	}

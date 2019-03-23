@@ -76,7 +76,7 @@ public class CubeJointLatticeCubeCreator implements IMeshCreator {
 						Face3D f1 = cubes[i][j + 1][k].faces.get(4); // left
 						Mesh3DUtil.extrudeFace(mesh, f0, scaleX, 0.0f);
 						Mesh3DUtil.extrudeFace(mesh, f1, scaleX, 0.0f);
-						Mesh3DUtil.flipDirection(mesh, f1);
+						f1.flipDirection();
 						Mesh3DUtil.bridge(mesh, f0, f1);
 						mesh.faces.remove(f0);
 						mesh.faces.remove(f1);
@@ -87,7 +87,7 @@ public class CubeJointLatticeCubeCreator implements IMeshCreator {
 						Face3D f3 = cubes[i + 1][j][k].faces.get(0); // top
 						Mesh3DUtil.extrudeFace(mesh, f2, scaleY, 0.0f);
 						Mesh3DUtil.extrudeFace(mesh, f3, scaleY, 0.0f);
-						Mesh3DUtil.flipDirection(mesh, f3);
+						f3.flipDirection();
 						Mesh3DUtil.bridge(mesh, f2, f3);
 						mesh.faces.remove(f2);
 						mesh.faces.remove(f3);
@@ -98,7 +98,7 @@ public class CubeJointLatticeCubeCreator implements IMeshCreator {
 						Face3D f3 = cubes[i][j][k + 1].faces.get(5); // back
 						Mesh3DUtil.extrudeFace(mesh, f2, scaleZ, 0.0f);
 						Mesh3DUtil.extrudeFace(mesh, f3, scaleZ, 0.0f);
-						Mesh3DUtil.flipDirection(mesh, f3);
+						f3.flipDirection();
 						Mesh3DUtil.bridge(mesh, f2, f3);
 						mesh.faces.remove(f2);
 						mesh.faces.remove(f3);

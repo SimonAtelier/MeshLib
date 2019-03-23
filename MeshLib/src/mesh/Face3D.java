@@ -1,5 +1,7 @@
 package mesh;
 
+import java.util.Arrays;
+
 import math.Vector3f;
 
 public class Face3D {
@@ -21,6 +23,13 @@ public class Face3D {
 
 	public Face3D(Face3D f) {
 		this(f.indices);
+	}
+	
+	public void flipDirection() {
+		int[] copy = Arrays.copyOf(indices, indices.length);
+		for (int i = 0; i < indices.length; i++) {
+			indices[i] = copy[indices.length - 1 - i];
+		}
 	}
 	
 }

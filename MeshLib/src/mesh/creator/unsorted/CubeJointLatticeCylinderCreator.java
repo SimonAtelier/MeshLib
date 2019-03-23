@@ -70,7 +70,7 @@ public class CubeJointLatticeCylinderCreator implements IMeshCreator {
 				Face3D f1 = cubes[i][(j + 1) % cubes[0].length].faces.get(5);
 				Mesh3DUtil.extrudeFace(mesh, f0, scale0, 0.0f);
 				Mesh3DUtil.extrudeFace(mesh, f1, scale0, 0.0f);
-				Mesh3DUtil.flipDirection(mesh, f1);
+				f1.flipDirection();
 				Mesh3DUtil.bridge(mesh, f0, f1);
 				mesh.faces.remove(f0);
 				mesh.faces.remove(f1);
@@ -80,7 +80,7 @@ public class CubeJointLatticeCylinderCreator implements IMeshCreator {
 					Face3D f3 = cubes[i + 1][j].faces.get(0);
 					Mesh3DUtil.extrudeFace(mesh, f2, scale1, 0.0f);
 					Mesh3DUtil.extrudeFace(mesh, f3, scale1, 0.0f);
-					Mesh3DUtil.flipDirection(mesh, f3);
+					f3.flipDirection();
 					Mesh3DUtil.bridge(mesh, f2, f3);
 					mesh.faces.remove(f2);
 					mesh.faces.remove(f3);
