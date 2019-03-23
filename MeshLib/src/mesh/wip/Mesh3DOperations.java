@@ -1,10 +1,6 @@
 package mesh.wip;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import math.Vector3f;
-import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.math.Bounds3;
 
@@ -41,14 +37,5 @@ public class Mesh3DOperations {
 		bounds.setMinMax(min, max);
 		return bounds;
 	}
-
-	public static List<Vector3f> getFaceNormals(Mesh3D mesh) {
-		List<Vector3f> normals = new ArrayList<>();
-		for (Face3D f : mesh.faces) {
-			Vector3f v = mesh.calculateFaceNormal(f);
-			normals.add(v);
-		}
-		return normals;
-	}
-
+	
 }
