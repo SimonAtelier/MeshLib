@@ -8,10 +8,10 @@ public class Mesh3DUtil {
 	
 	@Deprecated
 	public static void bridge(Mesh3D mesh, Vector3f v0, Vector3f v1, Vector3f v2, Vector3f v3) {
-		int idx0 = mesh.vertices.indexOf(v0);
-		int idx1 = mesh.vertices.indexOf(v1);
-		int idx2 = mesh.vertices.indexOf(v2);
-		int idx3 = mesh.vertices.indexOf(v3);
+		int idx0 = mesh.indexOf(v0);
+		int idx1 = mesh.indexOf(v1);
+		int idx2 = mesh.indexOf(v2);
+		int idx3 = mesh.indexOf(v3);
 		Face3D face = new Face3D(idx0, idx1, idx3, idx2);
 		mesh.faces.add(face);
 	}
@@ -30,18 +30,18 @@ public class Mesh3DUtil {
 
 	public static void extrudeFace(Mesh3D mesh, Face3D f, float scale, float amount) {
 		int n = f.indices.length;
-		int idx = mesh.vertices.size();
+		int idx = mesh.getVertexCount();
 		Vector3f normal = mesh.calculateFaceNormal(f);
 		Vector3f center = mesh.calculateFaceCenter(f);
 
 		normal.multLocal(amount);
 
 		for (int i = 0; i < n; i++) {
-			Vector3f v0 = mesh.vertices.get(f.indices[i]);
+			Vector3f v0 = mesh.getVertexAt(f.indices[i]);
 			Vector3f v1 = new Vector3f(v0).subtract(center).mult(scale).add(center);
 
 			v1.addLocal(normal);
-			mesh.vertices.add(v1);
+			mesh.add(v1);
 		}
 
 		for (int i = 0; i < n; i++) {

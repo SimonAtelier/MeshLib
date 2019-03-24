@@ -56,7 +56,7 @@ public class CubicLatticeCreator implements IMeshCreator {
 		for (Face3D f : mesh.faces) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
-				int index = m.vertices.indexOf(v);
+				int index = m.indexOf(v);
 				f.indices[i] = index;
 			}
 			m.add(f);

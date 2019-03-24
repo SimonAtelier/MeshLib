@@ -21,9 +21,9 @@ public class Morpher {
 		if (finished)
 			return;
 
-		for (int i = 0; i < source.vertices.size(); i++) {
+		for (int i = 0; i < source.getVertexCount(); i++) {
 			Vector3f v0 = mesh.getVertexAt(i);
-			Vector3f target = this.target.vertices.get(i);
+			Vector3f target = this.target.getVertexAt(i);
 
 			float speed = 1;
 			Vector3f position = new Vector3f(v0);
@@ -65,7 +65,7 @@ public class Morpher {
 				count++;
 			}
 
-			if (count == source.vertices.size()) {
+			if (count == source.getVertexCount()) {
 				finished = true;
 			}
 		}

@@ -147,23 +147,6 @@ public class Mesh3D {
 		this.faces.addAll(Arrays.asList(faces));
 	}
 
-	public int getVertexCount() {
-		return vertices.size();
-	}
-
-	public int getFaceCount() {
-		return faces.size();
-	}
-
-	public int getNumberOfFacesWithVertexCountOfN(int n) {
-		int faceCount = 0;
-		for (Face3D face : faces) {
-			if (face.indices.length == n)
-				faceCount++;
-		}
-		return faceCount;
-	}
-
 	public Collection<Edge3D> createEdges() {
 		HashSet<Edge3D> edges = new HashSet<Edge3D>();
 		for (Face3D f : faces) {
@@ -213,6 +196,31 @@ public class Mesh3D {
 		}
 		bounds.setMinMax(min, max);
 		return bounds;
+	}
+	
+	public int indexOf(Vector3f vertex) {
+		return vertices.indexOf(vertex);
+	}
+	
+	public int getNumberOfFacesWithVertexCountOfN(int n) {
+		int faceCount = 0;
+		for (Face3D face : faces) {
+			if (face.indices.length == n)
+				faceCount++;
+		}
+		return faceCount;
+	}
+	
+	public void clearVertices() {
+		vertices.clear();
+	}
+	
+	public int getVertexCount() {
+		return vertices.size();
+	}
+
+	public int getFaceCount() {
+		return faces.size();
 	}
 	
 	public List<Face3D> getFaces(int from, int to) {

@@ -42,7 +42,7 @@ public class UVSphereCreator implements IMeshCreator {
 
 	private int getIndex(int row, int col) {
 		int idx = segments * row + col;
-		return idx % mesh.vertices.size();
+		return idx % mesh.getVertexCount();
 	}
 
 	private void createFaces() {
@@ -54,9 +54,9 @@ public class UVSphereCreator implements IMeshCreator {
 				int d = getIndex(row, col);
 				mesh.add(new Face3D(a, b, c, d));
 				if (row == 0) 
-					mesh.add(new Face3D(d, mesh.vertices.size() - 1, a));
+					mesh.add(new Face3D(d, mesh.getVertexCount() - 1, a));
 				if (row == rings - 3) 
-					mesh.add(new Face3D(c, b, mesh.vertices.size() - 2));
+					mesh.add(new Face3D(c, b, mesh.getVertexCount() - 2));
 			}
 		}
 	}

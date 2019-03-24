@@ -99,7 +99,7 @@ public class SolidifyModifier implements IMeshModifier {
 			}
 		}
 
-		mesh.vertices.clear();
+		mesh.clearVertices();
 		mesh.faces.clear();
 		mesh.addVertices(m0.vertices);
 		mesh.addFaces(m0.faces);
