@@ -34,7 +34,7 @@ public class SmoothModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		for (Face3D face : mesh.faces) {
+		for (Face3D face : mesh.getFaces()) {
 			int n = face.indices.length;
 			for (int i = 0; i < face.indices.length; i++) {
 				Vector3f edgeStartPoint = mesh.getVertexAt(face.indices[i]);

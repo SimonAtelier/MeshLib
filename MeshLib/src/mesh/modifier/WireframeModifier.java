@@ -18,7 +18,7 @@ public class WireframeModifier implements IMeshModifier {
 	}
 	
 	private void createHoles() {
-		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
+		List<Face3D> faces = mesh.getFaces();
 		for (Face3D face : faces) {
 			FaceExtrude.extrudeFace(mesh, face, scaleExtrude, 0.0f);
 		}

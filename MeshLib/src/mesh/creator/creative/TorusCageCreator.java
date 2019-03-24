@@ -32,11 +32,11 @@ public class TorusCageCreator implements IMeshCreator {
 	}
 
 	private void createHoles() {
-		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
+		List<Face3D> faces = mesh.getFaces();
 		for (Face3D face : faces) {
 			FaceExtrude.extrudeFace(mesh, face, extrude, 0f);
 		}
-		mesh.faces.removeAll(faces);
+		mesh.remove(faces);
 	}
 	
 	@Override

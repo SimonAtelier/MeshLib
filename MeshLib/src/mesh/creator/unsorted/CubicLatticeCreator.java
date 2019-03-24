@@ -23,7 +23,7 @@ public class CubicLatticeCreator implements IMeshCreator {
 	
 	private Mesh3D createSegment() {
 		Mesh3D mesh = new CubeCreator().create();
-		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
+		List<Face3D> faces = mesh.getFaces();
 		for (Face3D face : faces) {
 			FaceExtrude.extrudeFace(mesh, face, 1.0f, 0.5f);
 		}

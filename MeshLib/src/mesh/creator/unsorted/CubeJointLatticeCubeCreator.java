@@ -79,8 +79,8 @@ public class CubeJointLatticeCubeCreator implements IMeshCreator {
 						FaceExtrude.extrudeFace(mesh, f1, scaleX, 0.0f);
 						f1.flipDirection();
 						FaceBridge.bridge(mesh, f0, f1);
-						mesh.faces.remove(f0);
-						mesh.faces.remove(f1);
+						mesh.remove(f0);
+						mesh.remove(f1);
 					}
 
 					if ((i + 1) < cubes.length) {
@@ -90,8 +90,8 @@ public class CubeJointLatticeCubeCreator implements IMeshCreator {
 						FaceExtrude.extrudeFace(mesh, f3, scaleY, 0.0f);
 						f3.flipDirection();
 						FaceBridge.bridge(mesh, f2, f3);
-						mesh.faces.remove(f2);
-						mesh.faces.remove(f3);
+						mesh.remove(f2);
+						mesh.remove(f3);
 					}
 					
 					if ((k + 1) < cubes[0][0].length) {
@@ -101,8 +101,8 @@ public class CubeJointLatticeCubeCreator implements IMeshCreator {
 						FaceExtrude.extrudeFace(mesh, f3, scaleZ, 0.0f);
 						f3.flipDirection();
 						FaceBridge.bridge(mesh, f2, f3);
-						mesh.faces.remove(f2);
-						mesh.faces.remove(f3);
+						mesh.remove(f2);
+						mesh.remove(f3);
 					}
 				}
 			}

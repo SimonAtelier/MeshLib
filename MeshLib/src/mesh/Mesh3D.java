@@ -146,6 +146,14 @@ public class Mesh3D {
 	public void add(Face3D... faces) {
 		this.faces.addAll(Arrays.asList(faces));
 	}
+	
+	public void remove(Face3D face) {
+		faces.remove(face);
+	}
+	
+	public void remove(Collection<Face3D> faces) {
+		this.faces.removeAll(faces);
+	}
 
 	public Collection<Edge3D> createEdges() {
 		HashSet<Edge3D> edges = new HashSet<Edge3D>();
@@ -219,12 +227,20 @@ public class Mesh3D {
 		vertices.clear();
 	}
 	
+	public void clearFaces() {
+		faces.clear();
+	}
+	
 	public int getVertexCount() {
 		return vertices.size();
 	}
 
 	public int getFaceCount() {
 		return faces.size();
+	}
+
+	public List<Face3D> getFaces() {
+		return new ArrayList<Face3D>(faces);
 	}
 	
 	public List<Face3D> getFaces(int from, int to) {

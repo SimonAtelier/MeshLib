@@ -35,7 +35,7 @@ public class SolidifyModifier implements IMeshModifier {
 		List<Vector3f> vertexNormals = new ArrayList<Vector3f>();
 		HashSet<Edge3D> pairs = new HashSet<>();
 		
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			int size = f.indices.length;
 			// Calculate the face normal.
 			Vector3f n = mesh.calculateFaceNormal(f);
@@ -84,8 +84,7 @@ public class SolidifyModifier implements IMeshModifier {
 		}
 
 		// Bridge holes if any.
-		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
-		for (Face3D f : faces) {
+		for (Face3D f : mesh.getFaces()) {
 			int size = f.indices.length;
 			for (int i = 0; i < f.indices.length; i++) {
 				Edge3D pair0 = new Edge3D(f.indices[i], f.indices[(i + 1) % size]);
