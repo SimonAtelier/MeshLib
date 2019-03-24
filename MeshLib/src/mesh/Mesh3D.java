@@ -69,7 +69,7 @@ public class Mesh3D {
 		return scale(scale);
 	}
 
-	public Mesh3D scale(Vector3f scale) {
+	private Mesh3D scale(Vector3f scale) {
 		for (Vector3f v : vertices) {
 			v.multLocal(scale);
 		}
