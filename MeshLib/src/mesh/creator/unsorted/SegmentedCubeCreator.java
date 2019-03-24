@@ -91,7 +91,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 				vertexSet.add(v);
 			}
 		}
-		m.vertices.addAll(vertexSet);
+		m.addVertices(vertexSet);
 		for (Face3D f : mesh.faces) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);

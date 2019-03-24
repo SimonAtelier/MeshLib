@@ -206,7 +206,7 @@ public class DooSabinModifier implements IMeshModifier {
 		this.source.faces.clear();
 		this.source.clearVertices();
 		this.source.faces.addAll(target.faces);
-		this.source.vertices.addAll(target.vertices);
+		this.source.addVertices(target.getVertices());
 	}
 
 	/**

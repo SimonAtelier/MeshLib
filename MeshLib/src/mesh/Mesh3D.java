@@ -13,7 +13,7 @@ import mesh.math.Bounds3;
 
 public class Mesh3D {
 
-	public ArrayList<Vector3f> vertices;
+	private ArrayList<Vector3f> vertices;
 	public ArrayList<Face3D> faces;
 
 	public Mesh3D() {
@@ -131,16 +131,16 @@ public class Mesh3D {
 		faces.add(new Face3D(indices));
 	}
 
-	public void addVertices(Collection<Vector3f> vertices) {
-		this.vertices.addAll(vertices);
-	}
-
 	public void addFaces(Collection<Face3D> faces) {
 		this.faces.addAll(faces);
 	}
 
 	public void add(Vector3f... vertices) {
 		this.vertices.addAll(Arrays.asList(vertices));
+	}
+	
+	public void addVertices(Collection<Vector3f> vertices) {
+		this.vertices.addAll(vertices);
 	}
 
 	public void add(Face3D... faces) {
@@ -202,6 +202,10 @@ public class Mesh3D {
 		return vertices.indexOf(vertex);
 	}
 	
+	public boolean contains(Vector3f vertex) {
+		return vertices.contains(vertex);
+	}
+	
 	public int getNumberOfFacesWithVertexCountOfN(int n) {
 		int faceCount = 0;
 		for (Face3D face : faces) {
@@ -226,9 +230,9 @@ public class Mesh3D {
 	public List<Face3D> getFaces(int from, int to) {
 		return new ArrayList<>(faces.subList(from, to));
 	}
-
-	public List<Vector3f> getVertices(int from, int to) {
-		return new ArrayList<>(vertices.subList(from, to));
+	
+	public List<Vector3f> getVertices() {
+		return new ArrayList<Vector3f>(vertices);
 	}
 
 	public Vector3f getVertexAt(int index) {

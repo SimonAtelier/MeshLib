@@ -54,7 +54,7 @@ public class SmoothModifier implements IMeshModifier {
 		}
 
 		mesh.clearVertices();
-		mesh.vertices.addAll(smoothedVertices);
+		mesh.addVertices(smoothedVertices);
 
 		map.clear();
 		smoothedVertices.clear();
