@@ -10,7 +10,7 @@ import mesh.Edge3D;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.special.AppendCreator;
-import mesh.wip.FaceBridge;
+import mesh.wip.Mesh3DUtil;
 
 public class SolidifyModifier implements IMeshModifier {
 
@@ -35,7 +35,7 @@ public class SolidifyModifier implements IMeshModifier {
 		List<Vector3f> vertexNormals = new ArrayList<Vector3f>();
 		HashSet<Edge3D> pairs = new HashSet<>();
 		
-		for (Face3D f : mesh.getFaces()) {
+		for (Face3D f : mesh.faces) {
 			int size = f.indices.length;
 			// Calculate the face normal.
 			Vector3f n = mesh.calculateFaceNormal(f);
@@ -55,8 +55,7 @@ public class SolidifyModifier implements IMeshModifier {
 		}
 
 		// Calculate vertex normals.
-		for (int i = 0; i < mesh.getVertexCount(); i++) {
-			Vector3f v = mesh.getVertexAt(i);
+		for (Vector3f v : mesh.vertices) {
 			Vector3f n = new Vector3f();
 			List<Vector3f> list = map.get(v);
 			if (list == null) {
@@ -69,7 +68,7 @@ public class SolidifyModifier implements IMeshModifier {
 			n.normalizeLocal();
 			vertexNormals.add(n);
 		}
-		
+
 		// Flip inner mesh.
 		new FlipFacesModifier().modify(copy);
 
@@ -77,14 +76,15 @@ public class SolidifyModifier implements IMeshModifier {
 		m0 = new AppendCreator(mesh, copy).create();
 
 		// Move vertices along the vertex normals.
-		for (int i = 0; i < copy.getVertexCount(); i++) {
+		for (int i = 0; i < copy.vertices.size(); i++) {
 			Vector3f v = copy.getVertexAt(i);
 			Vector3f n = vertexNormals.get(i);
 			v.set(n.mult(-thickness).add(v));
 		}
 
 		// Bridge holes if any.
-		for (Face3D f : mesh.getFaces()) {
+		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
+		for (Face3D f : faces) {
 			int size = f.indices.length;
 			for (int i = 0; i < f.indices.length; i++) {
 				Edge3D pair0 = new Edge3D(f.indices[i], f.indices[(i + 1) % size]);
@@ -94,14 +94,14 @@ public class SolidifyModifier implements IMeshModifier {
 					Vector3f v1 = copy.getVertexAt(pair0.getToIndex());
 					Vector3f v2 = mesh.getVertexAt(pair0.getFromIndex());
 					Vector3f v3 = mesh.getVertexAt(pair0.getToIndex());
-					FaceBridge.bridge(m0, v0, v1, v2, v3);
+					Mesh3DUtil.bridge(m0, v0, v1, v2, v3);
 				}
 			}
 		}
 
-		mesh.clearVertices();
+		mesh.vertices.clear();
 		mesh.faces.clear();
-		mesh.addVertices(m0.getVertices());
+		mesh.addVertices(m0.vertices);
 		mesh.addFaces(m0.faces);
 
 		return mesh;

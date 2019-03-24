@@ -9,11 +9,10 @@ import java.util.List;
 import math.Mathf;
 import math.Matrix3f;
 import math.Vector3f;
-import mesh.math.Bounds3;
 
 public class Mesh3D {
 
-	private ArrayList<Vector3f> vertices;
+	public ArrayList<Vector3f> vertices;
 	public ArrayList<Face3D> faces;
 
 	public Mesh3D() {
@@ -69,7 +68,7 @@ public class Mesh3D {
 		return scale(scale);
 	}
 
-	private Mesh3D scale(Vector3f scale) {
+	public Mesh3D scale(Vector3f scale) {
 		for (Vector3f v : vertices) {
 			v.multLocal(scale);
 		}
@@ -131,6 +130,10 @@ public class Mesh3D {
 		faces.add(new Face3D(indices));
 	}
 
+	public void addVertices(Collection<Vector3f> vertices) {
+		this.vertices.addAll(vertices);
+	}
+
 	public void addFaces(Collection<Face3D> faces) {
 		this.faces.addAll(faces);
 	}
@@ -138,21 +141,26 @@ public class Mesh3D {
 	public void add(Vector3f... vertices) {
 		this.vertices.addAll(Arrays.asList(vertices));
 	}
-	
-	public void addVertices(Collection<Vector3f> vertices) {
-		this.vertices.addAll(vertices);
-	}
 
 	public void add(Face3D... faces) {
 		this.faces.addAll(Arrays.asList(faces));
 	}
-	
-	public void remove(Face3D face) {
-		faces.remove(face);
+
+	public int getVertexCount() {
+		return vertices.size();
 	}
-	
-	public void remove(Collection<Face3D> faces) {
-		this.faces.removeAll(faces);
+
+	public int getFaceCount() {
+		return faces.size();
+	}
+
+	public int getNumberOfFacesWithVertexCountOfN(int n) {
+		int faceCount = 0;
+		for (Face3D face : faces) {
+			if (face.indices.length == n)
+				faceCount++;
+		}
+		return faceCount;
 	}
 
 	public Collection<Edge3D> createEdges() {
@@ -190,65 +198,12 @@ public class Mesh3D {
 		return center.divideLocal(face.indices.length);
 	}
 	
-	public Bounds3 calculateBounds() {
-		Vector3f min = new Vector3f();
-		Vector3f max = new Vector3f();
-		Bounds3 bounds = new Bounds3();
-		for (Vector3f v : vertices) {
-			min.x = v.x < min.x ? v.x : min.x;
-			min.y = v.y < min.y ? v.y : min.y;
-			min.z = v.z < min.z ? v.z : min.z;
-			max.x = v.x > max.x ? v.x : max.x;
-			max.y = v.y > max.y ? v.y : max.y;
-			max.z = v.z > max.z ? v.z : max.z;
-		}
-		bounds.setMinMax(min, max);
-		return bounds;
-	}
-	
-	public int indexOf(Vector3f vertex) {
-		return vertices.indexOf(vertex);
-	}
-	
-	public boolean contains(Vector3f vertex) {
-		return vertices.contains(vertex);
-	}
-	
-	public int getNumberOfFacesWithVertexCountOfN(int n) {
-		int faceCount = 0;
-		for (Face3D face : faces) {
-			if (face.indices.length == n)
-				faceCount++;
-		}
-		return faceCount;
-	}
-	
-	public void clearVertices() {
-		vertices.clear();
-	}
-	
-	public void clearFaces() {
-		faces.clear();
-	}
-	
-	public int getVertexCount() {
-		return vertices.size();
-	}
-
-	public int getFaceCount() {
-		return faces.size();
-	}
-
-	public List<Face3D> getFaces() {
-		return new ArrayList<Face3D>(faces);
-	}
-	
 	public List<Face3D> getFaces(int from, int to) {
 		return new ArrayList<>(faces.subList(from, to));
 	}
-	
-	public List<Vector3f> getVertices() {
-		return new ArrayList<Vector3f>(vertices);
+
+	public List<Vector3f> getVertices(int from, int to) {
+		return new ArrayList<>(vertices.subList(from, to));
 	}
 
 	public Vector3f getVertexAt(int index) {

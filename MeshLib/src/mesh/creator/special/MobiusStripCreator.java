@@ -38,7 +38,7 @@ public class MobiusStripCreator implements IMeshCreator {
 	
 	private int getIndex(int row, int col) {
 		int idx = segments * row + col;
-		return idx % mesh.getVertexCount();
+		return idx % mesh.vertices.size();
 	}
 	
 	private void createFaces() {

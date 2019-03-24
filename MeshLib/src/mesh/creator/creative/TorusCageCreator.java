@@ -8,7 +8,7 @@ import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.TorusCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.CatmullClarkModifier;
-import mesh.wip.FaceExtrude;
+import mesh.wip.Mesh3DUtil;
 
 public class TorusCageCreator implements IMeshCreator {
 
@@ -32,11 +32,11 @@ public class TorusCageCreator implements IMeshCreator {
 	}
 
 	private void createHoles() {
-		List<Face3D> faces = mesh.getFaces();
+		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D face : faces) {
-			FaceExtrude.extrudeFace(mesh, face, extrude, 0f);
+			Mesh3DUtil.extrudeFace(mesh, face, extrude, 0f);
 		}
-		mesh.remove(faces);
+		mesh.faces.removeAll(faces);
 	}
 	
 	@Override

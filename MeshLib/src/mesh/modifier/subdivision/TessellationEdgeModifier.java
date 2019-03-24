@@ -45,27 +45,27 @@ public class TessellationEdgeModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		int nextIndex = mesh.getVertexCount();
+		int nextIndex = mesh.vertices.size();
 		ArrayList<Face3D> toAdd = new ArrayList<>();
 
 		for (Face3D f : mesh.faces) {
 			int n = f.indices.length;
 			int[] idxs = new int[f.indices.length + 1];
 			Vector3f center = mesh.calculateFaceCenter(f);
-			mesh.add(center);
+			mesh.vertices.add(center);
 			idxs[0] = nextIndex;
 			nextIndex++;
 
 			// Create edge points
 			for (int i = 0; i < f.indices.length; i++) {
-				Vector3f v0 = mesh.getVertexAt(f.indices[i % n]);
-				Vector3f v1 = mesh.getVertexAt(f.indices[(i + 1) % n]);
+				Vector3f v0 = mesh.vertices.get(f.indices[i % n]);
+				Vector3f v1 = mesh.vertices.get(f.indices[(i + 1) % n]);
 				Vector3f ep = GeometryUtil.getMidpoint(v0, v1);
-				int idx = mesh.indexOf(ep);
+				int idx = mesh.vertices.indexOf(ep);
 				if (idx > -1) {
 					idxs[i + 1] = idx;
 				} else {
-					mesh.add(ep);
+					mesh.vertices.add(ep);
 					idxs[i + 1] = nextIndex;
 					nextIndex++;
 				}

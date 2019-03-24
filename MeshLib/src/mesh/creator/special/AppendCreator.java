@@ -2,6 +2,7 @@ package mesh.creator.special;
 
 import java.util.List;
 
+import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
@@ -23,12 +24,12 @@ public class AppendCreator implements IMeshCreator {
 		// FIXME copy vertices and faces
 		int n = 0;
 		Mesh3D mesh = new Mesh3D();
-//		List<Vector3f> vertices = mesh.vertices;
+		List<Vector3f> vertices = mesh.vertices;
 		List<Face3D> faces = mesh.faces;
 
 		for (int i = 0; i < meshes.length; i++) {
 			Mesh3D m = meshes[i];
-			mesh.addVertices(m.getVertices());
+			vertices.addAll(m.vertices);
 			faces.addAll(meshes[i].faces);
 			for (Face3D f : meshes[i].faces) {
 				for (int j = 0; j < f.indices.length; j++) {

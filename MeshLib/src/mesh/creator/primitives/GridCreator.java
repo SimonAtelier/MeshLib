@@ -47,7 +47,7 @@ public class GridCreator implements IMeshCreator {
 			for (int j = 0; j <= subdivisionsX; j++) {
 				Vector3f v = new Vector3f(j * tileSizeX, 0, i * tileSizeZ);
 				v.subtractLocal(offsetX, 0, offsetZ);
-				mesh.add(v);
+				mesh.vertices.add(v);
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class GridCreator implements IMeshCreator {
 				int index = i * (subdivisionsX + 1) + j;
 				Face3D face = new Face3D(index, index + 1, index
 						+ subdivisionsX + 2, index + subdivisionsX + 1);
-				mesh.add(face);
+				mesh.faces.add(face);
 			}
 		}
 	}

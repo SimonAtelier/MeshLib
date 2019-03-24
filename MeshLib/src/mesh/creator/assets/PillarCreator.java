@@ -6,7 +6,7 @@ import mesh.creator.FillType;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CylinderCreator;
 import mesh.wip.FaceSelection;
-import mesh.wip.FaceExtrude;
+import mesh.wip.Mesh3DUtil;
 
 public class PillarCreator implements IMeshCreator {
 
@@ -63,24 +63,24 @@ public class PillarCreator implements IMeshCreator {
 	private void createBottom() {
 		for (Face3D face : selection.getFaces()) {
 			for (int i = 0; i < bottomSegments - 1; i++) {
-				FaceExtrude.extrudeFace(mesh, face, 0.9f, 0.0f);
-				FaceExtrude.extrudeFace(mesh, face, 1.0f, getBottomSegmentHeight());
+				Mesh3DUtil.extrudeFace(mesh, face, 0.9f, 0.0f);
+				Mesh3DUtil.extrudeFace(mesh, face, 1.0f, getBottomSegmentHeight());
 			}
 		}
 	}
 	
 	private void createCenter() {
 		for (Face3D face : selection.getFaces()) {
-			FaceExtrude.extrudeFace(mesh, face, 0.9f, 0.0f);
-			FaceExtrude.extrudeFace(mesh, face, 1.0f, centerHeight);
+			Mesh3DUtil.extrudeFace(mesh, face, 0.9f, 0.0f);
+			Mesh3DUtil.extrudeFace(mesh, face, 1.0f, centerHeight);
 		}
 	}
 	
 	private void createTop() {
 		for (Face3D face : selection.getFaces()) {
 			for (int i = 0; i < topSegments; i++) {
-				FaceExtrude.extrudeFace(mesh, face, 1.1f, 0.0f);
-				FaceExtrude.extrudeFace(mesh, face, 1.0f, getTopSegmentHeight());
+				Mesh3DUtil.extrudeFace(mesh, face, 1.1f, 0.0f);
+				Mesh3DUtil.extrudeFace(mesh, face, 1.0f, getTopSegmentHeight());
 			}
 		}
 	}

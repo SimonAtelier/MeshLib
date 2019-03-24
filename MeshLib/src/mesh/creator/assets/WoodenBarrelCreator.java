@@ -9,7 +9,7 @@ import mesh.creator.IMeshCreator;
 import mesh.creator.unsorted.SegmentedCylinderCreator;
 import mesh.modifier.face.CenterSplitFaceModifier;
 import mesh.wip.FaceSelection;
-import mesh.wip.FaceExtrude;
+import mesh.wip.Mesh3DUtil;
 
 public class WoodenBarrelCreator implements IMeshCreator {
 
@@ -48,7 +48,7 @@ public class WoodenBarrelCreator implements IMeshCreator {
 	}
 
 	private void bend() {
-		for (Vector3f v : mesh.getVertices()) {
+		for (Vector3f v : mesh.getVertices(0, mesh.getVertexCount())) {
 			float y = v.y;
 			float m = Mathf.cos(Mathf.abs(y * bendFactor));
 			v.multLocal(new Vector3f(m, 1, m));
@@ -66,9 +66,9 @@ public class WoodenBarrelCreator implements IMeshCreator {
 		bend();
 		
 		for (Face3D face : selection.getFaces()) {
-			FaceExtrude.extrudeFace(mesh, face, 0.9f, 0.0f);
-			FaceExtrude.extrudeFace(mesh, face, 1.0f, -inset);
-			FaceExtrude.extrudeFace(mesh, face, 0.9f, 0.0f);
+			Mesh3DUtil.extrudeFace(mesh, face, 0.9f, 0.0f);
+			Mesh3DUtil.extrudeFace(mesh, face, 1.0f, -inset);
+			Mesh3DUtil.extrudeFace(mesh, face, 0.9f, 0.0f);
 		}
 		
 		new CenterSplitFaceModifier().modify(selection);

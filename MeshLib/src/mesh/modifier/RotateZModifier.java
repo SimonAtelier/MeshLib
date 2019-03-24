@@ -23,12 +23,11 @@ public class RotateZModifier implements IMeshModifier {
 		Matrix3f m = new Matrix3f(Mathf.cos(a), -Mathf.sin(a), 0,
 				Mathf.sin(a), Mathf.cos(a), 0, 0, 0, 1);
 
-		for (int i = 0; i < mesh.getVertexCount(); i++) {
-			Vector3f v = mesh.getVertexAt(i);
+		for (Vector3f v : mesh.vertices) {
 			Vector3f v0 = v.mult(m);
 			v.set(v0.x, v0.y, v.z);
 		}
-		
+
 		return mesh;
 	}
 

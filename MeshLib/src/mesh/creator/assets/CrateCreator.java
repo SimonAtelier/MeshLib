@@ -1,12 +1,14 @@
 package mesh.creator.assets;
 
+import java.util.List;
+
 import math.Mathf;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CubeCreator;
 import mesh.creator.special.AppendCreator;
-import mesh.wip.FaceExtrude;
+import mesh.wip.Mesh3DUtil;
 
 public class CrateCreator implements IMeshCreator {
 
@@ -33,9 +35,10 @@ public class CrateCreator implements IMeshCreator {
 	}
 
 	private void extrudeFaces() {
-		for (Face3D face : mesh.getFaces()) {
-			FaceExtrude.extrudeFace(mesh, face, 1.0f - (inset / radius), 0.0f);
-			FaceExtrude.extrudeFace(mesh, face, 1.0f, -insetDepth);
+		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
+		for (Face3D face : faces) {
+			Mesh3DUtil.extrudeFace(mesh, face, 1.0f - (inset / radius), 0.0f);
+			Mesh3DUtil.extrudeFace(mesh, face, 1.0f, -insetDepth);
 		}
 	}
 

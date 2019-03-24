@@ -13,7 +13,7 @@ import mesh.creator.primitives.CubeCreator;
 import mesh.creator.unsorted.SegmentedCubeCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.CatmullClarkModifier;
-import mesh.wip.FaceExtrude;
+import mesh.wip.Mesh3DUtil;
 
 /**
  * Inspired by John Malcolm 
@@ -38,20 +38,20 @@ public class PortedCubeCreator implements IMeshCreator {
 	private void removeCornerFaces() {
 		HashSet<Face3D> toRemove = new HashSet<Face3D>();
 		Mesh3D cube = new CubeCreator(3f).create();
-		for (Face3D face : mesh.getFaces()) {
+		for (Face3D face : mesh.faces) {
 			for (int i = 0; i < face.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(face.indices[i]);
-				if (cube.contains(v)) {
+				if (cube.vertices.contains(v)) {
 					toRemove.add(face);
 				}
 			}
 		}
-		mesh.remove(toRemove);
+		mesh.faces.removeAll(toRemove);
 	}
 
 	private void extrudeCenterFaces() {
 		List<Face3D> toExtrude = new ArrayList<>();
-		for (Face3D face : mesh.getFaces()) {
+		for (Face3D face : mesh.faces) {
 			Vector3f center = mesh.calculateFaceCenter(face)
 					.divideLocal(3f);
 			if (center.length() == 1) {
@@ -59,25 +59,25 @@ public class PortedCubeCreator implements IMeshCreator {
 			}
 		}
 		for (Face3D f : toExtrude) {
-			FaceExtrude.extrudeFace(mesh, f, 1.0f, -2.0f);
-			mesh.remove(f);
+			Mesh3DUtil.extrudeFace(mesh, f, 1.0f, -2.0f);
+			mesh.faces.remove(f);
 		}
 	}
 
 	private void removeDoubles() {
 		Mesh3D m = new Mesh3D();
 		HashSet<Vector3f> vertexSet = new HashSet<Vector3f>();
-		for (Face3D f : mesh.getFaces()) {
+		for (Face3D f : mesh.faces) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
 				vertexSet.add(v);
 			}
 		}
-		m.addVertices(vertexSet);
-		for (Face3D f : mesh.getFaces()) {
+		m.vertices.addAll(vertexSet);
+		for (Face3D f : mesh.faces) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
-				int index = m.indexOf(v);
+				int index = m.vertices.indexOf(v);
 				f.indices[i] = index;
 			}
 			m.add(f);

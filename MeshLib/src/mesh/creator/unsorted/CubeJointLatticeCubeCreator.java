@@ -5,8 +5,7 @@ import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CubeCreator;
 import mesh.creator.special.AppendCreator;
-import mesh.wip.FaceBridge;
-import mesh.wip.FaceExtrude;
+import mesh.wip.Mesh3DUtil;
 
 public class CubeJointLatticeCubeCreator implements IMeshCreator {
 
@@ -75,34 +74,34 @@ public class CubeJointLatticeCubeCreator implements IMeshCreator {
 					if ((j + 1) < cubes[0].length) {
 						Face3D f0 = cubes[i][j][k].faces.get(2); // right
 						Face3D f1 = cubes[i][j + 1][k].faces.get(4); // left
-						FaceExtrude.extrudeFace(mesh, f0, scaleX, 0.0f);
-						FaceExtrude.extrudeFace(mesh, f1, scaleX, 0.0f);
+						Mesh3DUtil.extrudeFace(mesh, f0, scaleX, 0.0f);
+						Mesh3DUtil.extrudeFace(mesh, f1, scaleX, 0.0f);
 						f1.flipDirection();
-						FaceBridge.bridge(mesh, f0, f1);
-						mesh.remove(f0);
-						mesh.remove(f1);
+						Mesh3DUtil.bridge(mesh, f0, f1);
+						mesh.faces.remove(f0);
+						mesh.faces.remove(f1);
 					}
 
 					if ((i + 1) < cubes.length) {
 						Face3D f2 = cubes[i][j][k].faces.get(1); // bottom
 						Face3D f3 = cubes[i + 1][j][k].faces.get(0); // top
-						FaceExtrude.extrudeFace(mesh, f2, scaleY, 0.0f);
-						FaceExtrude.extrudeFace(mesh, f3, scaleY, 0.0f);
+						Mesh3DUtil.extrudeFace(mesh, f2, scaleY, 0.0f);
+						Mesh3DUtil.extrudeFace(mesh, f3, scaleY, 0.0f);
 						f3.flipDirection();
-						FaceBridge.bridge(mesh, f2, f3);
-						mesh.remove(f2);
-						mesh.remove(f3);
+						Mesh3DUtil.bridge(mesh, f2, f3);
+						mesh.faces.remove(f2);
+						mesh.faces.remove(f3);
 					}
 					
 					if ((k + 1) < cubes[0][0].length) {
 						Face3D f2 = cubes[i][j][k].faces.get(3); // front
 						Face3D f3 = cubes[i][j][k + 1].faces.get(5); // back
-						FaceExtrude.extrudeFace(mesh, f2, scaleZ, 0.0f);
-						FaceExtrude.extrudeFace(mesh, f3, scaleZ, 0.0f);
+						Mesh3DUtil.extrudeFace(mesh, f2, scaleZ, 0.0f);
+						Mesh3DUtil.extrudeFace(mesh, f3, scaleZ, 0.0f);
 						f3.flipDirection();
-						FaceBridge.bridge(mesh, f2, f3);
-						mesh.remove(f2);
-						mesh.remove(f3);
+						Mesh3DUtil.bridge(mesh, f2, f3);
+						mesh.faces.remove(f2);
+						mesh.faces.remove(f3);
 					}
 				}
 			}

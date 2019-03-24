@@ -32,11 +32,10 @@ public class SpherifyModifier implements IMeshModifier {
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
 		Vector3f origin = new Vector3f(center);
-		for (int i = 0; i < mesh.getVertexCount(); i++) {
-			Vector3f vertex = mesh.getVertexAt(i);
-			Vector3f v0 = new Vector3f(vertex.x - origin.x, vertex.y - origin.y, vertex.z - origin.z).normalizeLocal();
-			vertex.set(v0.mult(radius).add(origin));
-		}	
+		for (Vector3f v : mesh.vertices) {
+			Vector3f v0 = new Vector3f(v.x - origin.x, v.y - origin.y, v.z - origin.z).normalizeLocal();
+			v.set(v0.mult(radius).add(origin));
+		}
 		return mesh;
 	}
 	

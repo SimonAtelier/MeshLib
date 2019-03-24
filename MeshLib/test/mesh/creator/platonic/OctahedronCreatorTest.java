@@ -84,7 +84,7 @@ public class OctahedronCreatorTest {
 		float radius = 675.456f;
 		OctahedronCreator creator = new OctahedronCreator(radius);
 		Mesh3D mesh = creator.create();
-		for (Vector3f v : mesh.getVertices()) {
+		for (Vector3f v : mesh.vertices) {
 			float distance = new Vector3f().distance(v);
 			Assert.assertEquals(radius, distance, 0);
 		}
@@ -96,7 +96,7 @@ public class OctahedronCreatorTest {
 		OctahedronCreator creator = new OctahedronCreator();
 		creator.setRadius(radius);
 		Mesh3D mesh = creator.create();
-		for (Vector3f v : mesh.getVertices()) {
+		for (Vector3f v : mesh.vertices) {
 			float distance = new Vector3f().distance(v);
 			Assert.assertEquals(radius, distance, 0);
 		}

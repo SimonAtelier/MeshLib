@@ -204,9 +204,9 @@ public class DooSabinModifier implements IMeshModifier {
 		createFacesAdjacentToEdge();
 
 		this.source.faces.clear();
-		this.source.clearVertices();
+		this.source.vertices.clear();
 		this.source.faces.addAll(target.faces);
-		this.source.addVertices(target.getVertices());
+		this.source.vertices.addAll(target.vertices);
 	}
 
 	/**

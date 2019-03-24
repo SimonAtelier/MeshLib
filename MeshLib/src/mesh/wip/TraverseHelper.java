@@ -22,7 +22,7 @@ public class TraverseHelper {
 	}
 	
 	private void map() {
-		for (Face3D face : mesh.getFaces()) {
+		for (Face3D face : mesh.faces) {
 			for (int i = 0; i <= face.indices.length; i++) {
 				int from = face.indices[i % face.indices.length];
 				int to = face.indices[(i + 1) % face.indices.length];

@@ -76,8 +76,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 	}
 
 	private void roundVertices() {
-		for (int i = 0; i < mesh.getVertexCount(); i++) {
-			Vector3f v = mesh.getVertexAt(i);
+		for (Vector3f v : mesh.vertices) {
 			v.set(Mathf.round(v.x), Mathf.round(v.y), Mathf.round(v.z));
 		}
 	}
@@ -85,17 +84,17 @@ public class SegmentedCubeCreator implements IMeshCreator {
 	private void removeDoubles() {
 		Mesh3D m = new Mesh3D();
 		HashSet<Vector3f> vertexSet = new HashSet<Vector3f>();
-		for (Face3D f : mesh.getFaces()) {
+		for (Face3D f : mesh.faces) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
 				vertexSet.add(v);
 			}
 		}
-		m.addVertices(vertexSet);
-		for (Face3D f : mesh.getFaces()) {
+		m.vertices.addAll(vertexSet);
+		for (Face3D f : mesh.faces) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
-				int index = m.indexOf(v);
+				int index = m.vertices.indexOf(v);
 				f.indices[i] = index;
 			}
 			m.add(f);

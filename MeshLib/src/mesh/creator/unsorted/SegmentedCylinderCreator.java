@@ -78,7 +78,7 @@ public class SegmentedCylinderCreator implements IMeshCreator {
 	}
 
 	private void createTriangleFan(int offset, float y) {
-		int idx = mesh.getVertexCount();
+		int idx = mesh.vertices.size();
 		mesh.addVertex(0, y, 0);
 		for (int i = 0; i < rotationSegments; i++) {
 			int idx0 = i + offset;

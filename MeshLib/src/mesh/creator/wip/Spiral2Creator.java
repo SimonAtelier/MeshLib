@@ -33,10 +33,10 @@ public class Spiral2Creator implements IMeshCreator {
 			float z1 = 0;
 
 			Vector3f v = new Vector3f(x, y, z);
-			mesh.add(v);
+			mesh.vertices.add(v);
 
 			Vector3f v1 = new Vector3f(x1, y1, z1);
-			mesh.add(v1);
+			mesh.vertices.add(v1);
 
 			angle += step;
 

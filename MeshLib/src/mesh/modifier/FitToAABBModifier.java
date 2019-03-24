@@ -2,6 +2,7 @@ package mesh.modifier;
 
 import mesh.Mesh3D;
 import mesh.math.Bounds3;
+import mesh.wip.Mesh3DOperations;
 
 public class FitToAABBModifier implements IMeshModifier {
 
@@ -17,7 +18,7 @@ public class FitToAABBModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		Bounds3 bounds = mesh.calculateBounds();
+		Bounds3 bounds = Mesh3DOperations.getBounds(mesh);
 		float scaleX = 1f / bounds.getWidth() * boundingBoxWidth;
 		float scaleY = 1f / bounds.getHeight() * boundingBoxHeight;
 		float scaleZ = 1f / bounds.getDepth() * boundingBoxDepth;

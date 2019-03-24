@@ -8,7 +8,7 @@ import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.TessellationEdgeModifier;
-import mesh.wip.FaceExtrude;
+import mesh.wip.Mesh3DUtil;
 
 public class TriangleSegmentCreator implements IMeshCreator {
 
@@ -39,9 +39,9 @@ public class TriangleSegmentCreator implements IMeshCreator {
 	
 	private void extrude() {
 		new TessellationEdgeModifier().modify(mesh);
-		List<Face3D> faces = mesh.getFaces();
+		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D face : faces) {
-			FaceExtrude.extrudeFace(mesh, face, scaleExtrude, 0f);
+			Mesh3DUtil.extrudeFace(mesh, face, scaleExtrude, 0f);
 		}
 		mesh.faces.removeAll(faces);
 	}

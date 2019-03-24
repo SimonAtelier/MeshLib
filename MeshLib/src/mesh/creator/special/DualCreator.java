@@ -49,7 +49,7 @@ public class DualCreator implements IMeshCreator {
 		int index = 0;
 		mesh = new Mesh3D();
 		
-		for (Face3D face : source.getFaces()) {
+		for (Face3D face : source.faces) {
 			Vector3f center = source.calculateFaceCenter(face);
 			mesh.add(center);
 			faceVertexMap.put(face, index);

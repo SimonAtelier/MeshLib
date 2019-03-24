@@ -54,7 +54,7 @@ public class TerrainCreator implements IMeshCreator {
 			for (int j = 0; j < subdivisionsX + 1; j++) {
 				Vector3f v = new Vector3f(j * tileSizeX, 0, i * tileSizeZ);
 				v.subtractLocal(offsetX, (float)ImprovedNoise.noise(x, y, 0) * heightFactor, offsetZ);				
-				mesh.add(v);
+				mesh.vertices.add(v);
 				x += 0.05f;
 			}
 			x = 0;

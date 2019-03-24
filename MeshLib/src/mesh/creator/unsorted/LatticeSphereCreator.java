@@ -7,7 +7,7 @@ import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.QuadSphereCreator;
 import mesh.modifier.SolidifyModifier;
-import mesh.wip.FaceExtrude;
+import mesh.wip.Mesh3DUtil;
 
 public class LatticeSphereCreator implements IMeshCreator {
 
@@ -37,11 +37,11 @@ public class LatticeSphereCreator implements IMeshCreator {
 	}
 
 	private void extrudeFaces() {
-		List<Face3D> faces = mesh.getFaces();
+		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D f : faces) {
-			FaceExtrude.extrudeFace(mesh, f, scale, 0);
+			Mesh3DUtil.extrudeFace(mesh, f, scale, 0);
 		}
-		mesh.remove(faces);
+		mesh.faces.removeAll(faces);
 	}
 
 	private void solidify() {
