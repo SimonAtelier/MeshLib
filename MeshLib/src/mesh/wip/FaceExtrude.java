@@ -4,7 +4,7 @@ import math.Vector3f;
 import mesh.Face3D;
 import mesh.Mesh3D;
 
-public class Mesh3DUtil {
+public class FaceExtrude {
 	
 	public static void extrudeFace(Mesh3D mesh, Face3D f, float scale, float amount) {
 		int n = f.indices.length;

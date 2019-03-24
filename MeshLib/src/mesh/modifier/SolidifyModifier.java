@@ -11,7 +11,7 @@ import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.special.AppendCreator;
 import mesh.wip.FaceBridge;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceExtrude;
 
 public class SolidifyModifier implements IMeshModifier {
 

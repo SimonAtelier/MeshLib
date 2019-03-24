@@ -9,7 +9,7 @@ import mesh.creator.primitives.IcoSphereCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.SpherifyModifier;
 import mesh.modifier.subdivision.TessellationEdgeModifier;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceExtrude;
 
 public class TessellationSphereCreator implements IMeshCreator {
 
@@ -29,7 +29,7 @@ public class TessellationSphereCreator implements IMeshCreator {
 	private void createHoles() {
 		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D face : faces) {
-			Mesh3DUtil.extrudeFace(mesh, face, scaleExtrude, 0.0f);
+			FaceExtrude.extrudeFace(mesh, face, scaleExtrude, 0.0f);
 		}
 		mesh.faces.removeAll(faces);
  	}

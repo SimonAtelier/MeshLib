@@ -3,7 +3,7 @@ package mesh.modifier;
 import math.Mathf;
 import mesh.Face3D;
 import mesh.Mesh3D;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceExtrude;
 
 public class BevelFacesModifier implements IMeshModifier {
 
@@ -23,7 +23,7 @@ public class BevelFacesModifier implements IMeshModifier {
 		float amount = size;
 		
 		for (Face3D face : mesh.faces) {
-			Mesh3DUtil.extrudeFace(mesh, face, scale, amount);
+			FaceExtrude.extrudeFace(mesh, face, scale, amount);
 		}
 		
 		return mesh;

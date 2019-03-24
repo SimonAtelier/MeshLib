@@ -13,7 +13,7 @@ import mesh.creator.primitives.CubeCreator;
 import mesh.creator.unsorted.SegmentedCubeCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.CatmullClarkModifier;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceExtrude;
 
 /**
  * Inspired by John Malcolm 
@@ -59,7 +59,7 @@ public class PortedCubeCreator implements IMeshCreator {
 			}
 		}
 		for (Face3D f : toExtrude) {
-			Mesh3DUtil.extrudeFace(mesh, f, 1.0f, -2.0f);
+			FaceExtrude.extrudeFace(mesh, f, 1.0f, -2.0f);
 			mesh.faces.remove(f);
 		}
 	}
