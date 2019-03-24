@@ -10,6 +10,7 @@ import mesh.Edge3D;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.special.AppendCreator;
+import mesh.wip.FaceBridge;
 import mesh.wip.Mesh3DUtil;
 
 public class SolidifyModifier implements IMeshModifier {
@@ -55,7 +56,8 @@ public class SolidifyModifier implements IMeshModifier {
 		}
 
 		// Calculate vertex normals.
-		for (Vector3f v : mesh.vertices) {
+		for (int i = 0; i < mesh.getVertexCount(); i++) {
+			Vector3f v = mesh.getVertexAt(i);
 			Vector3f n = new Vector3f();
 			List<Vector3f> list = map.get(v);
 			if (list == null) {
@@ -68,7 +70,7 @@ public class SolidifyModifier implements IMeshModifier {
 			n.normalizeLocal();
 			vertexNormals.add(n);
 		}
-
+		
 		// Flip inner mesh.
 		new FlipFacesModifier().modify(copy);
 
@@ -76,7 +78,7 @@ public class SolidifyModifier implements IMeshModifier {
 		m0 = new AppendCreator(mesh, copy).create();
 
 		// Move vertices along the vertex normals.
-		for (int i = 0; i < copy.vertices.size(); i++) {
+		for (int i = 0; i < copy.getVertexCount(); i++) {
 			Vector3f v = copy.getVertexAt(i);
 			Vector3f n = vertexNormals.get(i);
 			v.set(n.mult(-thickness).add(v));
@@ -94,7 +96,7 @@ public class SolidifyModifier implements IMeshModifier {
 					Vector3f v1 = copy.getVertexAt(pair0.getToIndex());
 					Vector3f v2 = mesh.getVertexAt(pair0.getFromIndex());
 					Vector3f v3 = mesh.getVertexAt(pair0.getToIndex());
-					Mesh3DUtil.bridge(m0, v0, v1, v2, v3);
+					FaceBridge.bridge(m0, v0, v1, v2, v3);
 				}
 			}
 		}

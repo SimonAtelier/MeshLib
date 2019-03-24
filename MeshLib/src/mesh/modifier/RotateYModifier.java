@@ -23,7 +23,8 @@ public class RotateYModifier implements IMeshModifier {
 		Matrix3f m = new Matrix3f(Mathf.cos(a), 0, Mathf.sin(a), 0, 1, 0,
 				-Mathf.sin(a), 0, Mathf.cos(a));
 
-		for (Vector3f v : mesh.vertices) {
+		for (int i = 0; i < mesh.getVertexCount(); i++) {
+			Vector3f v = mesh.getVertexAt(i);
 			Vector3f v0 = v.mult(m);
 			v.set(v0.x, v.y, v0.z);
 		}

@@ -19,11 +19,12 @@ public class PushPullModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		for (Vector3f v : mesh.vertices) {
+		for (int i = 0; i < mesh.getVertexCount(); i++) {
+			Vector3f v = mesh.getVertexAt(i);
 			float distance = v.distance(center); 
 			Vector3f v0 = v.subtract(center).normalize();
 			v.set(v0.mult(this.distance - distance).add(center));
-		}		
+		}
 		return mesh;
 	}
 

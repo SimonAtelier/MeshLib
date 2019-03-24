@@ -6,6 +6,7 @@ import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CubeCreator;
 import mesh.creator.special.AppendCreator;
+import mesh.wip.FaceBridge;
 import mesh.wip.Mesh3DUtil;
 
 public class CubeJointLatticeCylinderCreator implements IMeshCreator {
@@ -71,7 +72,7 @@ public class CubeJointLatticeCylinderCreator implements IMeshCreator {
 				Mesh3DUtil.extrudeFace(mesh, f0, scale0, 0.0f);
 				Mesh3DUtil.extrudeFace(mesh, f1, scale0, 0.0f);
 				f1.flipDirection();
-				Mesh3DUtil.bridge(mesh, f0, f1);
+				FaceBridge.bridge(mesh, f0, f1);
 				mesh.faces.remove(f0);
 				mesh.faces.remove(f1);
 
@@ -81,7 +82,7 @@ public class CubeJointLatticeCylinderCreator implements IMeshCreator {
 					Mesh3DUtil.extrudeFace(mesh, f2, scale1, 0.0f);
 					Mesh3DUtil.extrudeFace(mesh, f3, scale1, 0.0f);
 					f3.flipDirection();
-					Mesh3DUtil.bridge(mesh, f2, f3);
+					FaceBridge.bridge(mesh, f2, f3);
 					mesh.faces.remove(f2);
 					mesh.faces.remove(f3);
 				}

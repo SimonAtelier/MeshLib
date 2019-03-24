@@ -10,7 +10,7 @@ import mesh.creator.IMeshCreator;
 import mesh.creator.special.AppendCreator;
 import mesh.modifier.FlipFacesModifier;
 import mesh.modifier.SpherifyModifier;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceBridge;
 
 public class QuadCapCylinderCreator implements IMeshCreator {
 
@@ -110,7 +110,7 @@ public class QuadCapCylinderCreator implements IMeshCreator {
 			Vector3f v1 = mesh.getVertexAt((i + 1) % vertices);
 			Vector3f v3 = gridTopBorderVertices.get((idx + i + 1) % gridTopBorderVertices.size());
 			Vector3f v2 = gridTopBorderVertices.get((idx + i) % gridTopBorderVertices.size());
-			Mesh3DUtil.bridge(mesh, v0, v1, v2, v3);
+			FaceBridge.bridge(mesh, v0, v1, v2, v3);
 		}
 		
 		return mesh;
@@ -152,7 +152,7 @@ public class QuadCapCylinderCreator implements IMeshCreator {
 				Vector3f v1 = mesh1.getVertexAt(i);
 				Vector3f v2 = mesh0.getVertexAt((i + 1) % vertices);
 				Vector3f v3 = mesh1.getVertexAt((i + 1) % vertices);
-				Mesh3DUtil.bridge(mesh, v0, v1, v2, v3);
+				FaceBridge.bridge(mesh, v0, v1, v2, v3);
 			}
 		}
 	
