@@ -18,7 +18,8 @@ public class SimpleObjectWriter {
 		s.append("\n");
 		
 		// vertices
-		for (Vector3f v : mesh.vertices) {
+		for (int i = 0; i < mesh.getVertexCount(); i++) {
+			Vector3f v = mesh.getVertexAt(i);
 			s.append("v ");
 			s.append(v.x);
 			s.append(" ");

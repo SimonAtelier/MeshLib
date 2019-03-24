@@ -103,11 +103,11 @@ public class Mesh3D {
 		}
 	}
 
-//	public void translate(Vector3f t) {
-//		for (Vector3f v : vertices) {
-//			v.addLocal(t);
-//		}
-//	}
+	public void translate(Vector3f t) {
+		for (Vector3f v : vertices) {
+			v.addLocal(t);
+		}
+	}
 
 	public Mesh3D copy() {
 		Mesh3D copy = new Mesh3D();
