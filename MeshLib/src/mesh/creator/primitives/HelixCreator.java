@@ -79,7 +79,7 @@ public class HelixCreator implements IMeshCreator {
 	}
 
 	private void createCaps(Mesh3D mesh) {
-		int n = mesh.vertices.size() - 1;
+		int n = mesh.getVertexCount() - 1;
 		int m = minorSegments - 1;
 		Face3D f0 = new Face3D(new int[minorSegments]);
 		Face3D f1 = new Face3D(new int[minorSegments]);
