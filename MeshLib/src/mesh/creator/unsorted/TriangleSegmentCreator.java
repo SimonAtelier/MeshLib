@@ -39,11 +39,11 @@ public class TriangleSegmentCreator implements IMeshCreator {
 	
 	private void extrude() {
 		new TessellationEdgeModifier().modify(mesh);
-		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
+		List<Face3D> faces = mesh.getFaces();
 		for (Face3D face : faces) {
 			Mesh3DUtil.extrudeFace(mesh, face, scaleExtrude, 0f);
 		}
-		mesh.faces.removeAll(faces);
+		mesh.removeFaces(faces);
 	}
 	
 	@Override
