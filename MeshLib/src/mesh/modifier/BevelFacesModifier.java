@@ -22,7 +22,7 @@ public class BevelFacesModifier implements IMeshModifier {
 		float scale = 1f - size;
 		float amount = size;
 		
-		for (Face3D face : mesh.faces) {
+		for (Face3D face : mesh.getFaces()) {
 			Mesh3DUtil.extrudeFace(mesh, face, scale, amount);
 		}
 		
