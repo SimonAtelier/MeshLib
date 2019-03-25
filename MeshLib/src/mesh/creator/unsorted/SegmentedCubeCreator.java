@@ -36,47 +36,42 @@ public class SegmentedCubeCreator implements IMeshCreator {
 	}
 
 	private void createBottom() {
-		Mesh3D bottom = new GridCreator(segments, segments, creationSize)
-				.create();
+		Mesh3D bottom = new GridCreator(segments, segments, creationSize).create();
 		bottom.rotateX(Mathf.toRadians(180));
 		bottom.translateY(creationSize);
 		mesh = new AppendCreator(mesh, bottom).create();
 	}
 
 	private void createFront() {
-		Mesh3D front = new GridCreator(segments, segments, creationSize)
-				.create();
+		Mesh3D front = new GridCreator(segments, segments, creationSize).create();
 		front.rotateX(Mathf.HALF_PI);
 		front.translateZ(-creationSize);
 		mesh = new AppendCreator(mesh, front).create();
 	}
 
 	private void createBack() {
-		Mesh3D front = new GridCreator(segments, segments, creationSize)
-				.create();
+		Mesh3D front = new GridCreator(segments, segments, creationSize).create();
 		front.rotateX(-Mathf.HALF_PI);
 		front.translateZ(creationSize);
 		mesh = new AppendCreator(mesh, front).create();
 	}
 
 	private void createLeft() {
-		Mesh3D front = new GridCreator(segments, segments, creationSize)
-				.create();
+		Mesh3D front = new GridCreator(segments, segments, creationSize).create();
 		front.rotateZ(-Mathf.HALF_PI);
 		front.translateX(-creationSize);
 		mesh = new AppendCreator(mesh, front).create();
 	}
 
 	private void createRight() {
-		Mesh3D front = new GridCreator(segments, segments, creationSize)
-				.create();
+		Mesh3D front = new GridCreator(segments, segments, creationSize).create();
 		front.rotateZ(Mathf.HALF_PI);
 		front.translateX(creationSize);
 		mesh = new AppendCreator(mesh, front).create();
 	}
 
 	private void roundVertices() {
-		for (Vector3f v : mesh.vertices) {
+		for (Vector3f v : mesh.getVertices()) {
 			v.set(Mathf.round(v.x), Mathf.round(v.y), Mathf.round(v.z));
 		}
 	}
@@ -90,11 +85,11 @@ public class SegmentedCubeCreator implements IMeshCreator {
 				vertexSet.add(v);
 			}
 		}
-		m.vertices.addAll(vertexSet);
+		m.addVertices(vertexSet);
 		for (Face3D f : mesh.faces) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
-				int index = m.vertices.indexOf(v);
+				int index = m.indexOf(v);
 				f.indices[i] = index;
 			}
 			m.add(f);
@@ -113,8 +108,7 @@ public class SegmentedCubeCreator implements IMeshCreator {
 		createRight();
 		roundVertices();
 		removeDoubles();
-		mesh.scale(1.0f / creationSize, 1.0f / creationSize,
-				1.0f / creationSize);
+		mesh.scale(1.0f / creationSize, 1.0f / creationSize, 1.0f / creationSize);
 		mesh.scale(size);
 		return mesh;
 	}
