@@ -34,8 +34,8 @@ public class RhombicDodecahedronCreatorTest {
 	public void cratedMeshContainsTheVerticesOfTheCube() {
 		CubeCreator creator = new CubeCreator();
 		Mesh3D mesh = creator.create();
-		for (Vector3f v : mesh.vertices) {
-			Assert.assertTrue(this.mesh.vertices.contains(v));
+		for (Vector3f v : mesh.getVertices()) {
+			Assert.assertTrue(this.mesh.containsVertex(v));
 		}
 	}
 	

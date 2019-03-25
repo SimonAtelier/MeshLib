@@ -68,7 +68,7 @@ public class MeshTestUtil {
 	public static void meshHasUniqueVertices(Mesh3D mesh) {
 		int vertexCount = mesh.getVertexCount();
 		HashSet<Vector3f> vertices = new HashSet<Vector3f>();
-		for (Vector3f vertex : mesh.vertices) {
+		for (Vector3f vertex : mesh.getVertices()) {
 			vertices.add(vertex);
 		}
 		Assert.assertEquals(vertexCount, vertices.size());

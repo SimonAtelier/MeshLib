@@ -115,7 +115,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 	private void smoothOriginalVertices() {
 		for (int i = 0; i < originalVertexCount; i++) {
 			float n = (float) mapVertexIndexToNumberOfOutgoingEdges.get(i);
-			Vector3f oldVertexValue = meshToSubdivide.vertices.get(i);
+			Vector3f oldVertexValue = meshToSubdivide.getVertexAt(i);
 			Vector3f facePointsAverage = calculateWeightedFacePointsAverage(i);
 			Vector3f edgePointsAverage = calculateWeightedEdgePointsAverage(i);
 			Vector3f newVertexValue = facePointsAverage.add(edgePointsAverage.mult(2f).add(oldVertexValue.mult(n - 3)));
@@ -248,7 +248,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 
 	private int addVertex(Vector3f vertex) {
 		int index = nextVertexIndex;
-		meshToSubdivide.vertices.add(vertex);
+		meshToSubdivide.add(vertex);
 		nextVertexIndex++;
 		return index;
 	}
