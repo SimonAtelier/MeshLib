@@ -69,8 +69,8 @@ public class TerrainCreator implements IMeshCreator {
 						+ subdivisionsX + 1);
 				Face3D face1 = new Face3D(index + 1, index + subdivisionsX + 2,
 						index + subdivisionsX + 1);
-				mesh.faces.add(face0);
-				mesh.faces.add(face1);
+				mesh.add(face0);
+				mesh.add(face1);
 			}
 		}
 
