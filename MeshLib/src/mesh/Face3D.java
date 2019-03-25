@@ -32,4 +32,8 @@ public class Face3D {
 		}
 	}
 	
+	public void setIndexAt(int index, int indexValue) {
+		indices[index] = indexValue;
+	}
+	
 }

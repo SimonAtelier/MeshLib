@@ -85,8 +85,8 @@ public class HelixCreator implements IMeshCreator {
 		Face3D f1 = new Face3D(new int[minorSegments]);
 
 		for (int i = 0; i < minorSegments; i++) {
-			f0.indices[m - i] = i;
-			f1.indices[m - i] = n - i;
+			f0.setIndexAt(m - i, i);
+			f1.setIndexAt(m - i, n - i);
 		}
 
 		mesh.add(f0);
