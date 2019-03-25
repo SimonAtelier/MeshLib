@@ -215,6 +215,14 @@ public class Mesh3D {
 		return bounds;
 	}
 	
+	public int indexOf(Vector3f vertex) {
+		return vertices.indexOf(vertex);
+	}
+	
+	public boolean containsVertex(Vector3f vertex) {
+		return vertices.contains(vertex);
+	}
+	
 	public List<Face3D> getFaces(int from, int to) {
 		return new ArrayList<>(faces.subList(from, to));
 	}
@@ -229,6 +237,10 @@ public class Mesh3D {
 
 	public Face3D getFaceAt(int index) {
 		return faces.get(index);
+	}
+	
+	public void clearFaces() {
+		faces.clear();
 	}
 
 }

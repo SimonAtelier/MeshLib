@@ -41,7 +41,7 @@ public class PortedCubeCreator implements IMeshCreator {
 		for (Face3D face : mesh.faces) {
 			for (int i = 0; i < face.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(face.indices[i]);
-				if (cube.vertices.contains(v)) {
+				if (cube.containsVertex(v)) {
 					toRemove.add(face);
 				}
 			}
@@ -73,11 +73,11 @@ public class PortedCubeCreator implements IMeshCreator {
 				vertexSet.add(v);
 			}
 		}
-		m.vertices.addAll(vertexSet);
+		m.addVertices(vertexSet);
 		for (Face3D f : mesh.faces) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
-				int index = m.vertices.indexOf(v);
+				int index = m.indexOf(v);
 				f.indices[i] = index;
 			}
 			m.add(f);
