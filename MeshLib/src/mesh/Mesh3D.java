@@ -219,6 +219,10 @@ public class Mesh3D {
 		this.faces.removeAll(faces);
 	}
 	
+	public void removeFace(Face3D face) {
+		this.faces.remove(face);
+	}
+	
 	public void clearVertices() {
 		vertices.clear();
 	}
