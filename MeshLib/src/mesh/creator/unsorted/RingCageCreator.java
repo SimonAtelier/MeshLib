@@ -10,6 +10,7 @@ import mesh.creator.primitives.CircleCreator;
 import mesh.creator.special.AppendCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.CatmullClarkModifier;
+import mesh.wip.BridgeFaces;
 import mesh.wip.Mesh3DUtil;
 
 public class RingCageCreator implements IMeshCreator {
@@ -51,7 +52,7 @@ public class RingCageCreator implements IMeshCreator {
 
 	private void bridge(Mesh3D m0, Mesh3D m1) {
 		for (int i = 0; i < vertices; i++) {
-			Mesh3DUtil.bridge(mesh, m1.getVertexAt(i), m1.getVertexAt((i + 1) % vertices), m0.getVertexAt(i),
+			BridgeFaces.bridge(mesh, m1.getVertexAt(i), m1.getVertexAt((i + 1) % vertices), m0.getVertexAt(i),
 					m0.getVertexAt((i + 1) % vertices));
 		}
 	}
