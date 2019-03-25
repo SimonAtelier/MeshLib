@@ -230,6 +230,10 @@ public class Mesh3D {
 	public List<Vector3f> getVertices(int from, int to) {
 		return new ArrayList<>(vertices.subList(from, to));
 	}
+	
+	public List<Vector3f> getVertices() {
+		return new ArrayList<Vector3f>(vertices);
+	}
 
 	public Vector3f getVertexAt(int index) {
 		return vertices.get(index);
