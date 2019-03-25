@@ -47,9 +47,13 @@ public class TessellationSphereCreator implements IMeshCreator {
 		new SolidifyModifier(thickness).modify(mesh);
 	}
 	
+	private void createIcoSphere() {
+		mesh = new IcoSphereCreator(radius, subdivisions).create();
+	}
+	
 	@Override
 	public Mesh3D create() {
-		mesh = new IcoSphereCreator(radius, subdivisions).create();
+		createIcoSphere();
 		tessellate();
 		createHoles();
 		pushToSphere();
