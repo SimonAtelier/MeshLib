@@ -231,10 +231,6 @@ public class Mesh3D {
 		return new ArrayList<>(faces.subList(from, to));
 	}
 
-	public List<Vector3f> getVertices(int from, int to) {
-		return new ArrayList<>(vertices.subList(from, to));
-	}
-	
 	public List<Vector3f> getVertices() {
 		return new ArrayList<Vector3f>(vertices);
 	}
