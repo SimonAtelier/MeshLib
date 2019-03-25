@@ -9,28 +9,39 @@ public class QuadSphereCreator implements IMeshCreator {
 
 	private float radius;
 	private int subdivisions;
-	
+	private Mesh3D mesh;
+
 	public QuadSphereCreator() {
-		this.subdivisions = 3;
-		this.radius = 1.0f;
+		this(1, 3);
 	}
-	
+
 	public QuadSphereCreator(float radius, int subdivisions) {
 		this.radius = radius;
 		this.subdivisions = subdivisions;
 	}
 
-	@Override
-	public Mesh3D create() {
-		Mesh3D mesh = new CubeCreator().create();
+	private void createCube() {
+		mesh = new CubeCreator().create();
+	}
+
+	private void subdivideCube() {
 		for (int i = 0; i < subdivisions; i++) {
 			new TessellationEdgeModifier().modify(mesh);
 		}
-		mesh.scale(radius);
+	}
+
+	private void spherifyCube() {
 		new SpherifyModifier(radius).modify(mesh);
+	}
+
+	@Override
+	public Mesh3D create() {
+		createCube();
+		subdivideCube();
+		spherifyCube();
 		return mesh;
 	}
-	
+
 	public float getRadius() {
 		return radius;
 	}
@@ -38,7 +49,7 @@ public class QuadSphereCreator implements IMeshCreator {
 	public void setRadius(float radius) {
 		this.radius = radius;
 	}
-	
+
 	public int getSubdivisions() {
 		return subdivisions;
 	}
@@ -46,5 +57,5 @@ public class QuadSphereCreator implements IMeshCreator {
 	public void setSubdivisions(int subdivisions) {
 		this.subdivisions = subdivisions;
 	}
-	
+
 }
