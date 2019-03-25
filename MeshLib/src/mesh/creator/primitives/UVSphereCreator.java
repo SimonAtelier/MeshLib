@@ -63,14 +63,20 @@ public class UVSphereCreator implements IMeshCreator {
 
 	@Override
 	public Mesh3D create() {
-		if (rings == 0 && segments == 0)
+		if (needToCreateSphere())
 			return new Mesh3D();
-
-		mesh = new Mesh3D();
+		initializeMesh();
 		createVertices();
 		createFaces();
-
 		return mesh;
+	}
+	
+	private boolean needToCreateSphere() {
+		return rings == 0 && segments == 0;
+	}
+
+	private void initializeMesh() {
+		mesh = new Mesh3D();
 	}
 
 	public int getRings() {
