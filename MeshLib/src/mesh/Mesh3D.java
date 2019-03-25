@@ -215,6 +215,10 @@ public class Mesh3D {
 		return bounds;
 	}
 	
+	public void removeFaces(Collection<Face3D> faces) {
+		this.faces.removeAll(faces);
+	}
+	
 	public void clearVertices() {
 		vertices.clear();
 	}
