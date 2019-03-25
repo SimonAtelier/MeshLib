@@ -10,7 +10,7 @@ import mesh.Edge3D;
 import mesh.Face3D;
 import mesh.Mesh3D;
 import mesh.creator.special.AppendCreator;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.BridgeFaces;
 
 public class SolidifyModifier implements IMeshModifier {
 
@@ -94,7 +94,7 @@ public class SolidifyModifier implements IMeshModifier {
 					Vector3f v1 = copy.getVertexAt(pair0.getToIndex());
 					Vector3f v2 = mesh.getVertexAt(pair0.getFromIndex());
 					Vector3f v3 = mesh.getVertexAt(pair0.getToIndex());
-					Mesh3DUtil.bridge(m0, v0, v1, v2, v3);
+					BridgeFaces.bridge(m0, v0, v1, v2, v3);
 				}
 			}
 		}
