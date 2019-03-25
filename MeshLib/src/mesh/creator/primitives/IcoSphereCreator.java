@@ -20,18 +20,18 @@ public class IcoSphereCreator implements IMeshCreator {
 		this.radius = radius;
 		this.subdivisions = subdivisions;
 	}
-	
+
 	private void createIcosahedron() {
 		mesh = new IcosahedronCreator().create();
 	}
-	
+
 	private void subdivideIcosahedron() {
 		OneToFourTriangleSplitModifier modifier = new OneToFourTriangleSplitModifier();
 		for (int i = 0; i < subdivisions; i++) {
 			modifier.modify(mesh);
 		}
 	}
-	
+
 	private void spherifyIcosahedron() {
 		new SpherifyModifier(radius).modify(mesh);
 	}
