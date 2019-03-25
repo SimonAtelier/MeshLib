@@ -40,7 +40,7 @@ public class VertexNormals {
 	}
 	
 	private void calculateVertexNormals() {
-		for (Vector3f v : mesh.vertices) {
+		for (Vector3f v : mesh.getVertices()) {
 			Vector3f normal = new Vector3f();
 			List<Face3D> faces = vectorToFace.get(v);
 			for (Face3D face : faces) {

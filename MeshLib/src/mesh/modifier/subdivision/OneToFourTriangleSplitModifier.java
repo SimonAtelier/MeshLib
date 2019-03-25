@@ -59,14 +59,14 @@ public class OneToFourTriangleSplitModifier implements IMeshModifier {
 
 			// Create edge points
 			for (int i = 0; i < f.indices.length; i++) {
-				Vector3f v0 = mesh.vertices.get(f.indices[i % n]);
-				Vector3f v1 = mesh.vertices.get(f.indices[(i + 1) % n]);
+				Vector3f v0 = mesh.getVertexAt(f.indices[i % n]);
+				Vector3f v1 = mesh.getVertexAt(f.indices[(i + 1) % n]);
 				Vector3f ep = GeometryUtil.getMidpoint(v0, v1);
-				int idx = mesh.vertices.indexOf(ep);
+				int idx = mesh.indexOf(ep);
 				if (idx > -1) {
 					idxs[i] = idx;
 				} else {
-					mesh.vertices.add(ep);
+					mesh.add(ep);
 					idxs[i] = nextIndex;
 					nextIndex++;
 				}

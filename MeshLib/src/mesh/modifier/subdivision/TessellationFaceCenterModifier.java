@@ -26,7 +26,7 @@ public class TessellationFaceCenterModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		int nextIndex = mesh.vertices.size();
+		int nextIndex = mesh.getVertexCount();
 		ArrayList<Face3D> toAdd = new ArrayList<>();
 
 		for (Face3D f : mesh.faces) {
