@@ -219,6 +219,10 @@ public class Mesh3D {
 		vertices.clear();
 	}
 	
+	public void clearFaces() {
+		faces.clear();
+	}
+	
 	public int indexOf(Vector3f vertex) {
 		return vertices.indexOf(vertex);
 	}
@@ -229,6 +233,10 @@ public class Mesh3D {
 	
 	public List<Face3D> getFaces(int from, int to) {
 		return new ArrayList<>(faces.subList(from, to));
+	}
+	
+	public List<Face3D> getFaces() {
+		return new ArrayList<Face3D>(faces);
 	}
 
 	public List<Vector3f> getVertices() {
@@ -241,10 +249,6 @@ public class Mesh3D {
 
 	public Face3D getFaceAt(int index) {
 		return faces.get(index);
-	}
-	
-	public void clearFaces() {
-		faces.clear();
 	}
 
 }
