@@ -27,11 +27,11 @@ public class TessellationSphereCreator implements IMeshCreator {
 	}
 	
 	private void createHoles() {
-		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
+		List<Face3D> faces = mesh.getFaces();
 		for (Face3D face : faces) {
 			Mesh3DUtil.extrudeFace(mesh, face, scaleExtrude, 0.0f);
 		}
-		mesh.faces.removeAll(faces);
+		mesh.removeFaces(faces);
  	}
 	
 	private void tessellate() {

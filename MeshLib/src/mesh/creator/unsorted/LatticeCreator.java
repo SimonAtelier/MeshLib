@@ -53,7 +53,7 @@ public class LatticeCreator implements IMeshCreator {
 		for (Face3D f : faces) {
 			Mesh3DUtil.extrudeFace(mesh, f, scale, 0f);
 		}
-		mesh.faces.removeAll(faces);
+		mesh.removeFaces(faces);
 	}
 
 	@Override

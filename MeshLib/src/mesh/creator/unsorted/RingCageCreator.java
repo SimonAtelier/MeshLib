@@ -62,7 +62,7 @@ public class RingCageCreator implements IMeshCreator {
 		for (Face3D face : faces) {
 			Mesh3DUtil.extrudeFace(mesh, face, 0.6f, 0f);
 		}
-		mesh.faces.removeAll(faces);
+		mesh.removeFaces(faces);
 	}
 
 	@Override

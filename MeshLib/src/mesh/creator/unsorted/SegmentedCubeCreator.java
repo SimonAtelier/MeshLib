@@ -79,14 +79,14 @@ public class SegmentedCubeCreator implements IMeshCreator {
 	private void removeDoubles() {
 		Mesh3D m = new Mesh3D();
 		HashSet<Vector3f> vertexSet = new HashSet<Vector3f>();
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
 				vertexSet.add(v);
 			}
 		}
 		m.addVertices(vertexSet);
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
 				int index = m.indexOf(v);
