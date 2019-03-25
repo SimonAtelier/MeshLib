@@ -5,7 +5,7 @@ import mesh.creator.IMeshCreator;
 
 public class RhombicDodecahedronCreator implements IMeshCreator {
 
-	Mesh3D mesh;
+	private Mesh3D mesh;
 	
 	private void initializeMesh() {
 		mesh = new Mesh3D();
