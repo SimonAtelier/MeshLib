@@ -29,7 +29,7 @@ public class BendModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		for (Vector3f v : mesh.vertices) {
+		for (Vector3f v : mesh.getVertices()) {
 			simpleDeformBend(factor, v);
 		}
 		return mesh;

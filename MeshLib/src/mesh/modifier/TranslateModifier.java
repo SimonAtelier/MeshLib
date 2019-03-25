@@ -27,7 +27,7 @@ public class TranslateModifier implements IMeshModifier {
 
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
-		for (Vector3f v : mesh.vertices) {
+		for (Vector3f v : mesh.getVertices()) {
 			v.addLocal(deltaX, deltaY, deltaZ);
 		}
 		return mesh;

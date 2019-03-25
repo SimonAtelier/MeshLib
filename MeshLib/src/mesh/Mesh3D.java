@@ -215,6 +215,10 @@ public class Mesh3D {
 		return bounds;
 	}
 	
+	public void clearVertices() {
+		vertices.clear();
+	}
+	
 	public int indexOf(Vector3f vertex) {
 		return vertices.indexOf(vertex);
 	}

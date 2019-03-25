@@ -25,7 +25,7 @@ public class NoiseModifier implements IMeshModifier {
 	@Override
 	public Mesh3D modify(Mesh3D mesh) {
 		List<Vector3f> normals = new VertexNormals(mesh).getVertexNormals();
-		for (int i = 0; i < mesh.vertices.size(); i++) {
+		for (int i = 0; i < mesh.getVertexCount(); i++) {
 			Vector3f vertex = mesh.getVertexAt(i);
 			Vector3f normal = normals.get(i);
 			float random = Mathf.random(minimum, maximum);
