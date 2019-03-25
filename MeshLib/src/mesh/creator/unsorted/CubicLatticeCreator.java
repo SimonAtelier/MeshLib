@@ -27,7 +27,7 @@ public class CubicLatticeCreator implements IMeshCreator {
 		for (Face3D face : faces) {
 			Mesh3DUtil.extrudeFace(mesh, face, 1.0f, 0.5f);
 		}
-		mesh.faces.removeAll(faces);
+		mesh.removeFaces(faces);
 		return mesh;
 	}
 	
@@ -46,14 +46,14 @@ public class CubicLatticeCreator implements IMeshCreator {
 	private void removeDoubles() {
 		Mesh3D m = new Mesh3D();
 		HashSet<Vector3f> vertexSet = new HashSet<Vector3f>();
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
 				vertexSet.add(v);
 			}
 		}
 		m.addVertices(vertexSet);
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
 				int index = m.indexOf(v);
