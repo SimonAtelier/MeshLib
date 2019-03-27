@@ -38,8 +38,8 @@ public class OneToFourTriangleSplitModifier implements IMeshModifier {
 	}
 
 	private void updateFaces() {
-		mesh.faces.removeAll(toRemove);
-		mesh.faces.addAll(toAdd);
+		mesh.removeFaces(toRemove);
+		mesh.addFaces(toAdd);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class OneToFourTriangleSplitModifier implements IMeshModifier {
 		toAdd.clear();
 		toRemove.clear();
 
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			// Ignore faces with vertices > 3
 			if (f.indices.length > 3)
 				continue;
