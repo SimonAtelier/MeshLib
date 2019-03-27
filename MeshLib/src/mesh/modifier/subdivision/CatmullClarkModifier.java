@@ -65,7 +65,7 @@ public class CatmullClarkModifier implements IMeshModifier {
 		nextVertexIndex = meshToSubdivide.getVertexCount();
 		oldFacesToRemove.addAll(meshToSubdivide.getFaces(0, meshToSubdivide.getFaceCount()));
 
-		for (Face3D face : meshToSubdivide.faces) {
+		for (Face3D face : meshToSubdivide.getFaces()) {
 			processFace(face);
 		}
 
@@ -254,11 +254,11 @@ public class CatmullClarkModifier implements IMeshModifier {
 	}
 
 	private void removeOldFacesFromMesh() {
-		meshToSubdivide.faces.removeAll(oldFacesToRemove);
+		meshToSubdivide.removeFaces(oldFacesToRemove);
 	}
 
 	private void addNewFacesToMesh() {
-		meshToSubdivide.faces.addAll(newFacesToAdd);
+		meshToSubdivide.addFaces(newFacesToAdd);
 	}
 
 	private Vector3f getVertexAt(int index) {
