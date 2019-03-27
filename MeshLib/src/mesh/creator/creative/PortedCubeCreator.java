@@ -38,7 +38,7 @@ public class PortedCubeCreator implements IMeshCreator {
 	private void removeCornerFaces() {
 		HashSet<Face3D> toRemove = new HashSet<Face3D>();
 		Mesh3D cube = new CubeCreator(3f).create();
-		for (Face3D face : mesh.faces) {
+		for (Face3D face : mesh.getFaces()) {
 			for (int i = 0; i < face.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(face.indices[i]);
 				if (cube.containsVertex(v)) {
@@ -46,12 +46,12 @@ public class PortedCubeCreator implements IMeshCreator {
 				}
 			}
 		}
-		mesh.faces.removeAll(toRemove);
+		mesh.removeFaces(toRemove);
 	}
 
 	private void extrudeCenterFaces() {
 		List<Face3D> toExtrude = new ArrayList<>();
-		for (Face3D face : mesh.faces) {
+		for (Face3D face : mesh.getFaces()) {
 			Vector3f center = mesh.calculateFaceCenter(face)
 					.divideLocal(3f);
 			if (center.length() == 1) {
@@ -60,21 +60,21 @@ public class PortedCubeCreator implements IMeshCreator {
 		}
 		for (Face3D f : toExtrude) {
 			Mesh3DUtil.extrudeFace(mesh, f, 1.0f, -2.0f);
-			mesh.faces.remove(f);
+			mesh.removeFace(f);
 		}
 	}
 
 	private void removeDoubles() {
 		Mesh3D m = new Mesh3D();
 		HashSet<Vector3f> vertexSet = new HashSet<Vector3f>();
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
 				vertexSet.add(v);
 			}
 		}
 		m.addVertices(vertexSet);
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			for (int i = 0; i < f.indices.length; i++) {
 				Vector3f v = mesh.getVertexAt(f.indices[i]);
 				int index = m.indexOf(v);
