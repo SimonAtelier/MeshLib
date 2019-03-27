@@ -126,8 +126,8 @@ public class LinearSubdivisionModifier implements IMeshModifier {
 	}
 	
 	private void applyFaces() {
-		mesh.faces.clear();
-		mesh.faces.addAll(newFaces);
+		mesh.clearFaces();
+		mesh.addFaces(newFaces);
 		newFaces.clear();
 	}
 	
@@ -136,7 +136,7 @@ public class LinearSubdivisionModifier implements IMeshModifier {
 	 */
 	private void subdivide() {
 		nextIndex = mesh.getVertexCount();
-		for (Face3D face : mesh.faces) {
+		for (Face3D face : mesh.getFaces()) {
 			this.face = face;
 			indices = new int[face.indices.length + 1];
 			createFaceCenter();
