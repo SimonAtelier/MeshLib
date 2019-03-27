@@ -44,7 +44,7 @@ public class PokeFacesModifier implements IMeshModifier {
 			createFaces(index, face);
 			index++;
 		}
-		mesh.faces.removeAll(faces);
+		mesh.removeFaces(faces);
 	}
 
 	@Override

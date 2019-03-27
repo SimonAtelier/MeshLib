@@ -13,7 +13,7 @@ public class QuadsToTrianglesModifier implements IMeshModifier {
 	public Mesh3D modify(Mesh3D mesh) {
 		List<Face3D> facesToRemove = new ArrayList<Face3D>();
 		List<Face3D> facesToAdd = new ArrayList<Face3D>();
-		for (Face3D face : mesh.faces) {
+		for (Face3D face : mesh.getFaces()) {
 			if (face.indices.length == 4) {
 				Face3D triangle0 = new Face3D(face.indices[0], face.indices[1], face.indices[2]);
 				Face3D triangle1 = new Face3D(face.indices[2], face.indices[3], face.indices[0]);
@@ -22,8 +22,8 @@ public class QuadsToTrianglesModifier implements IMeshModifier {
 				facesToAdd.add(triangle1);
 			}
 		}
-		mesh.faces.removeAll(facesToRemove);
-		mesh.faces.addAll(facesToAdd);
+		mesh.removeFaces(facesToRemove);
+		mesh.addFaces(facesToAdd);
 		return mesh;
 	}
 
