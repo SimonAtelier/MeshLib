@@ -53,7 +53,7 @@ public class CenterSplitFaceModifier implements IMeshModifier, FaceSelectionModi
 	}
 	
 	private void addNewlyCreatedFaces() {
-		mesh.faces.addAll(newFaces);
+		mesh.addFaces(newFaces);
 	}
 
 	private void centerSplit(Face3D face) {
@@ -67,7 +67,7 @@ public class CenterSplitFaceModifier implements IMeshModifier, FaceSelectionModi
 			int index3 = nextIndex;
 			newFaces.add(new Face3D(index0, index1, index3));
 		}
-		mesh.faces.remove(face);
+		mesh.removeFace(face);
 	}
 	
 	private void setMesh(Mesh3D mesh) {

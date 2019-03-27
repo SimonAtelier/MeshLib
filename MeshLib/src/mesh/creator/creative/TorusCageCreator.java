@@ -32,23 +32,22 @@ public class TorusCageCreator implements IMeshCreator {
 	}
 
 	private void createHoles() {
-		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
+		List<Face3D> faces = mesh.getFaces();
 		for (Face3D face : faces) {
 			Mesh3DUtil.extrudeFace(mesh, face, extrude, 0f);
 		}
-		mesh.faces.removeAll(faces);
+		mesh.removeFaces(faces);
 	}
-	
+
 	@Override
 	public Mesh3D create() {
-		mesh = new TorusCreator(majorRadius, minorRadius, majorSegments,
-				minorSegments).create();
+		mesh = new TorusCreator(majorRadius, minorRadius, majorSegments, minorSegments).create();
 		createHoles();
 		new SolidifyModifier(thickness).modify(mesh);
 		new CatmullClarkModifier(subdivisions).modify(mesh);
 		return mesh;
 	}
-	
+
 	public int getSubdivisions() {
 		return subdivisions;
 	}

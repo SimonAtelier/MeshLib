@@ -36,4 +36,8 @@ public class Face3D {
 		indices[index] = indexValue;
 	}
 	
+	public int getVertexCount() {
+		return indices.length;
+	}
+	
 }
