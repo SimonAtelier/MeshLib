@@ -174,7 +174,7 @@ public class DooSabinModifier implements IMeshModifier {
 	 * 
 	 */
 	private void mapEdgesToFaces() {
-		for (Face3D face : source.faces) {
+		for (Face3D face : source.getFaces()) {
 			for (int i = 0; i < face.indices.length; i++) {
 				int a = face.indices[i];
 				int b = face.indices[(i + 1) % face.indices.length];
@@ -203,9 +203,9 @@ public class DooSabinModifier implements IMeshModifier {
 		createFacesFromAdjacentVertices();
 		createFacesAdjacentToEdge();
 
-		this.source.faces.clear();
+		this.source.clearFaces();
 		this.source.clearVertices();
-		this.source.faces.addAll(target.faces);
+		this.source.addFaces(target.getFaces());
 		this.source.addVertices(target.getVertices());
 	}
 
