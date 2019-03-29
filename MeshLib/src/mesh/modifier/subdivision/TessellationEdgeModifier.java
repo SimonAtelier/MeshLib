@@ -48,7 +48,7 @@ public class TessellationEdgeModifier implements IMeshModifier {
 		int nextIndex = mesh.getVertexCount();
 		ArrayList<Face3D> toAdd = new ArrayList<>();
 
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			int n = f.indices.length;
 			int[] idxs = new int[f.indices.length + 1];
 			Vector3f center = mesh.calculateFaceCenter(f);
@@ -80,8 +80,8 @@ public class TessellationEdgeModifier implements IMeshModifier {
 
 		}
 
-		mesh.faces.clear();
-		mesh.faces.addAll(toAdd);
+		mesh.clearFaces();
+		mesh.addFaces(toAdd);
 
 		return mesh;
 	}

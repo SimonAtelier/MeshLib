@@ -29,7 +29,7 @@ public class TessellationFaceCenterModifier implements IMeshModifier {
 		int nextIndex = mesh.getVertexCount();
 		ArrayList<Face3D> toAdd = new ArrayList<>();
 
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			int n = f.indices.length;
 			Vector3f center = mesh.calculateFaceCenter(f);
 			mesh.add(center);
@@ -41,8 +41,8 @@ public class TessellationFaceCenterModifier implements IMeshModifier {
 			nextIndex++;
 		}
 
-		mesh.faces.clear();
-		mesh.faces.addAll(toAdd);
+		mesh.clearFaces();
+		mesh.addFaces(toAdd);
 
 		return mesh;
 	}
