@@ -13,7 +13,7 @@ public class BridgeFaces {
 		int idx2 = mesh.indexOf(v2);
 		int idx3 = mesh.indexOf(v3);
 		Face3D face = new Face3D(idx0, idx1, idx3, idx2);
-		mesh.faces.add(face);
+		mesh.add(face);
 	}
 
 	@Deprecated
@@ -22,10 +22,10 @@ public class BridgeFaces {
 		Face3D f3 = new Face3D(f0.indices[1], f0.indices[2], f1.indices[2], f1.indices[1]);
 		Face3D f4 = new Face3D(f0.indices[2], f0.indices[3], f1.indices[3], f1.indices[2]);
 		Face3D f5 = new Face3D(f0.indices[3], f0.indices[0], f1.indices[0], f1.indices[3]);
-		mesh.faces.add(f2);
-		mesh.faces.add(f3);
-		mesh.faces.add(f4);
-		mesh.faces.add(f5);
+		mesh.add(f2);
+		mesh.add(f3);
+		mesh.add(f4);
+		mesh.add(f5);
 	}
 	
 }
