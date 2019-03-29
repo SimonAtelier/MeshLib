@@ -18,7 +18,7 @@ public class MeshTestUtil {
 	public static void eachEdgeIsIncidentToOnlyOneOrTwoFaces(Mesh3D mesh) {
 		HashMap<Edge3D, List<Face3D>> map = new HashMap<Edge3D, List<Face3D>>();
 		
-		for (Face3D face : mesh.faces) {
+		for (Face3D face : mesh.getFaces()) {
 			for (int vertexIndex = 0; vertexIndex <= face.indices.length; vertexIndex++) {
 				int fromIndex = face.indices[vertexIndex % face.indices.length];
 				int toIndex = face.indices[(vertexIndex + 1) % face.indices.length];
