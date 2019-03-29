@@ -11,7 +11,7 @@ import mesh.creator.primitives.CubeCreator;
 import mesh.creator.special.AppendCreator;
 import mesh.modifier.SolidifyModifier;
 import mesh.modifier.subdivision.CatmullClarkModifier;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceExtrude;
 
 public class CubicLatticeCreator implements IMeshCreator {
 
@@ -25,7 +25,7 @@ public class CubicLatticeCreator implements IMeshCreator {
 		Mesh3D mesh = new CubeCreator().create();
 		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D face : faces) {
-			Mesh3DUtil.extrudeFace(mesh, face, 1.0f, 0.5f);
+			FaceExtrude.extrudeFace(mesh, face, 1.0f, 0.5f);
 		}
 		mesh.removeFaces(faces);
 		return mesh;

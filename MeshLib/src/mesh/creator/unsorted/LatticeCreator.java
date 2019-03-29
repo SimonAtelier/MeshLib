@@ -7,7 +7,7 @@ import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.GridCreator;
 import mesh.modifier.SolidifyModifier;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceExtrude;
 
 public class LatticeCreator implements IMeshCreator {
 
@@ -51,7 +51,7 @@ public class LatticeCreator implements IMeshCreator {
 	private void createFaces() {
 		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D f : faces) {
-			Mesh3DUtil.extrudeFace(mesh, f, scale, 0f);
+			FaceExtrude.extrudeFace(mesh, f, scale, 0f);
 		}
 		mesh.removeFaces(faces);
 	}

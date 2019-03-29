@@ -8,7 +8,7 @@ import mesh.Mesh3D;
 import mesh.creator.IMeshCreator;
 import mesh.creator.primitives.CubeCreator;
 import mesh.creator.special.AppendCreator;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceExtrude;
 
 public class CrateCreator implements IMeshCreator {
 
@@ -37,8 +37,8 @@ public class CrateCreator implements IMeshCreator {
 	private void extrudeFaces() {
 		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D face : faces) {
-			Mesh3DUtil.extrudeFace(mesh, face, 1.0f - (inset / radius), 0.0f);
-			Mesh3DUtil.extrudeFace(mesh, face, 1.0f, -insetDepth);
+			FaceExtrude.extrudeFace(mesh, face, 1.0f - (inset / radius), 0.0f);
+			FaceExtrude.extrudeFace(mesh, face, 1.0f, -insetDepth);
 		}
 	}
 

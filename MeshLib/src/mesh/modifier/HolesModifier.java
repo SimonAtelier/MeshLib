@@ -4,7 +4,7 @@ import java.util.List;
 
 import mesh.Face3D;
 import mesh.Mesh3D;
-import mesh.wip.Mesh3DUtil;
+import mesh.wip.FaceExtrude;
 
 public class HolesModifier implements IMeshModifier {
 
@@ -22,7 +22,7 @@ public class HolesModifier implements IMeshModifier {
 	public Mesh3D modify(Mesh3D mesh) {
 		List<Face3D> faces = mesh.getFaces(0, mesh.getFaceCount());
 		for (Face3D face : faces) {
-			Mesh3DUtil.extrudeFace(mesh, face, scaleExtrude, 0.0f);
+			FaceExtrude.extrudeFace(mesh, face, scaleExtrude, 0.0f);
 		}
 		mesh.removeFaces(faces);
 		return mesh;
