@@ -29,7 +29,7 @@ public class SimpleObjectWriter {
 		}
 		
 		// faces
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			s.append("f ");
 			for (int i = 0; i < f.indices.length; i++) {
 				s.append(f.indices[i] + 1);

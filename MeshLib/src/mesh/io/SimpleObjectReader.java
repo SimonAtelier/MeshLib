@@ -52,7 +52,7 @@ public class SimpleObjectReader {
 			e.printStackTrace();
 		}
 		
-		for (Face3D f : mesh.faces) {
+		for (Face3D f : mesh.getFaces()) {
 			System.out.println("mesh.add(new Face3D("
 					+ Arrays.toString(f.indices).replace("[", "")
 							.replace("]", "") + "));");
