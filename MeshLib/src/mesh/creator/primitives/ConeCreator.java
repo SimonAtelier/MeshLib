@@ -112,10 +112,14 @@ public class ConeCreator implements IMeshCreator {
 		modifier.modify(selection);
 		mesh.getVertexAt(index).addLocal(0, offsetY, 0);
 	}
+	
+	private void initializeMesh() {
+		mesh = new Mesh3D();
+	}
 
 	@Override
 	public Mesh3D create() {
-		mesh = new Mesh3D();
+		initializeMesh();
 
 		if ((topRadius == 0 && bottomRadius == 0) || height == 0 || rotationSegments == 0 || heightSegments == 0)
 			return mesh;
