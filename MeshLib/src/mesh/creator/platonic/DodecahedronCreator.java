@@ -57,10 +57,14 @@ public class DodecahedronCreator implements IMeshCreator {
 		mesh.addFace(18, 19, 6, 15, 7);
 		mesh.addFace(15, 13, 4, 8, 7);
 	}
-
+	
+	private void initializeMesh() {
+		mesh = new Mesh3D();
+	}
+	
 	@Override
 	public Mesh3D create() {
-		mesh = new Mesh3D();
+		initializeMesh();
 		createVertices();
 		createFaces();
 		mesh.scale(1 / -h);
