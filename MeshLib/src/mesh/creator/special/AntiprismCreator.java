@@ -20,10 +20,14 @@ public class AntiprismCreator implements IMeshCreator {
 
 	@Override
 	public Mesh3D create() {
-		mesh = new Mesh3D();
+		initializeMesh();
 		createVertices();
 		createFaces();
 		return mesh;
+	}
+	
+	private void initializeMesh() {
+		mesh = new Mesh3D();
 	}
 
 	private void createFaces() {
