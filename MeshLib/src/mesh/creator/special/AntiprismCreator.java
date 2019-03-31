@@ -50,7 +50,9 @@ public class AntiprismCreator implements IMeshCreator {
 	}
 
 	private void createVertices() {
-		float h = Mathf.sqrt(((Mathf.cos(Mathf.PI / n)) - (Mathf.cos(Mathf.TWO_PI / n))) / 2.0f);
+		float piDividedByN = Mathf.PI / n;
+		float twoPiDividedByN = Mathf.TWO_PI / n;
+		float h = Mathf.sqrt(((Mathf.cos(piDividedByN)) - (Mathf.cos(twoPiDividedByN))) / 2.0f);
 		for (int k = 0; k < 2 * n; k++) {
 			float x = Mathf.cos(k * Mathf.PI / n);
 			float z = Mathf.sin(k * Mathf.PI / n);
