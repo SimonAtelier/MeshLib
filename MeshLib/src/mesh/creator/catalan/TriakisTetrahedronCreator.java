@@ -35,9 +35,13 @@ public class TriakisTetrahedronCreator implements IMeshCreator {
 		mesh.addFace(5,3,7);
 	}
 	
+	private void initializeMesh() {
+		mesh = new Mesh3D();
+	}
+	
 	@Override
 	public Mesh3D create() {
-		mesh = new Mesh3D();
+		initializeMesh();
 		createVertices();
 		createFaces();
 		return mesh;
