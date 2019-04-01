@@ -50,7 +50,7 @@ public class SegmentedCylinderCreator implements IMeshCreator {
 	private void createVertices() {
 		float radiusStep = (topRadius - bottomRadius) / heightSegments;
 		float angle = Mathf.TWO_PI / rotationSegments;
-		float segmentHeight = height / heightSegments;
+		float segmentHeight = calculateSegmentHeight();
 		for (int i = 0; i <= heightSegments; i++) {
 			for (int j = 0; j < rotationSegments; j++) {
 				float x = (topRadius - (i * radiusStep)) * (Mathf.cos(j * angle));
@@ -59,6 +59,10 @@ public class SegmentedCylinderCreator implements IMeshCreator {
 				mesh.addVertex(x, y, z);
 			}
 		}
+	}
+	
+	private float calculateSegmentHeight() {
+		 return getHeight() / getHeightSegments();
 	}
 
 	private void createQuadFaces() {
