@@ -137,10 +137,18 @@ public class SegmentedCylinderCreator implements IMeshCreator {
 	@Override
 	public Mesh3D create() {
 		initializeMesh();
+		
+		if (!needToCreateVerticesAndFaces())
+			return mesh;
+		
 		createVertices();
 		createQuadFaces();
 		createCaps();
 		return mesh;
+	}
+	
+	private boolean needToCreateVerticesAndFaces() {
+		return topRadius > 0 && bottomRadius > 0;
 	}
 
 	private void initializeMesh() {
